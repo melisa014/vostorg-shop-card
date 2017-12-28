@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+}
+
+.bc-cont {
+    background-color: gold;
+    height: 100vh;
+}
+
+.bc-col {
+    height: 50vh;
+}
+
+.bc-col:nth-child(odd) {
+    background-color: aquamarine;
+}
+
+.bc-col:nth-child(even) {
+    background-color: coral;
+}
+
+.post-news {
+    background-color: graytext;
+    border: 5px solid coral;
+    height: 100px;
+}
