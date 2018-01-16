@@ -15,6 +15,5 @@ $kernel = new AppKernel('dev', true);
 
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
-die('kljlk');
 $response->send();
 $kernel->terminate($request, $response);
