@@ -17,8 +17,7 @@ class Color
      * 
      * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="product_photo_pkey")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
     
@@ -55,10 +54,90 @@ class Color
     protected $updatedAt;
     
     /**
-     * @var Product
-     * 
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="colors")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @return int
      */
-    protected $product;
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Color
+     */
+    public function setName($name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $pathToPhoto
+     *
+     * @return Color
+     */
+    public function setPathToPhoto($pathToPhoto): self
+    {
+        $this->pathToPhoto = $pathToPhoto;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPathToPhoto(): string
+    {
+        return $this->pathToPhoto;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     *
+     * @return Color
+     */
+    public function setCreatedAt($createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     *
+     * @return Color
+     */
+    public function setUpdatedAt($updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updatedAt;
+    }
 }

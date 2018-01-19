@@ -1,4 +1,8 @@
 /vendor/*
+
 /nbproject
+
 /var/cache/*
 /var/logs/*
+
+/app/config/parameters.yml

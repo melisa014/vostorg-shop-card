@@ -20,8 +20,7 @@ class Product
      * 
      * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="product_pkey")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
     
@@ -89,17 +88,20 @@ class Product
     /**
      * @var Collection
      * 
-     * @ORM\OneToMany(targetEntity="Color", mappedBy="product")
+     * @ORM\ManyToMany(targetEntity="Color")
+     * @ORM\JoinTable(name="products_colors",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="color_id", referencedColumnName="id")}
+     *      )
      */
     protected $colors;
-
 
     public function __construct()
     {
         $this->photos = new ArrayCollection();
         $this->colors = new ArrayCollection();
     }
-
+    
     /**
      * @return int
      */
@@ -127,7 +129,7 @@ class Product
     {
         return $this->name;
     }
-    
+
     /**
      * @param string $vendorCode
      *
@@ -166,6 +168,26 @@ class Product
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @param int $price
+     *
+     * @return self
+     */
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPrice(): int 
+    {
+        return $this->price;
     }
 
     /**
@@ -209,146 +231,94 @@ class Product
     }
 
     /**
-     * @param CategoryProduct $categoryProduct
+     * @param Category $category
      *
      * @return self
      */
-    public function addCategoryProduct(CategoryProduct $categoryProduct): self
+    public function setCategory(Category $category): self
     {
-        if (!$this->categoryProducts->contains($categoryProduct)) {
-            $this->categoryProducts[] = $categoryProduct;
-        }
+        $this->category = $category;
 
         return $this;
     }
 
     /**
-     * @param CategoryProduct $categoryProduct
-     * 
-     * @return self
+     * @return Category
      */
-    public function removeCategoryProduct(CategoryProduct $categoryProduct): self
+    public function getCategory(): Category
     {
-        if ($this->categoryProducts->contains($categoryProduct)) {
-            $this->categoryProducts->removeElement($categoryProduct);
-        }
-        
-        return $this;
+        return $this->category;
     }
 
     /**
-     * @return Collection | CategoryProduct[]
-     */
-    public function getCategoryProducts(): Collection
-    {
-        return $this->categoryProducts;
-    }
-
-    /**
-     * @param ProductPrice $productPrice
+     * @param Photo $photo
      *
      * @return self
      */
-    public function addProductPrice(ProductPrice $productPrice): self
+    public function addPhoto(Photo $photo): self
     {
-        if (!$this->productPrices->contains($productPrice)) {
-            $this->productPrices[] = $productPrice;
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
         }
-        
+
         return $this;
     }
 
     /**
-     * @param ProductPrice $productPrice
-     * 
-     * @return self
-     */
-    public function removeProductPrice(ProductPrice $productPrice): self
-    {
-        if ($this->productPrices->contains($productPrice)) {
-            $this->productPrices->removeElement($productPrice);
-        }
-        
-        return $this;
-    }
-
-    /**
-     * @return Collection | ProductPrice[]
-     */
-    public function getProductPrices(): Collection
-    {
-        return $this->productPrices;
-    }
-    
-    /**
-     * @param BasketProduct $basketProduct
+     * @param Photo $photo
      *
      * @return self
      */
-    public function addBasketProduct(BasketProduct $basketProduct): self
+    public function removePhoto(Photo $photo): self
     {
-        if (!$this->basketProducts->contains($basketProduct)) {
-            $this->basketProducts[] = $basketProduct;
+        if ($this->photos->contains($photo)) {
+            $this->photos->removeElement($photo);
         }
         
         return $this;
     }
 
     /**
-     * @param BasketProduct $basketProduct
-     * 
-     * @return self
+     * @return Collection | Photo[]
      */
-    public function removeBasketProduct(BasketProduct $basketProduct): self
+    public function getPhotos(): Collection
     {
-        if ($this->basketProducts->contains($basketProduct)) {
-            $this->basketProducts->removeElement($basketProduct);
-        }
-        
-        return $this;
+        return $this->photos;
     }
 
     /**
-     * @return Collection | BasketProduct[]
-     */
-    public function getBasketProducts(): Collection
-    {
-        return $this->basketProducts;
-    }
-
-    /**
-     * @param FieldValue $fieldValue
+     * @param Color $color
      *
      * @return self
      */
-    public function addFieldValue(FieldValue $fieldValue): self
+    public function addColor(Color $color): self
     {
-        if (!$this->fieldValues->contains($fieldValue)) {
-            $this->fieldValues[] = $fieldValue;
+        if (!$this->colors->contains($color)) {
+            $this->colors[] = $color;
         }
-        
+
         return $this;
     }
 
     /**
-     * @param FieldValue $fieldValue
-     * 
+     * @param Color $color
+     *
      * @return self
      */
-    public function removeFieldValue(FieldValue $fieldValue): self
+    public function removeColor(Color $color): self
     {
-        if ($this->fieldValues->contains($fieldValue)) {
-            $this->fieldValues->removeElement($fieldValue);
+        if ($this->colors->contains($color)) {
+            $this->colors->removeElement($color);
         }
         
         return $this;
     }
 
     /**
-     * @return Collection | FieldValue[]
+     * @return Collection | Color[]
      */
-    public function getFieldValues(): Collection
+    public function getColors(): Collection
     {
-        return $this->fieldValues;
+        return $this->colors;
     }
 }

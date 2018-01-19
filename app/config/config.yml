@@ -68,6 +68,6 @@ swiftmailer:
     
 stof_doctrine_extensions:
     orm:
-        pgsql:
+        default:
             sluggable: true
             timestampable: true
