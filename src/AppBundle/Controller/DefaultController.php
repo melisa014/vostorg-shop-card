@@ -13,6 +13,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        
+//        $logger = $this->get('my_logger');
+//        $logger->info(print_r(array_keys($categories),true));
+//
+//        die('Контроллер');
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
