@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
+ * @ORM\Entity
  * 
  * @ORM\Table(name="product")
  */
@@ -123,9 +123,9 @@ class Product
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -143,9 +143,9 @@ class Product
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getVendorCode(): string
+    public function getVendorCode(): ?string
     {
         return $this->vendorCode;
     }
@@ -163,9 +163,9 @@ class Product
     }
 
     /**
-     * @return string
+     * @return string  | null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -183,9 +183,9 @@ class Product
     }
 
     /**
-     * @return int
+     * @return int  | null
      */
-    public function getPrice(): int 
+    public function getPrice(): ?int 
     {
         return $this->price;
     }
@@ -243,9 +243,9 @@ class Product
     }
 
     /**
-     * @return Category
+     * @return Category  | null
      */
-    public function getCategory(): Category
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
@@ -279,9 +279,9 @@ class Product
     }
 
     /**
-     * @return Collection | Photo[]
+     * @return Collection | Photo[] | null
      */
-    public function getPhotos(): Collection
+    public function getPhotos(): ?Collection
     {
         return $this->photos;
     }
@@ -315,9 +315,9 @@ class Product
     }
 
     /**
-     * @return Collection | Color[]
+     * @return Collection | Color[] | null
      */
-    public function getColors(): Collection
+    public function getColors(): ?Collection
     {
         return $this->colors;
     }
