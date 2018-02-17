@@ -1,8 +1,0 @@
-cdef26,127.0.0.1,GET,http://vostorg.loc/,1518764736,,200
-b3d435,127.0.0.1,GET,http://vostorg.loc/product,1518764982,,301
-2d5cf1,127.0.0.1,GET,http://vostorg.loc/product/,1518764985,9c9efd,200
-9c9efd,127.0.0.1,GET,http://vostorg.loc/product/,1518764985,,500
-687afb,127.0.0.1,GET,http://vostorg.loc/,1518854391,,200
-b67679,127.0.0.1,GET,http://vostorg.loc/product,1518856772,,301
-3c79f3,127.0.0.1,GET,http://vostorg.loc/product/,1518856782,0ca1d3,200
-0ca1d3,127.0.0.1,GET,http://vostorg.loc/product/,1518856783,,500
