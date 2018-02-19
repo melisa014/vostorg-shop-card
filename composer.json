@@ -27,7 +27,8 @@
         "symfony/swiftmailer-bundle": "^2.6.4",
         "symfony/symfony": "3.4.*",
         "twig/twig": "^1.0||^2.0",
-        "stof/doctrine-extensions-bundle": "^1.2"
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "it-for-free/rusphp": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
@@ -68,5 +69,11 @@
         "branch-alias": {
             "dev-master": "3.4-dev"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/it-for-free/rusphp"
+        }
+    ]
 }
