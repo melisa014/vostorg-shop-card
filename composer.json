@@ -17,7 +17,7 @@
         "php": ">=7.1",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "2.5.6",
-        "doctrine/annotations": "1.4.*",
+        "doctrine/annotations": "^1.6",
         "doctrine/dbal": "2.5.4",
         "incenteev/composer-parameter-handler": "^2.0",
         "sensio/distribution-bundle": "^5.0.19",
@@ -28,7 +28,8 @@
         "symfony/symfony": "3.4.*",
         "twig/twig": "^1.0||^2.0",
         "stof/doctrine-extensions-bundle": "^1.2",
-        "it-for-free/rusphp": "dev-master"
+        "it-for-free/rusphp": "dev-master",
+        "vich/uploader-bundle": "1.8.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
