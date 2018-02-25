@@ -79,7 +79,7 @@ class Product
     protected $category;
     
     /**
-     * @var Collection
+     * @var Collection | Photo[]
      * 
      * @ORM\OneToMany(targetEntity="Photo", mappedBy="product")
      */

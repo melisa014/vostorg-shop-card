@@ -6,3 +6,6 @@
 /var/logs/*
 
 /app/config/parameters.yml
+
+/src/Controller/TestController.php
+/app/Resources/views/test.html.twig

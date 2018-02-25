@@ -49,11 +49,22 @@ class ProductController extends Controller
     public function newAction(Request $request): Response
     {
         $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $data = $form->getData();
+            $product->setName($data['name']);
+            $product->setDescription($data['description']);
+            $product->setPrice($data['price']);
+            $product->setCategory($data['category']);
+            $product->setVendorCode($data['vendorCode']);
+            $product->setColor($data['color']);
+            
+            
+            // TODO: photo file upload with vich. bundle
+            
             $em->persist($product);
             $em->flush();
 
