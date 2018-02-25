@@ -18,13 +18,27 @@ class ProductType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class)
-                ->add('vendorCode', TextType::class)
-                ->add('description', TextareaType::class)
-                ->add('price', TextType::class)
-                ->add('category', ChoiceType::class)
-                ->add('colors', ChoiceType::class)
-                ->add('photo', FileType::class);
+        $builder->add('name', TextType::class, [
+            'label' => 'Название',
+        ])
+                ->add('vendorCode', TextType::class, [
+            'label' => 'Артикул',
+        ])
+                ->add('description', TextareaType::class, [
+            'label' => 'Описание',
+        ])
+                ->add('price', TextType::class, [
+            'label' => 'Цена',
+        ])
+                ->add('category', ChoiceType::class, [
+            'label' => 'Ктегория',
+        ])
+                ->add('colors', ChoiceType::class, [
+            'label' => 'Цвет',
+        ])
+                ->add('photo', FileType::class, [
+            'label' => 'Фото',
+        ]);
     }
     
     /**
