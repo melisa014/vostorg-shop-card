@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\Table(name="category")
  */
-class Category 
+class Category
 {
     /**
      * @var int 
@@ -27,6 +27,13 @@ class Category
      * @ORM\Column(type="string") 
      */
     protected $name;
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(type="string") 
+     */
+    protected $label;
     
     /**
      * @var string
@@ -91,6 +98,26 @@ class Category
     public function getName(): string
     {
         return $this->name;
+    }
+    
+    /**
+     * @param string $label
+     *
+     * @return self
+     */
+    public function setLabel(string $label): self
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): string
+    {
+        return $this->label;
     }
 
     /**

@@ -54,16 +54,30 @@ class ProductController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $data = $form->getData();
-            $product->setName($data['name']);
-            $product->setDescription($data['description']);
-            $product->setPrice($data['price']);
-            $product->setCategory($data['category']);
-            $product->setVendorCode($data['vendorCode']);
-            $product->setColor($data['color']);
+//            $data = $form->getData();
             
+            $product = $form->getData();
+//            $product->setName($data['name']);
+//            $product->setDescription($data['description']);
+//            $product->setPrice($data['price']);
+//            $product->setCategory($data['category']);
+//            $product->setVendorCode($data['vendorCode']);
+//            $product->setColor($data['color']);
             
-            // TODO: photo file upload with vich. bundle
+             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $form->get('photo')->getData();
+
+            $fileName = $product->getVendorCode().'.'.$file->guessExtension();
+
+            $file->move(
+                $this->getParameter('kernel.project_dir')
+                    .'/web'
+                    .$this->getParameter('photo_directory')
+                    .$product->getCategory()->getName()
+                    .'/'.$fileName
+            );
+
+            $product->setPhoto($fileName);
             
             $em->persist($product);
             $em->flush();
@@ -73,10 +87,10 @@ class ProductController extends Controller
             ]);
         }
 
-        return $this->render('product/new.html.twig', array(
+        return $this->render('product/new.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**

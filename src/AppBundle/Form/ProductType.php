@@ -35,9 +35,11 @@ class ProductType extends AbstractType
         ])
                 ->add('colors', ChoiceType::class, [
             'label' => 'Цвет',
+            'mapped' => false,
         ])
                 ->add('photo', FileType::class, [
             'label' => 'Фото',
+            'mapped' => false,
         ]);
     }
     
