@@ -55,6 +55,7 @@ class ProductController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             
+            // TODO: не выпадает фирма, если создать
             $product = $form->getData();
             
              /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
