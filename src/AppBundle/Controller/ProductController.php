@@ -54,15 +54,8 @@ class ProductController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-//            $data = $form->getData();
             
             $product = $form->getData();
-//            $product->setName($data['name']);
-//            $product->setDescription($data['description']);
-//            $product->setPrice($data['price']);
-//            $product->setCategory($data['category']);
-//            $product->setVendorCode($data['vendorCode']);
-//            $product->setColor($data['color']);
             
              /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form->get('photo')->getData();
