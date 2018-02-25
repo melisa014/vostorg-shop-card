@@ -79,6 +79,14 @@ class Product
     protected $category;
     
     /**
+     * @var Firm
+     * 
+     * @ORM\ManyToOne(targetEntity="Firm", inversedBy="products")
+     * @ORM\JoinColumn(name="firm_id", referencedColumnName="id")
+     */
+    protected $firm;
+    
+    /**
      * @var Collection | Photo[]
      * 
      * @ORM\OneToMany(targetEntity="Photo", mappedBy="product")
@@ -248,6 +256,26 @@ class Product
     public function getCategory(): ?Category
     {
         return $this->category;
+    }
+    
+    /**
+     * @param Firm $firm
+     *
+     * @return self
+     */
+    public function setFirm(Firm $firm): self
+    {
+        $this->firm = $firm;
+
+        return $this;
+    }
+
+    /**
+     * @return Firm | null
+     */
+    public function getFirm(): ?Firm
+    {
+        return $this->firm;
     }
 
     /**

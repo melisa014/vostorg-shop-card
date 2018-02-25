@@ -31,12 +31,15 @@ class ProductType extends AbstractType
             'label' => 'Цена',
         ])
                 ->add('category', ChoiceType::class, [
-            'label' => 'Ктегория',
+            'label' => 'Категория',
+        ])
+                ->add('firm', ChoiceType::class, [
+            'label' => 'Фирма',
         ])
                 ->add('colors', ChoiceType::class, [
             'label' => 'Цвет',
         ])
-                ->add('photo', FileType::class, [
+                ->add('photos', FileType::class, [
             'label' => 'Фото',
         ]);
     }
