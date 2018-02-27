@@ -28,7 +28,6 @@
         "symfony/symfony": "3.4.*",
         "twig/twig": "^1.0||^2.0",
         "stof/doctrine-extensions-bundle": "^1.2",
-        "it-for-free/rusphp": "dev-master",
         "vich/uploader-bundle": "1.8.1"
     },
     "require-dev": {

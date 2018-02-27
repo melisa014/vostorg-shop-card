@@ -1,6 +1,6 @@
 /vendor/*
 
-/nbproject
+/nbproject/*
 
 /var/cache/*
 /var/logs/*
