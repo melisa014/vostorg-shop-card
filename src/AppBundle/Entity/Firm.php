@@ -95,9 +95,9 @@ class Firm
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
@@ -115,9 +115,9 @@ class Firm
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getLabel(): ?string
+    public function getLabel()
     {
         return $this->label;
     }
@@ -135,9 +135,9 @@ class Firm
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getDescription(): ?string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -155,9 +155,9 @@ class Firm
     }
 
     /**
-     * @return DateTime
+     * @return DateTime | null
      */
-    public function getCreatedAt(): ?DateTime
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
@@ -175,9 +175,9 @@ class Firm
     }
 
     /**
-     * @return DateTime
+     * @return DateTime | null
      */
-    public function getUpdatedAt(): ?DateTime
+    public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
     }
@@ -211,9 +211,9 @@ class Firm
     }
 
     /**
-     * @return Collection | Product[]
+     * @return Collection | Product[] | null
      */
-    public function getProducts(): ?Collection
+    public function getProducts(): Collection
     {
         return $this->products;
     }

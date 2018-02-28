@@ -133,7 +133,7 @@ class Product
     /**
      * @return string | null
      */
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
@@ -153,7 +153,7 @@ class Product
     /**
      * @return string | null
      */
-    public function getVendorCode(): ?string
+    public function getVendorCode()
     {
         return $this->vendorCode;
     }
@@ -173,7 +173,7 @@ class Product
     /**
      * @return string  | null
      */
-    public function getDescription(): ?string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -193,7 +193,7 @@ class Product
     /**
      * @return int  | null
      */
-    public function getPrice(): ?int 
+    public function getPrice()
     {
         return $this->price;
     }
@@ -253,7 +253,7 @@ class Product
     /**
      * @return Category  | null
      */
-    public function getCategory(): ?Category
+    public function getCategory()
     {
         return $this->category;
     }
@@ -273,7 +273,7 @@ class Product
     /**
      * @return Firm | null
      */
-    public function getFirm(): ?Firm
+    public function getFirm()
     {
         return $this->firm;
     }
@@ -309,7 +309,7 @@ class Product
     /**
      * @return Collection | Photo[] | null
      */
-    public function getPhotos(): ?Collection
+    public function getPhotos()
     {
         return $this->photos;
     }
@@ -345,7 +345,7 @@ class Product
     /**
      * @return Collection | Color[] | null
      */
-    public function getColors(): ?Collection
+    public function getColors()
     {
         return $this->colors;
     }
