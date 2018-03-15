@@ -10,17 +10,41 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-/**
- * Firm controller.
- *
- * @Route("firm")
- */
 class FirmController extends Controller
 {
     /**
+     * @Route("/firm/{id}", name="firm_page")
+     * 
+     * @param int $firmId
+     * 
+     * @return Response
+     */
+    public function createPageAction(int $firmId): Response
+    {
+        $em = $this->getDoctrine()
+                ->getManager();
+        
+        $firm = $em->getRepository(Firm::class)
+                ->find($firmId);
+        
+        if (empty($firm)) {
+            throw new EntityNotFoundException("Фирма с id = $firmId не найдена");
+        }
+        
+        $firmLable = $firm->getLable();
+        
+        // Достаём все продукты фирмы и выводим на страницу
+        
+        return $this->render('firm/page.html.twig',[
+            'firmLable' => $firmLable,
+            // и 
+        ]);
+    }
+
+    /**
      * Lists all firm entities.
      *
-     * @Route("/", name="firm_index")
+     * @Route("/admin/firm", name="admin_firm_index")
      * @Method("GET")
      */
     public function indexAction()
@@ -37,7 +61,7 @@ class FirmController extends Controller
     /**
      * Creates a new firm entity.
      *
-     * @Route("/new", name="firm_new")
+     * @Route("/admin/firm/new", name="admin_firm_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -63,7 +87,7 @@ class FirmController extends Controller
     /**
      * Finds and displays a firm entity.
      *
-     * @Route("/{id}", name="firm_show")
+     * @Route("/admin/firm/{id}", name="admin_firm_show")
      * @Method("GET")
      */
     public function showAction(Firm $firm)
@@ -79,7 +103,7 @@ class FirmController extends Controller
     /**
      * Displays a form to edit an existing firm entity.
      *
-     * @Route("/{id}/edit", name="firm_edit")
+     * @Route("/admin/firm/{id}/edit", name="admin_firm_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Firm $firm)
@@ -104,7 +128,7 @@ class FirmController extends Controller
     /**
      * Deletes a firm entity.
      *
-     * @Route("/{id}", name="firm_delete")
+     * @Route("/admin/firm/{id}", name="admin_firm_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Firm $firm)
