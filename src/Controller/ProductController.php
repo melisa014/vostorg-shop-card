@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Service\FirmGetter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,7 @@ class ProductController extends Controller
      * 
      * @return Response
      */
-    public function indexAction(): Response
+    public function indexAction(FirmGetter $firmGetter): Response
     {
         $products = $this->getDoctrine()
                 ->getManager()
@@ -34,6 +35,7 @@ class ProductController extends Controller
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
+            'firms' => $firmGetter->getAll()
         ]);
     }
 
@@ -46,7 +48,7 @@ class ProductController extends Controller
      * 
      * @return Response
      */
-    public function newAction(Request $request): Response
+    public function newAction(Request $request, FirmGetter $firmGetter): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class);
@@ -84,6 +86,7 @@ class ProductController extends Controller
         return $this->render('product/new.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
+            'firms' => $firmGetter->getAll()
         ]);
     }
 
@@ -96,13 +99,14 @@ class ProductController extends Controller
      * 
      * @return Response
      */
-    public function showAction(Product $product): Response
+    public function showAction(Product $product, FirmGetter $firmGetter): Response
     {
         $deleteForm = $this->createDeleteForm($product);
 
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'delete_form' => $deleteForm->createView(),
+            'firms' => $firmGetter->getAll()
         ]);
     }
 
@@ -115,7 +119,7 @@ class ProductController extends Controller
      * 
      * @return Response
      */
-    public function editAction(Request $request, Product $product): Response
+    public function editAction(Request $request, Product $product, FirmGetter $firmGetter): Response
     {
         $deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm(ProductType::class, $product);
@@ -135,6 +139,7 @@ class ProductController extends Controller
             'product' => $product,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'firms' => $firmGetter->getAll()
         ]);
     }
 
@@ -170,11 +175,12 @@ class ProductController extends Controller
      *
      * @return Form The form
      */
-    private function createDeleteForm(Product $product): Form
+    private function createDeleteForm(Product $product, FirmGetter $firmGetter): Form
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('product_delete', [
                 'id' => $product->getId(),
+                'firms' => $firmGetter->getAll()
             ]))
             ->setMethod('DELETE')
             ->getForm();

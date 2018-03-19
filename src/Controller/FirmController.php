@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Firm;
-use App\Form\FirmType;
+use App\Entity\Product;
+use App\Service\FirmGetter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,13 +14,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class FirmController extends Controller
 {
     /**
-     * @Route("/firm/{id}", name="firm_page")
+     * @Route("/firm/{firmId}", name="firm_page")
      * 
      * @param int $firmId
      * 
      * @return Response
      */
-    public function createPageAction(int $firmId): Response
+    public function createPageAction(int $firmId, FirmGetter $firmGetter): Response
     {
         $em = $this->getDoctrine()
                 ->getManager();
@@ -31,13 +32,27 @@ class FirmController extends Controller
             throw new EntityNotFoundException("Фирма с id = $firmId не найдена");
         }
         
-        $firmLable = $firm->getLable();
-        
         // Достаём все продукты фирмы и выводим на страницу
+        $products = $em->getRepository(Product::class)
+                ->findBy([
+                    'firm' => $firm,
+                ]);
+        
+        // И все фотографии продуктов [ productId => pathToPhoto ]
+        $productPhotos = [];
+        
+        foreach ($products as $product) {
+            $productPhotos[$product->getId()] = array_map(function($photo) {
+                $photo->getPath();
+            }, $product->getPhotos());
+        }
         
         return $this->render('firm/page.html.twig',[
-            'firmLable' => $firmLable,
-            // и 
+            'firms' => $firmGetter->getAll(),
+            'firmLabel' => $firm->getLabel(),
+            'firmId' => $firm->getId(),
+            'products' => $products,
+            'productPhotos' => $productPhotos,
         ]);
     }
 
@@ -64,7 +79,7 @@ class FirmController extends Controller
      * @Route("/admin/firm/new", name="admin_firm_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, FirmGetter $firmGetter)
     {
         $firm = new Firm();
         $form = $this->createForm('App\Form\FirmType', $firm);
@@ -81,6 +96,7 @@ class FirmController extends Controller
         return $this->render('firm/new.html.twig', array(
             'firm' => $firm,
             'form' => $form->createView(),
+            'firms' => $firmGetter->getAll()
         ));
     }
 
@@ -90,13 +106,14 @@ class FirmController extends Controller
      * @Route("/admin/firm/{id}", name="admin_firm_show")
      * @Method("GET")
      */
-    public function showAction(Firm $firm)
+    public function showAction(Firm $firm, FirmGetter $firmGetter)
     {
         $deleteForm = $this->createDeleteForm($firm);
 
         return $this->render('firm/show.html.twig', array(
             'firm' => $firm,
             'delete_form' => $deleteForm->createView(),
+            'firms' => $firmGetter->getAll()
         ));
     }
 
@@ -106,7 +123,7 @@ class FirmController extends Controller
      * @Route("/admin/firm/{id}/edit", name="admin_firm_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Firm $firm)
+    public function editAction(Request $request, Firm $firm, FirmGetter $firmGetter)
     {
         $deleteForm = $this->createDeleteForm($firm);
         $editForm = $this->createForm('App\Form\FirmType', $firm);
@@ -122,6 +139,7 @@ class FirmController extends Controller
             'firm' => $firm,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'firms' => $firmGetter->getAll()
         ));
     }
 
@@ -152,10 +170,13 @@ class FirmController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Firm $firm)
+    private function createDeleteForm(Firm $firm, FirmGetter $firmGetter)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('firm_delete', array('id' => $firm->getId())))
+            ->setAction($this->generateUrl('firm_delete', [
+                'id' => $firm->getId(),
+                'firms' => $firmGetter->getAll()
+                    ]))
             ->setMethod('DELETE')
             ->getForm()
         ;

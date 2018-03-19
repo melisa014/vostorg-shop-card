@@ -5,21 +5,22 @@
   <a class="navbar-brand" href="{{ path('homepage') }}">Мебель Трансформер и ВСЁ ВСЁ ВСЁ</a>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="">Модульная система {#<span class="sr-only">(current)</span>#}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Премиум-класс</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">ТРАНСФОРМЕР</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {#disabled#}" href="#">Мебель на заказ</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Эконом-класс</a>
-      </li>
+        
+        {% for firm in firms %}
+            {% if firmId is defined 
+                and firmId == firm.id %}
+                <li class="nav-item active">
+                  <a class="nav-link sr-only" href="/firm/{{ firm.id }}">{{firm.label}}</a>
+                </li>
+            {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/firm/{{ firm.id }}">{{firm.label}}</a>
+                </li> 
+            {#<li class="nav-item">
+              <a class="nav-link disabled" href="#">Мебель на заказ</a>
+            </li>#}
+            {% endif %}
+        {% endfor %}    
     </ul>
   </div>
 </nav>

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ firmLabel }}</h1>
+
+    {% for product in products %}
+    <ul>
+        <li>
+            <div>{{ product.vendorCode }}</div>
+            <div>{{ product.category }}</div>
+            
+{#            <div>{{ productPhotos[product.id] }}</div>#}
+            
+            {% for photo in product.photos %}
+                <div><img src="{{ photo.path }}"></div>
+            {% endfor %}
+        </li>
+    </ul>
+    {% endfor %}
+    
+    <a href="{{ path('homepage') }}">Назад, на главную</a>
+{% endblock %}
