@@ -51,7 +51,9 @@ class ProductController extends Controller
     public function newAction(Request $request, FirmGetter $firmGetter): Response
     {
         $product = new Product();
-        $form = $this->createForm(ProductType::class);
+        $form = $this->createForm(ProductType::class, [
+                'firm' => $firmGetter->getAll(),   
+            ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -80,6 +82,7 @@ class ProductController extends Controller
 
             return $this->redirectToRoute('product_show', [
                 'id' => $product->getId(),
+                'firms' => $firmGetter->getAll(),
             ]);
         }
 

@@ -65,7 +65,7 @@ class Firm
     /**
      * @var Collection
      * 
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="firm")
      */
     protected $products;
     

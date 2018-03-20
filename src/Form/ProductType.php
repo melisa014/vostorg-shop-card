@@ -14,7 +14,7 @@ class ProductType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -36,24 +36,14 @@ class ProductType extends AbstractType
                 ->add('firm', ChoiceType::class, [
             'label' => 'Фирма',
         ])
-                ->add('colors', ChoiceType::class, [
+                ->add('color', ChoiceType::class, [
             'label' => 'Цвет',
         ])
-                ->add('photos', FileType::class, [
+                ->add('photo', FileType::class, [
             'label' => 'Фото',
         ]);
     }
     
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => 'App\Entity\Product'
-        ]);
-    }
-
     /**
      * @return string
      */
@@ -61,6 +51,4 @@ class ProductType extends AbstractType
     {
         return 'app_product';
     }
-
-
 }
