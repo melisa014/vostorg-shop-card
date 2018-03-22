@@ -27,7 +27,7 @@ class Product
     /**
      * @var string
      * 
-     * @ORM\Column(type="string") 
+     * @ORM\Column(type="string", nullable = true) 
      */
     protected $name;
     
@@ -41,14 +41,14 @@ class Product
     /**
      * @var string
      * 
-     * @ORM\Column(type="text") 
+     * @ORM\Column(type="text", nullable = true) 
      */
     protected $description;
     
     /**
      * @var int
      * 
-     * @ORM\Column(type="integer") 
+     * @ORM\Column(type="integer", nullable = true) 
      */
     protected $price;
     

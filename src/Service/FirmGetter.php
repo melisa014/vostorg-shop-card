@@ -25,4 +25,17 @@ class FirmGetter
         return $this->em->getRepository(Firm::class)
                 ->findAll();
     }
+    
+    /**
+     * @return array
+     */
+    public function getLabels(): array
+    {
+        $firms = $this->em->getRepository(Firm::class)
+                ->findAll();
+         
+        return array_map(function($firm){
+            return $firm->getLabel();
+        },$firms);
+    }
 }

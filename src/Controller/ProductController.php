@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Entity\Photo;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Service\FirmGetter;
@@ -51,8 +53,14 @@ class ProductController extends Controller
     public function newAction(Request $request, FirmGetter $firmGetter): Response
     {
         $product = new Product();
+        
+//        dump($firmGetter->getLabels());
+//        die('sefe');
+        
         $form = $this->createForm(ProductType::class, [
-                'firm' => $firmGetter->getAll(),   
+                'name' => 'Шкаф-купе',   
+                'firm' => 'Гарун-К',   
+//                'firm' => $firmGetter->getLabels(),   
             ]);
         $form->handleRequest($request);
 
@@ -60,22 +68,38 @@ class ProductController extends Controller
             $em = $this->getDoctrine()->getManager();
             
             // TODO: не выпадает фирма, если создать
-            $product = $form->getData();
+            $category = $em->getRepository(Category::class)
+                    ->find(1);
             
-             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $formData = $form->getData();
+            $product->setName($formData['name'] ?? '');
+            $product->setVendorCode($formData['vendoreCode'] ?? '');
+//            $product->setPrice($formData['vendoreCode'] ?? null);
+            $product->setDescription($formData['description'] ?? '');
+            $product->setCategory($category);
+//            $product->setFirm($formData['firm'] ?? '');
+//            $product->setColor($formData['color'] ?? '');
+           
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form->get('photo')->getData();
+            
+            if (!empty($file)) {
+                $fileName = $product->getVendorCode().'.'.$file->guessExtension();
+                $filePath = $this->getParameter('kernel.project_dir')
+                        .$this->getParameter('photo_directory')
+                        .$product->getCategory()->getName()
+                        .'/'.$fileName;
 
-            $fileName = $product->getVendorCode().'.'.$file->guessExtension();
+                $photo = new Photo();
+                $photo->setName($fileName);
+                $photo->setPath($filePath);
+                $photo->setProduct($product);
+    //            $product->addPhoto($photo);
 
-            $file->move(
-                $this->getParameter('kernel.project_dir')
-                    .'/web'
-                    .$this->getParameter('photo_directory')
-                    .$product->getCategory()->getName()
-                    .'/'.$fileName
-            );
+                $file->move($filePath);
 
-            $product->setPhoto($fileName);
+                $em->persist($photo);
+            }
             
             $em->persist($product);
             $em->flush();
@@ -85,7 +109,7 @@ class ProductController extends Controller
                 'firms' => $firmGetter->getAll(),
             ]);
         }
-
+        
         return $this->render('product/new.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
@@ -104,7 +128,7 @@ class ProductController extends Controller
      */
     public function showAction(Product $product, FirmGetter $firmGetter): Response
     {
-        $deleteForm = $this->createDeleteForm($product);
+        $deleteForm = $this->createDeleteForm($product, $firmGetter);
 
         return $this->render('product/show.html.twig', [
             'product' => $product,
@@ -124,7 +148,7 @@ class ProductController extends Controller
      */
     public function editAction(Request $request, Product $product, FirmGetter $firmGetter): Response
     {
-        $deleteForm = $this->createDeleteForm($product);
+        $deleteForm = $this->createDeleteForm($product, $firmGetter);
         $editForm = $this->createForm(ProductType::class, $product);
         $editForm->handleRequest($request);
 
@@ -157,7 +181,7 @@ class ProductController extends Controller
      */
     public function deleteAction(Request $request, Product $product): Response
     {
-        $form = $this->createDeleteForm($product);
+        $form = $this->createDeleteForm($product, $firmGetter);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
