@@ -119,17 +119,17 @@ class Product
     }
 
     /**
-     * @param string $name
+     * @param string | null $name
      *
      * @return self
      */
-    public function setName(string $name): self
+    public function setName($name): self
     {
         $this->name = $name;
 
         return $this;
     }
-
+    
     /**
      * @return string | null
      */
@@ -179,11 +179,11 @@ class Product
     }
 
     /**
-     * @param int $price
+     * @param int $price | null
      *
      * @return self
      */
-    public function setPrice(int $price): self
+    public function setPrice($price): self
     {
         $this->price = $price;
 

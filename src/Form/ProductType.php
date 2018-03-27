@@ -18,30 +18,53 @@ class ProductType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, [
-            'label' => 'Название',
-        ])
-                ->add('vendorCode', TextType::class, [
-            'label' => 'Артикул',
-        ])
-                ->add('description', TextareaType::class, [
-            'label' => 'Описание',
-        ])
-                ->add('price', TextType::class, [
-            'label' => 'Цена',
-        ])
-                ->add('category', ChoiceType::class, [
-            'label' => 'Категория',
-        ])
-                ->add('firm', ChoiceType::class, [
+        $builder->add('name')
+                ->add('vendorCode')
+                ->add('description')
+                ->add('price')
+                ->add('category')
+                ->add('firm')
+                ->add('color')
+                ->add('choices', ChoiceType::class,  [
             'label' => 'Фирма',
+            'choices' => (new Product)->getChoices(),
         ])
-                ->add('color', ChoiceType::class, [
-            'label' => 'Цвет',
-        ])
-                ->add('photo', FileType::class, [
-            'label' => 'Фото',
-        ]);
+                ->add('photo');
+//        $builder->add('name', TextType::class, [
+//            'label' => 'Название',
+//        ])
+//                ->add('vendorCode', TextType::class, [
+//            'label' => 'Артикул',
+//        ])
+//                ->add('description', TextareaType::class, [
+//            'label' => 'Описание',
+//        ])
+//                ->add('price', TextType::class, [
+//            'label' => 'Цена',
+//        ])
+//                ->add('category', ChoiceType::class, [
+//            'label' => 'Категория',
+//        ])
+//                ->add('firm', ChoiceType::class, [
+//            'label' => 'Фирма',
+//            'choices' => $this->choises,
+//        ])
+//                ->add('color', ChoiceType::class, [
+//            'label' => 'Цвет',
+//        ])
+//                ->add('photo', FileType::class, [
+//            'label' => 'Фото',
+//        ]);
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'App\Entity\Product'
+        ));
     }
     
     /**

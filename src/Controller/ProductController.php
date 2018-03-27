@@ -57,28 +57,24 @@ class ProductController extends Controller
 //        dump($firmGetter->getLabels());
 //        die('sefe');
         
-        $form = $this->createForm(ProductType::class, [
-                'name' => 'Шкаф-купе',   
-                'firm' => 'Гарун-К',   
-//                'firm' => $firmGetter->getLabels(),   
-            ]);
+        $form = $this->createForm(ProductType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             
             // TODO: не выпадает фирма, если создать
-            $category = $em->getRepository(Category::class)
-                    ->find(1);
+//            $category = $em->getRepository(Category::class)
+//                    ->find(1);
             
             $formData = $form->getData();
             $product->setName($formData['name'] ?? '');
-            $product->setVendorCode($formData['vendoreCode'] ?? '');
-//            $product->setPrice($formData['vendoreCode'] ?? null);
+            $product->setVendorCode($formData['vendorCode'] ?? '');
+            $product->setPrice($formData['price'] ?? null);
             $product->setDescription($formData['description'] ?? '');
-            $product->setCategory($category);
-//            $product->setFirm($formData['firm'] ?? '');
-//            $product->setColor($formData['color'] ?? '');
+            $product->setCategory($formData['category']);
+            $product->setFirm($formData['firm'] ?? '');
+            $product->setColor($formData['color'] ?? '');
            
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form->get('photo')->getData();
@@ -87,7 +83,7 @@ class ProductController extends Controller
                 $fileName = $product->getVendorCode().'.'.$file->guessExtension();
                 $filePath = $this->getParameter('kernel.project_dir')
                         .$this->getParameter('photo_directory')
-                        .$product->getCategory()->getName()
+//                        .$product->getCategory()->getName()
                         .'/'.$fileName;
 
                 $photo = new Photo();
