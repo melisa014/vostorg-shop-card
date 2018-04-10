@@ -22,13 +22,13 @@ class ProductType extends AbstractType
                 ->add('vendorCode')
                 ->add('description')
                 ->add('price')
-                ->add('category')
-                ->add('firm')
-                ->add('color')
-                ->add('choices', ChoiceType::class,  [
-            'label' => 'Фирма',
-            'choices' => (new Product)->getChoices(),
-        ])
+                ->add('category', ChoiceType::class, [])
+                ->add('firm', ChoiceType::class, [])
+                ->add('color', ChoiceType::class, [])
+//                ->add('choices', ChoiceType::class,  [
+//            'label' => 'Фирма',
+//            'choices' => [],
+//        ])
                 ->add('photo');
 //        $builder->add('name', TextType::class, [
 //            'label' => 'Название',
