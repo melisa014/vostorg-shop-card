@@ -52,22 +52,14 @@ class ProductController extends Controller
      */
     public function newAction(Request $request, FirmGetter $firmGetter): Response
     {
-        $product = new Product();
-        
-//        dump($firmGetter->getLabels());
-//        die('sefe');
-        
         $form = $this->createForm(ProductType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             
-            // TODO: не выпадает фирма, если создать
-//            $category = $em->getRepository(Category::class)
-//                    ->find(1);
-            
             $formData = $form->getData();
+            $product = new Product();
             $product->setName($formData['name'] ?? '');
             $product->setVendorCode($formData['vendorCode'] ?? '');
             $product->setPrice($formData['price'] ?? null);
@@ -107,7 +99,6 @@ class ProductController extends Controller
         }
         
         return $this->render('product/new.html.twig', [
-            'product' => $product,
             'form' => $form->createView(),
             'firms' => $firmGetter->getAll()
         ]);

@@ -33,6 +33,12 @@ class Color
      * 
      * @ORM\Column(type="string") 
      */
+    protected $label;
+    /**
+     * @var string
+     * 
+     * @ORM\Column(type="string") 
+     */
     protected $pathToPhoto;
     
     /**
@@ -52,6 +58,11 @@ class Color
      * @ORM\Column(name="updated_at", type="datetime")
      */
     protected $updatedAt;
+    
+    public function __toString()
+    {
+      return $this->getLabel();
+    }
     
     /**
      * @return int
@@ -79,6 +90,26 @@ class Color
     public function getName(): string
     {
         return $this->name;
+    }
+    
+    /**
+     * @param string $label
+     *
+     * @return self
+     */
+    public function setLabel(string $label): self
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): ?string
+    {
+        return $this->label;
     }
 
     /**

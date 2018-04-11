@@ -73,6 +73,11 @@ class Firm
     {
         $this->products = new ArrayCollection();
     }
+    
+    public function __toString()
+    {
+      return $this->getLabel();
+    }
 
     /**
      * @return int
