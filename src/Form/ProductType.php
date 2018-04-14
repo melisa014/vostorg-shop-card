@@ -40,11 +40,13 @@ class ProductType extends AbstractType
             'label' => 'Фирма',
             'class' => Firm::class,
         ])
-                ->add('color', EntityType::class, [
+                ->add('colors', EntityType::class, [
             'label' => 'Цвет',
+            'expanded' => true,
+            'multiple' => true,
             'class' => Color::class,
         ])
-                ->add('photo', FileType::class, [
+                ->add('photos', FileType::class, [
             'label' => 'Фото',
         ]);
     }

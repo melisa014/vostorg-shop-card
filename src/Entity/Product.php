@@ -94,7 +94,7 @@ class Product
     protected $photos;
     
     /**
-     * @var Collection
+     * @var Collection | Color[]
      * 
      * @ORM\ManyToMany(targetEntity="Color")
      * @ORM\JoinTable(name="products_colors",

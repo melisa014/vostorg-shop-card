@@ -52,42 +52,46 @@ class ProductController extends Controller
      */
     public function newAction(Request $request, FirmGetter $firmGetter): Response
     {
-        $form = $this->createForm(ProductType::class);
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             
-            $formData = $form->getData();
-            $product = new Product();
-            $product->setName($formData['name'] ?? '');
-            $product->setVendorCode($formData['vendorCode'] ?? '');
-            $product->setPrice($formData['price'] ?? null);
-            $product->setDescription($formData['description'] ?? '');
-            $product->setCategory($formData['category']);
-            $product->setFirm($formData['firm'] ?? '');
-            $product->setColor($formData['color'] ?? '');
-           
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            $file = $form->get('photo')->getData();
+//            $formData = $form->getData();
+//            dump($formData);
+//            die('dgrr');
             
-            if (!empty($file)) {
-                $fileName = $product->getVendorCode().'.'.$file->guessExtension();
-                $filePath = $this->getParameter('kernel.project_dir')
-                        .$this->getParameter('photo_directory')
+//            $product->setName($formData['name'] ?? '');
+//            $product->setVendorCode($formData['vendorCode'] ?? '');
+//            $product->setPrice($formData['price'] ?? null);
+//            $product->setDescription($formData['description'] ?? '');
+//            $product->setCategory($formData['category']);
+//            $product->setFirm($formData['firm']);
+//            $product->addColor($formData['color']);
+//           
+//            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+////            $file = $form->get('photo')->getData();
+//            $file = $formData['photo'];
+//
+//            if (!empty($file)) {
+//                $fileName = $product->getVendorCode().'.'.$file->guessExtension();
+//                $filePath = $this->getParameter('kernel.project_dir')
+//                        .$this->getParameter('photo_directory')
 //                        .$product->getCategory()->getName()
-                        .'/'.$fileName;
-
-                $photo = new Photo();
-                $photo->setName($fileName);
-                $photo->setPath($filePath);
-                $photo->setProduct($product);
-    //            $product->addPhoto($photo);
-
-                $file->move($filePath);
-
-                $em->persist($photo);
-            }
+//                        .'/'.$fileName;
+//
+//                $photo = new Photo();
+//                $photo->setName($fileName);
+//                $photo->setPath($filePath);
+//                $photo->setProduct($product);
+//                $product->addPhoto($photo);
+//
+//                $file->move($filePath);
+//
+//                $em->persist($photo);
+//            }
             
             $em->persist($product);
             $em->flush();
