@@ -5,9 +5,16 @@
 
     {{ form_start(form, {'enctype': "multipart/form-data", 'method': 'post'}) }}
         {{form_widget(form)}}
+        
+        <div class='addImage'></div>
+        <input class='addImageSubmit' type="submit" name="addImage" value="+ Изображение" formnovalidate><br><br>
+{#        <a class="addImageSubmit" name="addImage">+ Изображение</a><br><br>#}
+        
         <input type="submit" value="Создать" formnovalidate>
     {{ form_end(form) }}
 
+    
+    
     <ul>
         <li>
             <a href="{{ path('product_index') }}">Назад к списку</a>

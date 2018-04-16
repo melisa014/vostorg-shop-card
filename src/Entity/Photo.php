@@ -36,6 +36,13 @@ class Photo
     protected $path;
     
     /**
+     * @var string
+     * 
+     * @ORM\Column(type="text", nullable = true) 
+     */
+    protected $description;
+    
+    /**
      * @var DateTime
      *
      * @Gedmo\Timestampable(on="create")
@@ -61,6 +68,11 @@ class Photo
      */
     protected $product;
 
+    public function __toString()
+    {
+      return $this->getName();
+    }
+    
     /**
      * @return int
      */
@@ -109,6 +121,26 @@ class Photo
         return $this->path;
     }
 
+    /**
+     * @param string $description
+     *
+     * @return self
+     */
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return string  | null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+    
     /**
      * @param DateTime $createdAt
      *

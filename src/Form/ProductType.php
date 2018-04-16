@@ -5,12 +5,16 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Color;
 use App\Entity\Firm;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
+use App\Entity\Photo;
+use App\Form\PhotoType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProductType extends AbstractType
 {
@@ -23,39 +27,28 @@ class ProductType extends AbstractType
         $builder->add('name', TextType::class, [
             'label' => 'Название',
         ])
-                ->add('vendorCode', TextType::class, [
+        ->add('vendorCode', TextType::class, [
             'label' => 'Артикул',
         ])
-                ->add('description', TextareaType::class, [
+        ->add('description', TextareaType::class, [
             'label' => 'Описание',
         ])
-                ->add('price', TextType::class, [
+        ->add('price', TextType::class, [
             'label' => 'Цена',
         ])
-                ->add('category', EntityType::class, [
+        ->add('category', EntityType::class, [
             'label' => 'Категория',
             'class' => Category::class,
         ])
-                ->add('firm', EntityType::class, [
+        ->add('firm', EntityType::class, [
             'label' => 'Фирма',
             'class' => Firm::class,
         ])
-                ->add('colors', EntityType::class, [
+        ->add('colors', EntityType::class, [
             'label' => 'Цвет',
             'expanded' => true,
             'multiple' => true,
             'class' => Color::class,
-        ])
-                ->add('photos', FileType::class, [
-            'label' => 'Фото',
         ]);
-    }
-    
-    /**
-     * @return string
-     */
-    public function getBlockPrefix()
-    {
-        return 'app_product';
     }
 }
