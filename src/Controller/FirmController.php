@@ -90,7 +90,7 @@ class FirmController extends Controller
             $em->persist($firm);
             $em->flush();
 
-            return $this->redirectToRoute('firm_show', array('id' => $firm->getId()));
+            return $this->redirectToRoute('admin_firm_show', array('id' => $firm->getId()));
         }
 
         return $this->render('firm/new.html.twig', array(
@@ -132,7 +132,7 @@ class FirmController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('firm_edit', array('id' => $firm->getId()));
+            return $this->redirectToRoute('admin_firm_edit', array('id' => $firm->getId()));
         }
 
         return $this->render('firm/edit.html.twig', array(
@@ -160,7 +160,7 @@ class FirmController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('firm_index');
+        return $this->redirectToRoute('admin_firm_index');
     }
 
     /**
@@ -170,12 +170,12 @@ class FirmController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Firm $firm, FirmGetter $firmGetter)
+    private function createDeleteForm(Firm $firm)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('firm_delete', [
+            ->setAction($this->generateUrl('admin_firm_delete', [
                 'id' => $firm->getId(),
-                'firms' => $firmGetter->getAll()
+//                'firms' => $firmGetter->getAll()
                     ]))
             ->setMethod('DELETE')
             ->getForm()

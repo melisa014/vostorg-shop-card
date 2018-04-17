@@ -18,7 +18,7 @@
         <tbody>
         {% for firm in firms %}
             <tr>
-                <td><a href="{{ path('firm_show', { 'id': firm.id }) }}">{{ firm.id }}</a></td>
+                <td><a href="{{ path('admin_firm_show', { 'id': firm.id }) }}">{{ firm.id }}</a></td>
                 <td>{{ firm.name }}</td>
                 <td>{{ firm.label }}</td>
                 <td>{{ firm.description }}</td>
@@ -27,10 +27,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('firm_show', { 'id': firm.id }) }}">show</a>
+                            <a href="{{ path('admin_firm_show', { 'id': firm.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('firm_edit', { 'id': firm.id }) }}">edit</a>
+                            <a href="{{ path('admin_firm_edit', { 'id': firm.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -41,7 +41,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('firm_new') }}">Create a new firm</a>
+            <a href="{{ path('admin_firm_new') }}">Create a new firm</a>
         </li>
     </ul>
 {% endblock %}
