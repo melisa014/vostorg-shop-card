@@ -58,40 +58,29 @@ class ProductController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+           
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            dump($_FILES);
+//            dump($file);
+            die('sfse');
             
-//            $formData = $form->getData();
-//            dump($formData);
-//            die('dgrr');
-            
-//            $product->setName($formData['name'] ?? '');
-//            $product->setVendorCode($formData['vendorCode'] ?? '');
-//            $product->setPrice($formData['price'] ?? null);
-//            $product->setDescription($formData['description'] ?? '');
-//            $product->setCategory($formData['category']);
-//            $product->setFirm($formData['firm']);
-//            $product->addColor($formData['color']);
-//           
-//            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-////            $file = $form->get('photo')->getData();
-//            $file = $formData['photo'];
-//
-//            if (!empty($file)) {
-//                $fileName = $product->getVendorCode().'.'.$file->guessExtension();
-//                $filePath = $this->getParameter('kernel.project_dir')
-//                        .$this->getParameter('photo_directory')
-//                        .$product->getCategory()->getName()
-//                        .'/'.$fileName;
-//
-//                $photo = new Photo();
-//                $photo->setName($fileName);
-//                $photo->setPath($filePath);
-//                $photo->setProduct($product);
-//                $product->addPhoto($photo);
-//
-//                $file->move($filePath);
-//
-//                $em->persist($photo);
-//            }
+            if (!empty($file)) {
+                $fileName = $product->getVendorCode().'.'.$file->guessExtension();
+                $filePath = $this->getParameter('kernel.project_dir')
+                        .$this->getParameter('photo_directory')
+                        .$product->getCategory()->getName()
+                        .'/'.$fileName;
+
+                $photo = new Photo();
+                $photo->setName($fileName);
+                $photo->setPath($filePath);
+                $photo->setProduct($product);
+                $product->addPhoto($photo);
+
+                $file->move($filePath);
+
+                $em->persist($photo);
+            }
             
             $em->persist($product);
             $em->flush();
