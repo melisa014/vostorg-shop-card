@@ -42,10 +42,7 @@ function showFormToAddImage()
 {
     $('input.addImageSubmit').on('click', function(){
 //        var index = $('div.addImage > div').attr('data-index');
-        
         $('#formToAddFile').clone().appendTo('div.addImage');
-        
-        
         
         $('div.addImage :last-child').fadeIn(500);
         return false;

@@ -6,15 +6,15 @@
     {{ form_start(form, {'enctype': "multipart/form-data", 'method': 'post'}) }}
         {{form_widget(form)}}
         
-        {# TODO: Добавить ajax-подгрузку слотов для фото #}
-        {#<div class='addImage'></div>
-        <input class='addImageSubmit' type="submit" name="addImage" value="+ Изображение"><br><br>#}
-        
-        <div id='addedImage' data-index='<?= $index ?>'>
+        {# TODO: Сохранять фотографии #}
+        <div id='formToAddFile' data-index='<?= $index ?>' style='display: none'>
             <input type='file' name='imageFile[]' placeholder='Выберите изображение'><br> 
             <input type='text' name='imageDescription[]' placeholder='Введите описание изображения'><br>
         </div>
-            
+       
+        <div class='addImage'></div>
+        <input class='addImageSubmit' type="submit" name="addImage" value="+ Изображение"><br><br>    
+        
         <input type="submit" value="Создать" formnovalidate>
     {{ form_end(form) }}
     

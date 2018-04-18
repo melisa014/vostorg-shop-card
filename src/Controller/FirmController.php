@@ -38,21 +38,11 @@ class FirmController extends Controller
                     'firm' => $firm,
                 ]);
         
-        // И все фотографии продуктов [ productId => pathToPhoto ]
-        $productPhotos = [];
-        
-        foreach ($products as $product) {
-            $productPhotos[$product->getId()] = array_map(function($photo) {
-                $photo->getPath();
-            }, $product->getPhotos());
-        }
-        
         return $this->render('firm/page.html.twig',[
             'firms' => $firmGetter->getAll(),
             'firmLabel' => $firm->getLabel(),
             'firmId' => $firm->getId(),
             'products' => $products,
-            'productPhotos' => $productPhotos,
         ]);
     }
 

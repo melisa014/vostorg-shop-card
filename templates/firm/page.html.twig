@@ -9,8 +9,6 @@
             <div>{{ product.vendorCode }}</div>
             <div>{{ product.category }}</div>
             
-{#            <div>{{ productPhotos[product.id] }}</div>#}
-            
             {% for photo in product.photos %}
                 <div><img src="{{ photo.path }}"></div>
             {% endfor %}

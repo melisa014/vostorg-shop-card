@@ -60,6 +60,7 @@ class ProductController extends Controller
             $em = $this->getDoctrine()->getManager();
            
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            dump($form->getData());
             dump($_FILES);
 //            dump($file);
             die('sfse');

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "989d29f015f7f45e404eaa4f6b336a40",
+    "content-hash": "e33c363278ee3622419e0a2ad2f666a3",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2263,7 +2263,7 @@
         },
         {
             "name": "symfony/asset",
-            "version": "v4.0.6",
+            "version": "v4.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/asset.git",
@@ -6022,8 +6022,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/lts": 20,
-        "it-for-free/rusphp": 20
+        "it-for-free/rusphp": 20,
+        "symfony/lts": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
