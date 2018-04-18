@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ product.vendorCode }}</h1>
+    
+    {% for photo in product.photos %}
+        <div><img src="{{ photo.path }}"></div>
+    {% endfor %}
+
+    <div>{{ product.category }}</div>
+    <div>{{ product.firm }}</div>
+    
+    <div>Доступные цвета:</div>
+    <div>
+        <ul>
+            
+            {% for color in product.colors %}
+                <li>{{ color }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div><a href="{{ path('homepage') }}">На главную страницу</a></div>
+    <div><a href="{{ path('firm_page', {'firmId': product.firm.id}) }}">Назад, к каталогу {{ product.firm.label }}</a></div>
+{% endblock %}

@@ -6,7 +6,7 @@
     {% for product in products %}
     <ul>
         <li>
-            <div>{{ product.vendorCode }}</div>
+            <div><a href="{{ path('product_page', {'productId': product.id}) }}">{{ product.vendorCode }}</a></div>
             <div>{{ product.category }}</div>
             
             {% for photo in product.photos %}
