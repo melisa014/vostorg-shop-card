@@ -45,6 +45,13 @@ class Firm
     protected $description;
     
     /**
+     * @var string
+     * 
+     * @ORM\Column(type="string") 
+     */
+    protected $pathToPhoto;
+    
+    /**
      * @var DateTime
      *
      * @Gedmo\Timestampable(on="create")
@@ -145,6 +152,26 @@ class Firm
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+    
+    /**
+     * @param string $pathToPhoto
+     *
+     * @return self
+     */
+    public function setPathToPhoto(string $pathToPhoto): self
+    {
+        $this->pathToPhoto = $pathToPhoto;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPathToPhoto(): ?string
+    {
+        return $this->pathToPhoto;
     }
 
     /**

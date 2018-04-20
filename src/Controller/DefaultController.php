@@ -20,7 +20,40 @@ class DefaultController extends Controller
     {
         return $this->render('default/index.html.twig', [
             'firms' => $firmGetter->getAll(),
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'template' => 'index',
+        ]);
+    }
+    /**
+     * @Route("/about", name="about")
+     * 
+     * @return Response
+     */
+    public function aboutAction(Request $request): Response
+    {
+        return $this->render('default/about.html.twig', [
+            'template' => 'about',
+        ]);
+    }
+    /**
+     * @Route("/contacts", name="contacts")
+     * 
+     * @return Response
+     */
+    public function contactsAction(Request $request): Response
+    {
+        return $this->render('default/contacts.html.twig', [
+            'template' => 'contacts',
+        ]);
+    }
+    /**
+     * @Route("/order", name="order")
+     * 
+     * @return Response
+     */
+    public function orderAction(Request $request): Response
+    {
+        return $this->render('default/order.html.twig', [
+            'template' => 'order',
         ]);
     }
 }
