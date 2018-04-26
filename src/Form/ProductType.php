@@ -49,6 +49,10 @@ class ProductType extends AbstractType
             'expanded' => true,
             'multiple' => true,
             'class' => Color::class,
+        ])
+        ->add('photos', FileType::class, [
+            'label' => false,
+            'mapped' => false,
         ]);
     }
 }

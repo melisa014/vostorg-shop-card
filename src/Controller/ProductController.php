@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\Photo;
 use App\Entity\Product;
 use App\Form\ProductType;
@@ -22,9 +21,12 @@ class ProductController extends Controller
     /**
      * @Route("/product/{productId}", name="product_page")
      * 
-     * @param int $productId
+     * @param int        $productId
+     * @param FirmGetter $firmGetter
      * 
      * @return Response
+     * 
+     * @throws EntityNotFoundException
      */
     public function createPageAction(int $productId, FirmGetter $firmGetter): Response
     {
@@ -45,11 +47,11 @@ class ProductController extends Controller
     }
     
     /**
-     * Lists all product entities.
-     *
      * @Route("/", name="product_index")
      * 
      * @Method("GET")
+     * 
+     * @param FirmGetter $firmGetter
      * 
      * @return Response
      */
@@ -67,11 +69,12 @@ class ProductController extends Controller
     }
 
     /**
-     * Creates a new product entity.
-     *
      * @Route("/new", name="product_new")
      * 
      * @Method({"GET", "POST"})
+     * 
+     * @param Request    $request
+     * @param FirmGetter $firmGetter
      * 
      * @return Response
      */
@@ -85,10 +88,7 @@ class ProductController extends Controller
             $em = $this->getDoctrine()->getManager();
            
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            dump($form->getData());
-            dump($_FILES);
-//            dump($file);
-            die('sfse');
+            $file = $form->get('photo')->getData();
             
             if (!empty($file)) {
                 $fileName = $product->getVendorCode().'.'.$file->guessExtension();
@@ -124,11 +124,12 @@ class ProductController extends Controller
     }
 
     /**
-     * Finds and displays a product entity.
-     *
      * @Route("/{id}", name="product_show")
      * 
      * @Method("GET")
+     * 
+     * @param Product $product
+     * @param FirmGetter $firmGetter
      * 
      * @return Response
      */
@@ -142,13 +143,15 @@ class ProductController extends Controller
             'firms' => $firmGetter->getAll()
         ]);
     }
-
+    
     /**
-     * Displays a form to edit an existing product entity.
-     *
      * @Route("/{id}/edit", name="product_edit")
      * 
      * @Method({"GET", "POST"})
+     * 
+     * @param Request    $request
+     * @param Product    $product
+     * @param FirmGetter $firmGetter
      * 
      * @return Response
      */
@@ -177,11 +180,12 @@ class ProductController extends Controller
     }
 
     /**
-     * Deletes a product entity.
-     *
      * @Route("/{id}", name="product_delete")
      * 
      * @Method("DELETE")
+     * 
+     * @param Request $request
+     * @param Product $product
      * 
      * @return Response
      */
@@ -202,11 +206,10 @@ class ProductController extends Controller
     }
 
     /**
-     * Creates a form to delete a product entity.
-     *
-     * @param Product $product The product entity
-     *
-     * @return Form The form
+     * @param Product    $product
+     * @param FirmGetter $firmGetter
+     * 
+     * @return Form
      */
     private function createDeleteForm(Product $product, FirmGetter $firmGetter): Form
     {
