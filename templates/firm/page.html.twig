@@ -1,20 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ firmLabel }}</h1>
+    <div class="container gallery-container">
+        <h1>{{ firmLabel }}</h1>
 
-    {% for product in products %}
-    <ul>
-        <li>
-            <div><a href="{{ path('product_page', {'productId': product.id}) }}">{{ product.vendorCode }}</a></div>
-            <div>{{ product.category }}</div>
+        <div class="tz-gallery">
+            <div class="row">
+                
+                {% for product in products %}
+                    
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <a class="lightbox" 
+                               alt="{{ product.vendorCode }}" 
+                               href="{{ path('product_page', {'productId': product.id}) }}">
+                                {% for photo in product.photos %}
+                                    <div><img src="{{ photo.path }}"></div>
+                                {% endfor %}
+                            </a>
+                            <div class="caption">
+                                <a class="lightbox" 
+                               alt="{{ product.vendorCode }}" 
+                               href="{{ path('product_page', {'productId': product.id}) }}">
+                                    <h3>{{ product.vendorCode }}</h3>
+                                </a>
+                                <p>{{ product.category }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+                
+            </div>
+        </div>
             
-            {% for photo in product.photos %}
-                <div><img src="{{ photo.path }}"></div>
-            {% endfor %}
-        </li>
-    </ul>
-    {% endfor %}
-    
-    <a href="{{ path('homepage') }}">Назад, на главную</a>
+        <p class="page-description text-center"><a href="{{ path('homepage') }}">Назад, на главную</a></p>
 {% endblock %}
