@@ -50,7 +50,14 @@ class ProductType extends AbstractType
             'multiple' => true,
             'class' => Color::class,
         ])
-        ->add('photos', FileType::class, [
+        ->add('photo', FileType::class, [
+            'label' => false,
+            'mapped' => false,
+        ])
+        ->add('photoDescription', TextType::class, [
+            'attr' => [
+                'placeholder' => 'Введите описание фото',
+            ],
             'label' => false,
             'mapped' => false,
         ]);

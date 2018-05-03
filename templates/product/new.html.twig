@@ -1,13 +1,56 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Создание товара</h1>
+    <div> </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"> </div>
+            <div class="col-md-4">
+                <h3>Создание товара</h3>
+                {{ form_start(form, {'enctype': "multipart/form-data", 'method': 'post'}) }}
+                    <div class="form-group">
+                       {{form_row(form.name, {'attr': {'class': 'form-control'}} )}}
+                    </div>
+                    <div class="form-group">
+                        {{form_row(form.vendorCode, {'attr': {'class': 'form-control'}} )}}
+                    </div>
+                    <div class="form-group">
+                       {{form_row(form.description, {'attr': {'class': 'form-control'}} )}}
+                    </div>
+                    <div class="form-group">
+                        {{form_row(form.price, {'attr': {'class': 'form-control'}} )}}
+                    </div>
+                    <div class="form-group">
+                       {{form_row(form.category, {'attr': {'class': 'form-control form-control-lg'}} )}}
+                    </div>
+                    <div class="form-group">
+                        {{form_row(form.firm, {'attr': {'class': 'form-control form-control-lg'}} )}}
+                    </div>
+                    <div class="form-group">
+                        {{form_row(form.colors)}} 
+                    </div>
+                    <div class="form-group">
+                        {{form_row(form.photo )}}
+                    </div>
+                    <div class="form-group">
+                        {{form_row(form.photoDescription, {'attr': {'class': 'form-control'}} )}}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-info" formnovalidate>Создать</button>
+                        
+                        <a href="{{ path('product_index') }}" class="btn btn-info">Назад к списку</a>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+            <div class="col-md-4"> </div>
+            
+            
+        </div>
+    </div>
 
-    {{ form_start(form, {'enctype': "multipart/form-data", 'method': 'post'}) }}
-        {{form_widget(form)}}
-        
-        {# TODO: Сохранять фотографии #}
-        <div id='formToAddFile' data-index='<?= $index ?>' style='display: none'>
+    
+    
+{#        <div id='formToAddFile' data-index='<?= $index ?>' style='display: none'>
             <input type='file' name='imageFile[]' placeholder='Выберите изображение'><br> 
             <input type='text' name='imageDescription[]' placeholder='Введите описание изображения'><br>
         </div>
@@ -15,12 +58,8 @@
         <div class='addImage'></div>
         <input class='addImageSubmit' type="submit" name="addImage" value="+ Изображение"><br><br>    
         
-        <input type="submit" value="Создать" formnovalidate>
-    {{ form_end(form) }}
+        <input type="submit" value="Создать" formnovalidate>#}
     
-    <ul>
-        <li>
-            <a href="{{ path('product_index') }}">Назад к списку</a>
-        </li>
-    </ul>
+    
+    
 {% endblock %}

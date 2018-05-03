@@ -89,6 +89,11 @@ class ProductController extends Controller
            
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form->get('photo')->getData();
+            $photoDescroption = $form->get('photoDescription')->getData();
+            
+            dump($file);
+            dump($photoDescroption);
+            die('dgr');
             
             if (!empty($file)) {
                 $fileName = $product->getVendorCode().'.'.$file->guessExtension();
@@ -100,6 +105,7 @@ class ProductController extends Controller
                 $photo = new Photo();
                 $photo->setName($fileName);
                 $photo->setPath($filePath);
+                $photo->setDescription($photoDescroption);
                 $photo->setProduct($product);
                 $product->addPhoto($photo);
 
