@@ -8,6 +8,7 @@
         "doctrine/annotations": "^1.6",
         "doctrine/dbal": "^2.6.3",
         "ext-iconv": "*",
+        "friendsofsymfony/user-bundle": "~2.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "^4.0",
