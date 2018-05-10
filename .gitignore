@@ -19,3 +19,14 @@
 /nbproject/*
 
 /src/Controller/TestController.php
+
+/public/images/products/custom-made/*
+!/public/images/products/custom-made/.gitkeep
+/public/images/products/econom/*
+!/public/images/products/econom/.gitkeep
+/public/images/products/garun/*
+!/public/images/products/garun/.gitkeep
+/public/images/products/premium/*
+!/public/images/products/premium/.gitkeep
+/public/images/products/transformer/*
+!/public/images/products/transformer/.gitkeep
