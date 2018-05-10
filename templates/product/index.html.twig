@@ -45,6 +45,9 @@
                         {% for photo in product.photos %}
                             {% if photo.path is not null %}
                                 <img src="/images/galochka.png" height="20" weidth="20" alt="есть">
+                            {% else %}
+                                {# TODO: выводить крестик, если фоток нет #} 
+                                <img src="/images/krestik.jpeg" height="20" weidth="20" alt="нет">
                             {% endif %}
                         {% endfor %}
                     </td>

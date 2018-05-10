@@ -85,27 +85,28 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()
+                    ->getManager();
            
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form->get('photo')->getData();
-            $photoDescroption = $form->get('photoDescription')->getData();
+            $photoDescription = $form->get('photoDescription')->getData();
             
             if (!empty($file)) {
-                $fileName = $product->getVendorCode().'.'.$file->guessExtension();
-                $filePath = $this->getParameter('kernel.project_dir')
-                        .$this->getParameter('photo_directory')
-                        .$product->getCategory()->getName()
-                        .'/'.$fileName;
+                $fileName = $product->getVendorCode().'.'.$file->getClientOriginalExtension();
+                $filePath = $this->getParameter('photo_directory')
+                        .'/'.$product->getFirm()->getName();
 
                 $photo = new Photo();
                 $photo->setName($fileName);
-                $photo->setPath($filePath);
-                $photo->setDescription($photoDescroption);
+                $photo->setPath($filePath.'/'.$fileName);
+                $photo->setDescription($photoDescription ?? '');
                 $photo->setProduct($product);
                 $product->addPhoto($photo);
 
-                $file->move($filePath);
+                $file->move($this->getParameter('kernel.project_dir')
+                        .'/'.'public'
+                        .'/'.$filePath, $fileName);
 
                 $em->persist($photo);
             }
@@ -140,10 +141,35 @@ class ProductController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()
-                    ->getManager()
-                    ->flush();
+            $em = $this->getDoctrine()
+                    ->getManager();
 
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $editForm->get('photo')->getData();
+            $photoDescription = $editForm->get('photoDescription')->getData();
+            
+            if (!empty($file)) {
+                $fileName = $product->getVendorCode().'.'.$file->getClientOriginalExtension();
+                $filePath = $this->getParameter('photo_directory')
+                        .'/'.$product->getFirm()->getName();
+
+                $photo = new Photo();
+                $photo->setName($fileName);
+                $photo->setPath($filePath.'/'.$fileName);
+                $photo->setDescription($photoDescription ?? '');
+                $photo->setProduct($product);
+                $product->addPhoto($photo);
+
+                $file->move($this->getParameter('kernel.project_dir')
+                        .'/'.'public'
+                        .'/'.$filePath, $fileName);
+
+                $em->persist($photo);
+                $em->persist($product);
+                
+                $em->flush();
+            }
+            
             return $this->redirectToRoute('product_index');
         }
 
