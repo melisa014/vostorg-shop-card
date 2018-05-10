@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Firm;
 use App\Service\FirmGetter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +19,6 @@ class DefaultController extends Controller
     {
         return $this->render('default/index.html.twig', [
             'firms' => $firmGetter->getAll(),
-            'template' => 'index',
         ]);
     }
     /**

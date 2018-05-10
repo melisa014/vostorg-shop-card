@@ -1,49 +1,59 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Products list</h1>
+    <div class="col-md-12">
+        <h2>Список товаров</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Vendorcode</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.vendorCode }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
-                <td>{% if product.createdAt %}{{ product.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if product.updatedAt %}{{ product.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('product_show', { 'id': product.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="table table-bordered table-responsive-md">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Название</th>
+                    <th>Артикул</th>
+                    <th>Описание</th>
+                    <th>Цена</th>
+                    <th>Категория</th>
+                    <th>Фирма</th>
+                    <th>Цвета</th>
+                    <th>Фото</th>
+                    <th>Обновлён</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr table-active table-success>
+                    <td><a href="{{ path('product_edit', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                    <td><a href="{{ path('product_edit', { 'id': product.id }) }}">{{ product.name }}</a></td>
+                    <td>{{ product.vendorCode }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.firm }}</td>
+                    <td>
+                        {% for color in product.colors %}
+                            <ul>
+                                <li>{{ color }}</li>
+                            </ul>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {#{{ dump(product.photos) }}
+                        {% if product.photos is not null %}
+                            <img src="/images/galochka.png" height="20" weidth="20" alt="есть">
+                        {% endif %}#}
+                        
+                        {% for photo in product.photos %}
+                            {% if photo.path is not null %}
+                                <img src="/images/galochka.png" height="20" weidth="20" alt="есть">
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{% if product.updatedAt %}{{ product.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('product_new') }}">Create a new product</a>
-        </li>
-    </ul>
+        <a href="{{ path('product_new') }}" class="btn btn-info">+ Создать</a>
+    </div>
 {% endblock %}

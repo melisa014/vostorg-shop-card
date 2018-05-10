@@ -91,10 +91,6 @@ class ProductController extends Controller
             $file = $form->get('photo')->getData();
             $photoDescroption = $form->get('photoDescription')->getData();
             
-            dump($file);
-            dump($photoDescroption);
-            die('dgr');
-            
             if (!empty($file)) {
                 $fileName = $product->getVendorCode().'.'.$file->guessExtension();
                 $filePath = $this->getParameter('kernel.project_dir')
@@ -117,10 +113,7 @@ class ProductController extends Controller
             $em->persist($product);
             $em->flush();
 
-            return $this->redirectToRoute('product_show', [
-                'id' => $product->getId(),
-                'firms' => $firmGetter->getAll(),
-            ]);
+            return $this->redirectToRoute('product_index');
         }
         
         return $this->render('product/new.html.twig', [
@@ -129,27 +122,6 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="product_show")
-     * 
-     * @Method("GET")
-     * 
-     * @param Product $product
-     * @param FirmGetter $firmGetter
-     * 
-     * @return Response
-     */
-    public function showAction(Product $product, FirmGetter $firmGetter): Response
-    {
-        $deleteForm = $this->createDeleteForm($product, $firmGetter);
-
-        return $this->render('product/show.html.twig', [
-            'product' => $product,
-            'delete_form' => $deleteForm->createView(),
-            'firms' => $firmGetter->getAll()
-        ]);
-    }
-    
     /**
      * @Route("/{id}/edit", name="product_edit")
      * 
@@ -163,7 +135,7 @@ class ProductController extends Controller
      */
     public function editAction(Request $request, Product $product, FirmGetter $firmGetter): Response
     {
-        $deleteForm = $this->createDeleteForm($product, $firmGetter);
+        $deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm(ProductType::class, $product);
         $editForm->handleRequest($request);
 
@@ -172,9 +144,7 @@ class ProductController extends Controller
                     ->getManager()
                     ->flush();
 
-            return $this->redirectToRoute('product_edit', [
-                'id' => $product->getId(),
-            ]);
+            return $this->redirectToRoute('product_index');
         }
 
         return $this->render('product/edit.html.twig', [
@@ -197,7 +167,7 @@ class ProductController extends Controller
      */
     public function deleteAction(Request $request, Product $product): Response
     {
-        $form = $this->createDeleteForm($product, $firmGetter);
+        $form = $this->createDeleteForm($product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -213,16 +183,14 @@ class ProductController extends Controller
 
     /**
      * @param Product    $product
-     * @param FirmGetter $firmGetter
      * 
      * @return Form
      */
-    private function createDeleteForm(Product $product, FirmGetter $firmGetter): Form
+    private function createDeleteForm(Product $product): Form
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('product_delete', [
                 'id' => $product->getId(),
-                'firms' => $firmGetter->getAll()
             ]))
             ->setMethod('DELETE')
             ->getForm();

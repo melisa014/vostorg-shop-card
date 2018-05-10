@@ -91,23 +91,6 @@ class FirmController extends Controller
     }
 
     /**
-     * Finds and displays a firm entity.
-     *
-     * @Route("/admin/firm/{id}", name="admin_firm_show")
-     * @Method("GET")
-     */
-    public function showAction(Firm $firm, FirmGetter $firmGetter)
-    {
-        $deleteForm = $this->createDeleteForm($firm);
-
-        return $this->render('firm/show.html.twig', array(
-            'firm' => $firm,
-            'delete_form' => $deleteForm->createView(),
-            'firms' => $firmGetter->getAll()
-        ));
-    }
-
-    /**
      * Displays a form to edit an existing firm entity.
      *
      * @Route("/admin/firm/{id}/edit", name="admin_firm_edit")
