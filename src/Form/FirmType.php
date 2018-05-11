@@ -13,7 +13,15 @@ class FirmType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('label')->add('description');
+        $builder->add('name', TextType::class, [
+                'label' => 'идентификатор',
+            ])
+            ->add('label', TextType::class, [
+                'label' => 'Название',
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Описание',
+            ]);
     }
     
     /**

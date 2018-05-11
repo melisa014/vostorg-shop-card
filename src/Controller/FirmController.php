@@ -50,6 +50,7 @@ class FirmController extends Controller
      * Lists all firm entities.
      *
      * @Route("/admin/firm", name="admin_firm_index")
+     * 
      * @Method("GET")
      */
     public function indexAction()
@@ -67,6 +68,7 @@ class FirmController extends Controller
      * Creates a new firm entity.
      *
      * @Route("/admin/firm/new", name="admin_firm_new")
+     * 
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, FirmGetter $firmGetter)
@@ -94,6 +96,7 @@ class FirmController extends Controller
      * Displays a form to edit an existing firm entity.
      *
      * @Route("/admin/firm/{id}/edit", name="admin_firm_edit")
+     * 
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Firm $firm, FirmGetter $firmGetter)
@@ -120,6 +123,7 @@ class FirmController extends Controller
      * Deletes a firm entity.
      *
      * @Route("/admin/firm/{id}", name="admin_firm_delete")
+     * 
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Firm $firm)

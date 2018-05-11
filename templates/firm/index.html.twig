@@ -1,47 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Firms list</h1>
+    <div class="col-md-12">
+        <h2>Список фирм</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Label</th>
-                <th>Description</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for firm in firms %}
-            <tr>
-                <td><a href="{{ path('admin_firm_show', { 'id': firm.id }) }}">{{ firm.id }}</a></td>
-                <td>{{ firm.name }}</td>
-                <td>{{ firm.label }}</td>
-                <td>{{ firm.description }}</td>
-                <td>{% if firm.createdAt %}{{ firm.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if firm.updatedAt %}{{ firm.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_firm_show', { 'id': firm.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_firm_edit', { 'id': firm.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="table table-bordered table-responsive-md">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Название</th>
+                    <th>Описание</th>
+                    <th>Дата редактирования</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for firm in firms %}
+                <tr>
+                    <td><a href="{{ path('admin_firm_edit', { 'id': firm.id }) }}">{{ firm.id }}</a></td>
+                    <td><a href="{{ path('admin_firm_edit', { 'id': firm.id }) }}">{{ firm.label }}</a></td>
+                    <td>{{ firm.description }}</td>
+                    <td>{% if firm.updatedAt %}{{ firm.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_firm_new') }}">Create a new firm</a>
-        </li>
-    </ul>
+        <a href="{{ path('admin_firm_new') }}" class="btn btn-info">+ Создать</a>
 {% endblock %}
