@@ -1,14 +1,48 @@
 <nav class="navbar navbar-expand-lg navbar-light .navbar-dark">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="{{ path('homepage') }}">Мебель Трансформер и ВСЁ ВСЁ ВСЁ</a>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-        {% if template|default %}
-            
-            {% if template == 'about' %}
-                <li class="nav-item active">
+    <a class="navbar-brand" href="{{ path('homepage') }}">Мебель Трансформер и ВСЁ ВСЁ ВСЁ</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            {% if template|default %}
+
+                {% if template == 'about' %}
+                    <li class="nav-item active">
+            {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
+                      <a class="nav-link" href="{{ path('about') }}">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
+                    </li> 
+                    <li class="nav-item">
+            {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
+                      <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
+                    </li>
+                {% elseif template == 'contacts' %}
+                    <li class="nav-item">
+            {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
+                      <a class="nav-link" href="{{ path('about') }}">О нас</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
+                    </li> 
+                    <li class="nav-item">
+            {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
+                      <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
+                    </li>
+                {% elseif template == 'order' %}
+                    <li class="nav-item">
+            {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
+                      <a class="nav-link" href="{{ path('about') }}">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
+                    </li> 
+                    <li class="nav-item active">
+            {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
+                      <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
+                    </li>
+                {% endif %}
+            {% else %}
+                <li class="nav-item">
         {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
                   <a class="nav-link" href="{{ path('about') }}">О нас</a>
                 </li>
@@ -16,47 +50,32 @@
                     <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
                 </li> 
                 <li class="nav-item">
-        {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
-                  <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
-                </li>
-            {% elseif template == 'contacts' %}
-                <li class="nav-item">
-        {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
-                  <a class="nav-link" href="{{ path('about') }}">О нас</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
-                </li> 
-                <li class="nav-item">
-        {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
-                  <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
-                </li>
-            {% elseif template == 'order' %}
-                <li class="nav-item">
-        {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
-                  <a class="nav-link" href="{{ path('about') }}">О нас</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
-                </li> 
-                <li class="nav-item active">
         {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
                   <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
                 </li>
             {% endif %}
-        {% else %}
-            <li class="nav-item">
-    {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
-              <a class="nav-link" href="{{ path('about') }}">О нас</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
-            </li> 
-            <li class="nav-item">
-    {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
-              <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
-            </li>
-        {% endif %}
-    </ul>
-  </div>
+        </ul>
+    </div>
+        
+    {% if app.user %}
+        {#<button class="navbar-toggler navbar-toggler-right" 
+                type="button" data-toggle="collapse" 
+                data-target="#navbarNav" 
+                aria-controls="navbarNav" 
+                aria-expanded="false" 
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-right">Выйти</span>
+        </button>#}
+        <a class="btn btn-outline-info btn-lg" href="{{ path('logout') }}" role="button">Выйти</a>
+    {% else %}
+        {#<button class="navbar-toggler navbar-toggler-right" 
+                type="button" data-toggle="collapse"
+                data-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-right">Войти</span>
+        </button>#}       
+        <a class="btn btn-outline-info btn-lg" href="{{ path('login') }}" role="button">Войти</a>
+    {% endif %}
 </nav>

@@ -108,7 +108,7 @@ class FirmController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_firm_edit', array('id' => $firm->getId()));
+            return $this->redirectToRoute('admin_firm_index', array('id' => $firm->getId()));
         }
 
         return $this->render('firm/edit.html.twig', array(
