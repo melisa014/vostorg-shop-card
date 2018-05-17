@@ -3,6 +3,7 @@
 parameters:
     locale: 'en'
     photo_directory: '/images/products'
+    firm_photo_directory: '/images/mainPage'
 
 services:
     # default configuration for services in *this* file

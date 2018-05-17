@@ -6,7 +6,6 @@ use App\Entity\Category;
 use App\Entity\Color;
 use App\Entity\Firm;
 use App\Entity\Photo;
-use App\Form\PhotoType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;

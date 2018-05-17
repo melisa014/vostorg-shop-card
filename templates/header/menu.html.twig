@@ -54,28 +54,22 @@
                   <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
                 </li>
             {% endif %}
+            {% if app.user %}
+                <li class="nav-item">
+        {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
+                  <a class="nav-link" href="{{ path('admin_firm_index') }}">Фирмы</a>
+                </li>
+                <li class="nav-item">
+        {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
+                  <a class="nav-link" href="{{ path('product_index') }}">Товары</a>
+                </li>
+            {% endif %}
         </ul>
     </div>
         
     {% if app.user %}
-        {#<button class="navbar-toggler navbar-toggler-right" 
-                type="button" data-toggle="collapse" 
-                data-target="#navbarNav" 
-                aria-controls="navbarNav" 
-                aria-expanded="false" 
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-right">Выйти</span>
-        </button>#}
         <a class="btn btn-outline-info btn-lg" href="{{ path('logout') }}" role="button">Выйти</a>
     {% else %}
-        {#<button class="navbar-toggler navbar-toggler-right" 
-                type="button" data-toggle="collapse"
-                data-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-right">Войти</span>
-        </button>#}       
         <a class="btn btn-outline-info btn-lg" href="{{ path('login') }}" role="button">Войти</a>
     {% endif %}
 </nav>

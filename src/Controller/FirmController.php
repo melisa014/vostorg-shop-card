@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Firm;
 use App\Entity\Product;
 use App\Service\FirmGetter;
+use App\Form\FirmType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,10 +80,25 @@ class FirmController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $form->get('photo')->getData();
+            
+            if (!empty($file)) {
+                $fileName = $firm->getName().'.'.$file->getClientOriginalExtension();
+                $filePath = $this->getParameter('firm_photo_directory');
+
+                $firm->setPathToPhoto($filePath.'/'.$fileName);
+
+                $file->move($this->getParameter('kernel.project_dir')
+                        .'/'.'public'
+                        .'/'.$filePath, $fileName);
+            }
+            
             $em->persist($firm);
             $em->flush();
 
-            return $this->redirectToRoute('admin_firm_show', array('id' => $firm->getId()));
+            return $this->redirectToRoute('admin_firm_index');
         }
 
         return $this->render('firm/new.html.twig', array(
@@ -106,9 +122,26 @@ class FirmController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+        
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $editForm->get('photo')->getData();
+            
+            if (!empty($file)) {
+                $fileName = $firm->getName().'.'.$file->getClientOriginalExtension();
+                $filePath = $this->getParameter('firm_photo_directory');
 
-            return $this->redirectToRoute('admin_firm_index', array('id' => $firm->getId()));
+                $firm->setPathToPhoto($filePath.'/'.$fileName);
+
+                $file->move($this->getParameter('kernel.project_dir')
+                        .'/'.'public'
+                        .'/'.$filePath, $fileName);
+            }
+        
+            $em->persist($firm);
+            $em->flush();
+
+            return $this->redirectToRoute('admin_firm_index');
         }
 
         return $this->render('firm/edit.html.twig', array(
