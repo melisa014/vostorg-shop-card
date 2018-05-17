@@ -13,9 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-/**
- * @Route("product")
- */
 class ProductController extends Controller
 {
     /**
@@ -47,7 +44,7 @@ class ProductController extends Controller
     }
     
     /**
-     * @Route("/", name="product_index")
+     * @Route("/admin/product", name="admin_product_index")
      * 
      * @Method("GET")
      * 
@@ -69,7 +66,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/new", name="product_new")
+     * @Route("admin/product/new", name="admin_product_new")
      * 
      * @Method({"GET", "POST"})
      * 
@@ -114,7 +111,7 @@ class ProductController extends Controller
             $em->persist($product);
             $em->flush();
 
-            return $this->redirectToRoute('product_index');
+            return $this->redirectToRoute('admin_product_index');
         }
         
         return $this->render('product/new.html.twig', [
@@ -124,7 +121,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="product_edit")
+     * @Route("/admin/product/{id}/edit", name="admin_product_edit")
      * 
      * @Method({"GET", "POST"})
      * 
@@ -170,7 +167,7 @@ class ProductController extends Controller
                 $em->flush();
             }
             
-            return $this->redirectToRoute('product_index');
+            return $this->redirectToRoute('admin_product_index');
         }
 
         return $this->render('product/edit.html.twig', [
@@ -182,7 +179,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="product_delete")
+     * @Route("/admin/product/{id}", name="admin_product_delete")
      * 
      * @Method("DELETE")
      * 
@@ -204,18 +201,18 @@ class ProductController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('product_index');
+        return $this->redirectToRoute('admin_product_index');
     }
 
     /**
-     * @param Product    $product
+     * @param Product $product
      * 
      * @return Form
      */
     private function createDeleteForm(Product $product): Form
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('product_delete', [
+            ->setAction($this->generateUrl('admin_product_delete', [
                 'id' => $product->getId(),
             ]))
             ->setMethod('DELETE')

@@ -7,6 +7,7 @@ use App\Entity\Product;
 use App\Service\FirmGetter;
 use App\Form\FirmType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -48,17 +49,17 @@ class FirmController extends Controller
     }
 
     /**
-     * Lists all firm entities.
-     *
      * @Route("/admin/firm", name="admin_firm_index")
      * 
      * @Method("GET")
+     * 
+     * @return Response
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         $em = $this->getDoctrine()->getManager();
 
-        $firms = $em->getRepository('App:Firm')->findAll();
+        $firms = $em->getRepository(Firm::class)->findAll();
 
         return $this->render('firm/index.html.twig', array(
             'firms' => $firms,
@@ -66,16 +67,19 @@ class FirmController extends Controller
     }
 
     /**
-     * Creates a new firm entity.
-     *
      * @Route("/admin/firm/new", name="admin_firm_new")
      * 
      * @Method({"GET", "POST"})
+     * 
+     * @param Request    $request
+     * @param FirmGetter $firmGetter
+     * 
+     * @return Response
      */
-    public function newAction(Request $request, FirmGetter $firmGetter)
+    public function newAction(Request $request, FirmGetter $firmGetter): Response
     {
         $firm = new Firm();
-        $form = $this->createForm('App\Form\FirmType', $firm);
+        $form = $this->createForm(FirmType::class, $firm);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -109,16 +113,20 @@ class FirmController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing firm entity.
-     *
      * @Route("/admin/firm/{id}/edit", name="admin_firm_edit")
      * 
      * @Method({"GET", "POST"})
+     * 
+     * @param Request    $request
+     * @param Firm       $firm
+     * @param FirmGetter $firmGetter
+     * 
+     * @return Response
      */
-    public function editAction(Request $request, Firm $firm, FirmGetter $firmGetter)
+    public function editAction(Request $request, Firm $firm, FirmGetter $firmGetter): Response
     {
         $deleteForm = $this->createDeleteForm($firm);
-        $editForm = $this->createForm('App\Form\FirmType', $firm);
+        $editForm = $this->createForm(FirmType::class, $firm);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -153,13 +161,16 @@ class FirmController extends Controller
     }
 
     /**
-     * Deletes a firm entity.
-     *
      * @Route("/admin/firm/{id}", name="admin_firm_delete")
      * 
      * @Method("DELETE")
+     * 
+     * @param Request $request
+     * @param Firm    $firm
+     * 
+     * @return Response
      */
-    public function deleteAction(Request $request, Firm $firm)
+    public function deleteAction(Request $request, Firm $firm): Response
     {
         $form = $this->createDeleteForm($firm);
         $form->handleRequest($request);
@@ -178,14 +189,13 @@ class FirmController extends Controller
      *
      * @param Firm $firm The firm entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
-    private function createDeleteForm(Firm $firm)
+    private function createDeleteForm(Firm $firm): Form
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin_firm_delete', [
                 'id' => $firm->getId(),
-//                'firms' => $firmGetter->getAll()
                     ]))
             ->setMethod('DELETE')
             ->getForm()
