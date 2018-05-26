@@ -84,7 +84,7 @@ class FirmController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            
+
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form->get('photo')->getData();
             
@@ -134,7 +134,7 @@ class FirmController extends Controller
         
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $editForm->get('photo')->getData();
-            
+
             if (!empty($file)) {
                 $fileName = $firm->getName().'.'.$file->getClientOriginalExtension();
                 $filePath = $this->getParameter('firm_photo_directory');

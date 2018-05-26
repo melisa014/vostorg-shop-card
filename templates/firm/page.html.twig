@@ -11,13 +11,15 @@
                     
                     <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-                            <a class="lightbox" 
-                               alt="{{ product.vendorCode }}" 
-                               href="{{ path('product_page', {'productId': product.id}) }}">
-                                {% for photo in product.photos %}
-                                    <div><img src="{{ photo.path }}"></div>
-                                {% endfor %}
-                            </a>
+                            <div class="caption">
+                                <a class="lightbox" 
+                                    alt="{{ product.vendorCode }}" 
+                                    href="{{ path('product_page', {'productId': product.id}) }}">
+                                     {% for photo in product.photos %}
+                                         <img src="{{ photo.path }}">
+                                     {% endfor %}
+                                 </a>
+                            </div>
                             <div class="caption">
                                 <a class="lightbox" 
                                alt="{{ product.vendorCode }}" 
