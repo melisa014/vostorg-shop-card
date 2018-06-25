@@ -8,18 +8,17 @@
 
         <p class="page-description text-center">Доступные цвета:
             {% for color in product.colors %}
-                {{ color~', ' }}
+{#                {{ color~', ' }}#}
+                <img src="{{ color.pathToPhoto }}">
             {% endfor %}
         </p>
             
         <div class="tz-gallery">
             <div class="row">
                 <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        {% for photo in product.photos %}
-                            <img src="{{ photo.path }}">
-                        {% endfor %}
-                    </div>
+                    {% for photo in product.photos %}
+                        <img src="{{ photo.path }}">
+                    {% endfor %}
                 </div>
             </div>
         </div>
