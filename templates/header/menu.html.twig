@@ -2,58 +2,21 @@
     <a class="navbar-brand" href="{{ path('homepage') }}">Мебель Трансформер и ВСЁ ВСЁ ВСЁ</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            {% if template|default %}
-
-                {% if template == 'about' %}
-                    <li class="nav-item active">
-            {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
-                      <a class="nav-link" href="{{ path('about') }}">О нас</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
-                    </li> 
-                    <li class="nav-item">
-            {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
-                      <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
-                    </li>
-                {% elseif template == 'contacts' %}
-                    <li class="nav-item">
-            {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
-                      <a class="nav-link" href="{{ path('about') }}">О нас</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
-                    </li> 
-                    <li class="nav-item">
-            {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
-                      <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
-                    </li>
-                {% elseif template == 'order' %}
-                    <li class="nav-item">
-            {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
-                      <a class="nav-link" href="{{ path('about') }}">О нас</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
-                    </li> 
-                    <li class="nav-item active">
-            {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
-                      <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
-                    </li>
-                {% endif %}
-            {% else %}
-                <li class="nav-item">
-        {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
-                  <a class="nav-link" href="{{ path('about') }}">О нас</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
-                </li> 
-                <li class="nav-item">
-        {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
-                  <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
-                </li>
+            {% if template is not defined %}
+                {% set template = 'default' %}
             {% endif %}
+
+            <li class="nav-item {% if template == 'about' %}active{%endif%}">
+    {#          <a class="nav-link sr-only" href="{{ path('about') }}">О нас</a>#}
+              <a class="nav-link" href="{{ path('about') }}">О нас</a>
+            </li>
+            <li class="nav-item {% if template == 'contacts' %}active{%endif%}">
+                <a class="nav-link" href="{{ path('contacts') }}">Контакты</a>
+            </li> 
+            <li class="nav-item {% if template == 'order' %}active{%endif%}">
+    {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
+              <a class="nav-link" href="{{ path('order') }}">Сделать заказ</a>
+            </li>
             {% if app.user %}
                 <li class="nav-item">
         {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
@@ -63,7 +26,7 @@
         {#          <a class="nav-link disabled" href="{{ path('order') }}">Сделать заказ</a>#}
                   <a class="nav-link" href="{{ path('admin_product_index') }}">Товары</a>
                 </li>
-            {% endif %}
+            {% endif %} 
         </ul>
     </div>
         
