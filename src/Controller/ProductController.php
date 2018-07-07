@@ -57,18 +57,14 @@ class ProductController extends Controller
      */
     public function indexAction(Request $request, FirmGetter $firmGetter): Response
     {
-        $page = $request->query->get('page', 1);
-
         $qb = $this->getDoctrine()
                 ->getManager()
                 ->getRepository(Product::class)
                 ->findAllQueryBuilder();
 
-        $adapter = new DoctrineORMAdapter($qb);
-        $pagerfanta = new Pagerfanta($adapter);
-
+        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($qb));
         $pagerfanta->setMaxPerPage(10);
-        $pagerfanta->setCurrentPage($page);
+        $pagerfanta->setCurrentPage($request->query->get('page', 1));
 
         $products = [];
         foreach ($pagerfanta->getCurrentPageResults() as $product) {
@@ -78,7 +74,7 @@ class ProductController extends Controller
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'firms' => $firmGetter->getAll(),
-            'my_pager' => $pagerfanta,
+            'myPager' => $pagerfanta,
         ]);
     }
 
