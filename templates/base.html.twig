@@ -20,6 +20,8 @@
     <body>
         {% include 'header/header.html.twig' %}
         
+        {% block breadcrumb %}{% endblock %}
+            
         {% block body %}{% endblock %}
         
         {% include 'footer.html.twig' %}
