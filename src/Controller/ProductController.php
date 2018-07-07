@@ -67,7 +67,7 @@ class ProductController extends Controller
         $adapter = new DoctrineORMAdapter($qb);
         $pagerfanta = new Pagerfanta($adapter);
 
-        $pagerfanta->setMaxPerPage(10);
+        $pagerfanta->setMaxPerPage(2);
         $pagerfanta->setCurrentPage($page);
 
         $products = [];

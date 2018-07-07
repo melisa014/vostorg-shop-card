@@ -4,6 +4,10 @@
     <div class="col-md-12">
         <h2>Список товаров</h2>
 
+        <div class="pb-3">
+            <a href="{{ path('admin_product_new') }}" class="btn btn-info">+ Создать новый</a>
+        </div>
+        
         <table class="table table-bordered table-responsive-md">
             <thead>
                 <tr>
@@ -58,9 +62,8 @@
         </table>
             
         <div class="pagerfanta">
-            {{ pagerfanta(my_pager) }}
+            {{ pagerfanta(my_pager, 'twitter_bootstrap4', { 'proximity': 2}) }}
         </div>
 
-        <a href="{{ path('admin_product_new') }}" class="btn btn-info">+ Создать</a>
     </div>
 {% endblock %}
