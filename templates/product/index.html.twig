@@ -56,6 +56,10 @@
             {% endfor %}
             </tbody>
         </table>
+            
+        <div class="pagerfanta">
+            {{ pagerfanta(my_pager) }}
+        </div>
 
         <a href="{{ path('admin_product_new') }}" class="btn btn-info">+ Создать</a>
     </div>

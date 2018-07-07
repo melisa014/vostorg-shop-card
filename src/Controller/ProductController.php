@@ -12,67 +12,84 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 
 class ProductController extends Controller
 {
     /**
      * @Route("/product/{productId}", name="product_page")
-     * 
+     *
      * @param int        $productId
      * @param FirmGetter $firmGetter
-     * 
+     *
      * @return Response
-     * 
+     *
      * @throws EntityNotFoundException
      */
     public function createPageAction(int $productId, FirmGetter $firmGetter): Response
     {
         $em = $this->getDoctrine()
                 ->getManager();
-        
+
         $product = $em->getRepository(Product::class)
                 ->find($productId);
-        
+
         if (empty($product)) {
             throw new EntityNotFoundException("Продукт с id = $productId не найден");
         }
-        
+
         return $this->render('product/page.html.twig',[
             'firms' => $firmGetter->getAll(),
             'product' => $product,
         ]);
     }
-    
+
     /**
      * @Route("/admin/product", name="admin_product_index")
-     * 
+     *
      * @Method("GET")
-     * 
+     *
+     * @param Request    $request
      * @param FirmGetter $firmGetter
-     * 
+     *
      * @return Response
      */
-    public function indexAction(FirmGetter $firmGetter): Response
+    public function indexAction(Request $request, FirmGetter $firmGetter): Response
     {
-        $products = $this->getDoctrine()
+        $page = $request->query->get('page', 1);
+
+        $qb = $this->getDoctrine()
                 ->getManager()
                 ->getRepository(Product::class)
-                ->findAll();
+                ->findAllQueryBuilder();
+
+        $adapter = new DoctrineORMAdapter($qb);
+        $pagerfanta = new Pagerfanta($adapter);
+
+        $pagerfanta->setMaxPerPage(10);
+        $pagerfanta->setCurrentPage($page);
+
+        $products = [];
+        foreach ($pagerfanta->getCurrentPageResults() as $product) {
+            $products[] = $product;
+        }
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
-            'firms' => $firmGetter->getAll()
+            'firms' => $firmGetter->getAll(),
+            'my_pager' => $pagerfanta,
         ]);
     }
 
     /**
      * @Route("admin/product/new", name="admin_product_new")
-     * 
+     *
      * @Method({"GET", "POST"})
-     * 
+     *
      * @param Request    $request
      * @param FirmGetter $firmGetter
-     * 
+     *
      * @return Response
      */
     public function newAction(Request $request, FirmGetter $firmGetter): Response
@@ -84,11 +101,11 @@ class ProductController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()
                     ->getManager();
-           
+
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form->get('photo')->getData();
             $photoDescription = $form->get('photoDescription')->getData();
-            
+
             if (!empty($file)) {
                 $fileName = $product->getVendorCode().'.'.$file->getClientOriginalExtension();
                 $filePath = $this->getParameter('photo_directory')
@@ -107,13 +124,13 @@ class ProductController extends Controller
 
                 $em->persist($photo);
             }
-            
+
             $em->persist($product);
             $em->flush();
 
             return $this->redirectToRoute('admin_product_index');
         }
-        
+
         return $this->render('product/new.html.twig', [
             'form' => $form->createView(),
             'firms' => $firmGetter->getAll()
@@ -122,13 +139,13 @@ class ProductController extends Controller
 
     /**
      * @Route("/admin/product/{id}/edit", name="admin_product_edit")
-     * 
+     *
      * @Method({"GET", "POST"})
-     * 
+     *
      * @param Request    $request
      * @param Product    $product
      * @param FirmGetter $firmGetter
-     * 
+     *
      * @return Response
      */
     public function editAction(Request $request, Product $product, FirmGetter $firmGetter): Response
@@ -144,7 +161,7 @@ class ProductController extends Controller
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $editForm->get('photo')->getData();
             $photoDescription = $editForm->get('photoDescription')->getData();
-            
+
             if (!empty($file)) {
                 $fileName = $product->getVendorCode().'.'.$file->getClientOriginalExtension();
                 $filePath = $this->getParameter('photo_directory')
@@ -163,10 +180,10 @@ class ProductController extends Controller
 
                 $em->persist($photo);
                 $em->persist($product);
-                
+
                 $em->flush();
             }
-            
+
             return $this->redirectToRoute('admin_product_index');
         }
 
@@ -180,12 +197,12 @@ class ProductController extends Controller
 
     /**
      * @Route("/admin/product/{id}", name="admin_product_delete")
-     * 
+     *
      * @Method("DELETE")
-     * 
+     *
      * @param Request $request
      * @param Product $product
-     * 
+     *
      * @return Response
      */
     public function deleteAction(Request $request, Product $product): Response
@@ -206,7 +223,7 @@ class ProductController extends Controller
 
     /**
      * @param Product $product
-     * 
+     *
      * @return Form
      */
     private function createDeleteForm(Product $product): Form

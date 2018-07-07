@@ -9,93 +9,92 @@ use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity
- * 
+ * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @ORM\Table(name="product")
  */
-class Product 
+class Product
 {
     /**
-     * @var int 
-     * 
+     * @var int
+     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
-    
+
     /**
      * @var string
-     * 
-     * @ORM\Column(type="string", nullable = true) 
+     *
+     * @ORM\Column(type="string", nullable = true)
      */
     protected $name;
-    
+
     /**
      * @var string
-     * 
-     * @ORM\Column(type="string", length=100) 
+     *
+     * @ORM\Column(type="string", length=100)
      */
     protected $vendorCode;
-    
+
     /**
      * @var string
-     * 
-     * @ORM\Column(type="text", nullable = true) 
+     *
+     * @ORM\Column(type="text", nullable = true)
      */
     protected $description;
-    
+
     /**
      * @var int
-     * 
-     * @ORM\Column(type="integer", nullable = true) 
+     *
+     * @ORM\Column(type="integer", nullable = true)
      */
     protected $price;
-    
+
     /**
      * @var DateTime
      *
      * @Gedmo\Timestampable(on="create")
-     * 
+     *
      * @ORM\Column(name="created_at", type="datetime")
      */
     protected $createdAt;
-    
+
     /**
      * @var DateTime
      *
      * @Gedmo\Timestampable(on="update")
-     * 
+     *
      * @ORM\Column(name="updated_at", type="datetime")
      */
     protected $updatedAt;
-    
+
     /**
      * @var Category
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     protected $category;
-    
+
     /**
      * @var Firm
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Firm", inversedBy="products")
      * @ORM\JoinColumn(name="firm_id", referencedColumnName="id")
      */
     protected $firm;
-    
+
     /**
      * @var Collection | Photo[]
-     * 
+     *
      * @ORM\OneToMany(targetEntity="Photo", mappedBy="product")
      */
     protected $photos;
-    
+
     /**
      * @var Collection | Color[]
-     * 
+     *
      * @ORM\ManyToMany(targetEntity="Color")
      * @ORM\JoinTable(name="products_colors",
      *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
@@ -109,7 +108,7 @@ class Product
         $this->photos = new ArrayCollection();
         $this->colors = new ArrayCollection();
     }
-    
+
     /**
      * @return int
      */
@@ -129,7 +128,7 @@ class Product
 
         return $this;
     }
-    
+
     /**
      * @return string | null
      */
@@ -193,7 +192,7 @@ class Product
     /**
      * @return int  | null
      */
-    public function getPrice(): ?int 
+    public function getPrice(): ?int
     {
         return $this->price;
     }
@@ -257,7 +256,7 @@ class Product
     {
         return $this->category;
     }
-    
+
     /**
      * @param Firm $firm
      *
@@ -302,7 +301,7 @@ class Product
         if ($this->photos->contains($photo)) {
             $this->photos->removeElement($photo);
         }
-        
+
         return $this;
     }
 
@@ -338,7 +337,7 @@ class Product
         if ($this->colors->contains($color)) {
             $this->colors->removeElement($color);
         }
-        
+
         return $this;
     }
 
