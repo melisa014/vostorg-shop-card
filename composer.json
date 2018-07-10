@@ -11,6 +11,8 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "it-for-free/rusphp": "dev-master",
         "sensio/framework-extra-bundle": "^5.1",
+        "sonata-project/admin-bundle": "^3.35",
+        "sonata-project/doctrine-orm-admin-bundle": "^3.6",
         "stof/doctrine-extensions-bundle": "^1.2",
         "symfony/asset": "^4.0",
         "symfony/console": "^4.0",
