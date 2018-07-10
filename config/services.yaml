@@ -1,7 +1,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'en'
+    locale: 'ru'
     photo_directory: '/images/products'
     firm_photo_directory: '/images/mainPage'
 
@@ -28,3 +28,17 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    
+    admin.product:
+        class: App\Admin\ProductAdmin
+        arguments: [~, App\Entity\Product, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Product }
+        public: true
+    
+    admin.firm:
+        class: App\Admin\FirmAdmin
+        arguments: [~, App\Entity\Firm, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Firm }
+        public: true

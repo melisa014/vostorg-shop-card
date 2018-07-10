@@ -11,21 +11,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends Controller
 {
     /**
-     * @Route("/admin")
+     * @Route("/login", name="login")
+     *
+     * @param Request             $request
+     * @param AuthenticationUtils $authenticationUtils
+     *
+     * @return Response
      */
-    public function admin()
-    {
-        return new Response('<html><body>Admin page!</body></html>');
-    }
-    
-/**
- * @Route("/login", name="login")
- * 
- * @param Request             $request
- * @param AuthenticationUtils $authenticationUtils
- * 
- * @return Response
- */
     public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
         // get the login error if there is one
