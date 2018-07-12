@@ -10,60 +10,63 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\Table(name="color")
  */
-class Color 
+class Color
 {
     /**
-     * @var int 
-     * 
+     * @var int
+     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
-    
+
     /**
      * @var string
-     * 
-     * @ORM\Column(type="string") 
+     *
+     * @ORM\Column(type="string")
      */
     protected $name;
-    
+
     /**
      * @var string
-     * 
-     * @ORM\Column(type="string") 
+     *
+     * @ORM\Column(type="string")
      */
     protected $label;
     /**
      * @var string
-     * 
-     * @ORM\Column(type="string") 
+     *
+     * @ORM\Column(type="string")
      */
     protected $pathToPhoto;
-    
+
     /**
      * @var DateTime
      *
      * @Gedmo\Timestampable(on="create")
-     * 
+     *
      * @ORM\Column(name="created_at", type="datetime")
      */
     protected $createdAt;
-    
+
     /**
      * @var DateTime
      *
      * @Gedmo\Timestampable(on="update")
-     * 
+     *
      * @ORM\Column(name="updated_at", type="datetime")
      */
     protected $updatedAt;
-    
-    public function __toString()
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
     {
-      return $this->getLabel();
+      return $this->getLabel() ?? '';
     }
-    
+
     /**
      * @return int
      */
@@ -91,7 +94,7 @@ class Color
     {
         return $this->name;
     }
-    
+
     /**
      * @param string $label
      *

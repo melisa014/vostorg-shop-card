@@ -11,6 +11,13 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class FirmAdmin extends AbstractAdmin
 {
+    /**
+     * Конфигурация формы редактирования записи
+     *
+     * @param FormMapper $formMapper
+     *
+     * @return void
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('name', TextType::class)
@@ -19,6 +26,13 @@ class FirmAdmin extends AbstractAdmin
             ->add('pathToPhoto', TextType::class);
     }
 
+    /**
+     * Поля, по которым производится поиск в списке записей
+     *
+     * @param DatagridMapper $datagridMapper
+     *
+     * @return void
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper->add('name', null, [
@@ -38,6 +52,13 @@ class FirmAdmin extends AbstractAdmin
             ]);
     }
 
+    /**
+     * Конфигурация списка записей
+     *
+     * @param ListMapper $listMapper
+     *
+     * @return void
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('name', TextType::class, [

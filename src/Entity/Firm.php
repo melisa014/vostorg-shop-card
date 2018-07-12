@@ -15,75 +15,78 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Firm
 {
     /**
-     * @var int 
-     * 
+     * @var int
+     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
-    
+
     /**
      * @var string
-     * 
-     * @ORM\Column(type="string") 
+     *
+     * @ORM\Column(type="string")
      */
     protected $name;
-    
+
     /**
      * @var string
-     * 
-     * @ORM\Column(type="string") 
+     *
+     * @ORM\Column(type="string")
      */
     protected $label;
-    
+
     /**
      * @var string
-     * 
-     * @ORM\Column(type="string") 
+     *
+     * @ORM\Column(type="string")
      */
     protected $description;
-    
+
     /**
      * @var string
-     * 
-     * @ORM\Column(type="string") 
+     *
+     * @ORM\Column(type="string")
      */
     protected $pathToPhoto;
-    
+
     /**
      * @var DateTime
      *
      * @Gedmo\Timestampable(on="create")
-     * 
+     *
      * @ORM\Column(name="created_at", type="datetime")
      */
     protected $createdAt;
-    
+
     /**
      * @var DateTime
      *
      * @Gedmo\Timestampable(on="update")
-     * 
+     *
      * @ORM\Column(name="updated_at", type="datetime")
      */
     protected $updatedAt;
-    
+
     /**
      * @var Collection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="Product", mappedBy="firm")
      */
     protected $products;
-    
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
     }
-    
-    public function __toString()
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
     {
-      return $this->getLabel();
+      return $this->getLabel() ?? '';
     }
 
     /**
@@ -113,7 +116,7 @@ class Firm
     {
         return $this->name;
     }
-    
+
     /**
      * @param string $label
      *
@@ -153,7 +156,7 @@ class Firm
     {
         return $this->description;
     }
-    
+
     /**
      * @param string $pathToPhoto
      *
@@ -238,7 +241,7 @@ class Firm
         if ($this->products->contains($product)) {
             $this->products->removeElement($product);
         }
-        
+
         return $this;
     }
 
