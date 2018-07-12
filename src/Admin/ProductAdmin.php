@@ -2,12 +2,17 @@
 
 namespace App\Admin;
 
+use App\Entity\Category;
+use App\Entity\Color;
+use App\Entity\Firm;
+use App\Entity\Photo;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ProductAdmin extends AbstractAdmin
@@ -24,10 +29,21 @@ class ProductAdmin extends AbstractAdmin
         $formMapper->add('name', TextType::class)
             ->add('vendorCode', TextType::class)
             ->add('description', TextType::class)
-            ->add('category', ChoiceType::class)
-            ->add('firm', ChoiceType::class)
-            ->add('photos', TextType::class)
-            ->add('colors', ChoiceType::class);
+            ->add('category', null, [
+                'label' => 'Категория',
+                'class' => Category::class,
+            ])
+            ->add('firm', null, [
+                'label' => 'Фирма',
+                'class' => Firm::class,
+            ])
+            ->add('photos', null, [
+                'label' => 'Фото',
+            ])
+            ->add('colors', null, [
+                'label' => 'Цвета',
+                'class' => Color::class,
+            ]);
     }
 
     /**
