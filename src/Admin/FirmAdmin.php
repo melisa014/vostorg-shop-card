@@ -17,16 +17,25 @@ class FirmAdmin extends AbstractAdmin
             ->add('label', TextType::class)
             ->add('description', TextType::class)
             ->add('pathToPhoto', TextType::class);
-//            ->add('updatedAt', DateTimeType::class);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('name')
-            ->add('label')
-            ->add('description')
-             ->add('pathToPhoto')
-             ->add('updatedAt');
+        $datagridMapper->add('name', null, [
+                'label' => 'Идентификатор',
+            ])
+            ->add('label', null, [
+                'label' => 'Название',
+            ])
+            ->add('description', null, [
+                'label' => 'Описание',
+            ])
+            ->add('pathToPhoto', null, [
+                'label' => 'Фото',
+            ])
+            ->add('updatedAt', null, [
+                'label' => 'Обновлено',
+            ]);
     }
 
     protected function configureListFields(ListMapper $listMapper)

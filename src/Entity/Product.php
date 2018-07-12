@@ -45,13 +45,6 @@ class Product
     protected $description;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", nullable = true)
-     */
-    protected $price;
-
-    /**
      * @var DateTime
      *
      * @Gedmo\Timestampable(on="create")
@@ -175,26 +168,6 @@ class Product
     public function getDescription(): ?string
     {
         return $this->description;
-    }
-
-    /**
-     * @param int $price | null
-     *
-     * @return self
-     */
-    public function setPrice($price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * @return int  | null
-     */
-    public function getPrice(): ?int
-    {
-        return $this->price;
     }
 
     /**
