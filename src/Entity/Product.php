@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @ORM\Table(name="product")
  */

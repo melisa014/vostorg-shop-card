@@ -5,6 +5,11 @@ parameters:
     # You should not need to change this value.
     env(DATABASE_URL): ''
 
+stof_doctrine_extensions:
+    orm:
+        default:
+            softdeleteable: true
+            
 doctrine:
     dbal:
         # configure these for your database server
@@ -25,3 +30,7 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
