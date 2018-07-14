@@ -97,6 +97,13 @@ class Product
      */
     protected $colors;
 
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();

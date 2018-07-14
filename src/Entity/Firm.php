@@ -71,6 +71,13 @@ class Firm
     protected $updatedAt;
 
     /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
+    /**
      * @var Collection
      *
      * @ORM\OneToMany(targetEntity="Product", mappedBy="firm")
