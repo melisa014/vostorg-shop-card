@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class PhotoAdmin extends AbstractAdmin
 {
-
     /**
      * Конфигурация формы редактирования записи
      *
@@ -24,14 +23,12 @@ class PhotoAdmin extends AbstractAdmin
     {
         $formMapper->add('photo', FileType::class, [
             'label' => false,
-            'mapped' => false,
         ])
         ->add('photoDescription', TextType::class, [
             'attr' => [
                 'placeholder' => 'Введите описание фото',
             ],
             'label' => false,
-            'mapped' => false,
         ]);
     }
 
@@ -46,14 +43,12 @@ class PhotoAdmin extends AbstractAdmin
     {
         $listMapper->addIdentifier('photo', FileType::class, [
             'label' => false,
-            'mapped' => false,
         ])
         ->add('photoDescription', TextType::class, [
             'attr' => [
                 'placeholder' => 'Введите описание фото',
             ],
             'label' => false,
-            'mapped' => false,
         ]);
     }
 }

@@ -37,9 +37,19 @@ class ProductAdmin extends AbstractAdmin
                 'label' => 'Фирма',
                 'class' => Firm::class,
             ])
-            ->add('photos', null, [
-                'label' => 'Фото',
-            ])
+            ->add('photos', null)
+//            ->add('photos', 'sonata_type_collection',
+//                [
+//                    'label' => 'Фото',
+//                    'by_reference' => false
+//                ],
+//                [
+//                    'edit' => 'inline',
+//                    'sortable' => 'createdAt',
+//                    'inline' => 'table',
+////                    'admin_code' => PhotoAdmin::class,
+////                    'data_class' => App\Entity\Photo::class,
+//                ])
             ->add('colors', null, [
                 'label' => 'Цвета',
                 'class' => Color::class,
