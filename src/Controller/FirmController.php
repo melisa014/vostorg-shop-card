@@ -17,32 +17,32 @@ class FirmController extends Controller
 {
     /**
      * @Route("/firm/{firmId}", name="firm_page")
-     * 
+     *
      * @param int $firmId
-     * 
+     *
      * @return Response
      */
     public function createPageAction(int $firmId, FirmGetter $firmGetter): Response
     {
         $em = $this->getDoctrine()
                 ->getManager();
-        
+
         $firm = $em->getRepository(Firm::class)
                 ->find($firmId);
-        
+
         if (empty($firm)) {
             throw new EntityNotFoundException("Фирма с id = $firmId не найдена");
         }
-        
+
         // Достаём все продукты фирмы и выводим на страницу
         $products = $em->getRepository(Product::class)
                 ->findBy([
                     'firm' => $firm,
                 ]);
-        
+
         return $this->render('firm/page.html.twig',[
             'firms' => $firmGetter->getAll(),
-            'firmLabel' => $firm->getLabel(),
+            'firm' => $firm,
             'firmId' => $firm->getId(),
             'products' => $products,
         ]);
@@ -50,9 +50,9 @@ class FirmController extends Controller
 
     /**
      * @Route("/admin/firm", name="admin_firm_index")
-     * 
+     *
      * @Method("GET")
-     * 
+     *
      * @return Response
      */
     public function indexAction(): Response
@@ -68,12 +68,12 @@ class FirmController extends Controller
 
     /**
      * @Route("/admin/firm/new", name="admin_firm_new")
-     * 
+     *
      * @Method({"GET", "POST"})
-     * 
+     *
      * @param Request    $request
      * @param FirmGetter $firmGetter
-     * 
+     *
      * @return Response
      */
     public function newAction(Request $request, FirmGetter $firmGetter): Response
@@ -87,7 +87,7 @@ class FirmController extends Controller
 
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form->get('photo')->getData();
-            
+
             if (!empty($file)) {
                 $fileName = $firm->getName().'.'.$file->getClientOriginalExtension();
                 $filePath = $this->getParameter('firm_photo_directory');
@@ -98,7 +98,7 @@ class FirmController extends Controller
                         .'/'.'public'
                         .'/'.$filePath, $fileName);
             }
-            
+
             $em->persist($firm);
             $em->flush();
 
@@ -114,13 +114,13 @@ class FirmController extends Controller
 
     /**
      * @Route("/admin/firm/{id}/edit", name="admin_firm_edit")
-     * 
+     *
      * @Method({"GET", "POST"})
-     * 
+     *
      * @param Request    $request
      * @param Firm       $firm
      * @param FirmGetter $firmGetter
-     * 
+     *
      * @return Response
      */
     public function editAction(Request $request, Firm $firm, FirmGetter $firmGetter): Response
@@ -131,7 +131,7 @@ class FirmController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-        
+
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $editForm->get('photo')->getData();
 
@@ -145,7 +145,7 @@ class FirmController extends Controller
                         .'/'.'public'
                         .'/'.$filePath, $fileName);
             }
-        
+
             $em->persist($firm);
             $em->flush();
 
@@ -162,12 +162,12 @@ class FirmController extends Controller
 
     /**
      * @Route("/admin/firm/{id}", name="admin_firm_delete")
-     * 
+     *
      * @Method("DELETE")
-     * 
+     *
      * @param Request $request
      * @param Firm    $firm
-     * 
+     *
      * @return Response
      */
     public function deleteAction(Request $request, Firm $firm): Response
