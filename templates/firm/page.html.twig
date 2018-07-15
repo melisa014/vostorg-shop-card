@@ -1,44 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<!-- Team -->
+    
+    <!-- Team -->
     <section class="bg-light" id="team">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">{{ firm.label }}</h2>
-            <h3 class="section-subheading text-muted">{{ firm.description }}</h3>
-          </div>
-        </div>
-        <div class="row">
-            {% for product in products %}
-                <div class="col-sm-4">
-                    <div class="team-member">
-                        {% for photo in product.photos %}
-                            <img class="mx-auto rounded-circle" src="{{ photo.path }}" alt="{{ product.vendorCode }}">
-                        {% endfor %}
-                        <h4>{{ product.vendorCode }}</h4>
-                        <p class="text-muted">{{ product.category }}</p>
-                        
-                        
-                        <ul class="list-inline social-buttons">
-                            {#{% for color in product.colors %}
-                                <li class="list-inline-item">
-                                    <img class="fa fa-twitter" src="{{color.pathToPhoto}}">
-                                    <i class="fa fa-twitter"></i>
-                                </li>
-                            {% endfor %}#}
-                        </ul>
-                    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">{{ firm.label }}</h2>
+                    <h3 class="section-subheading text-muted">{{ firm.description }}</h3>
                 </div>
-            {% endfor %}  
+            </div>
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-sm-2">
+                        <div class="team-member">
+                            {% for photo in product.photos %}
+                                <img class="mx-auto rounded-circle" src="{{ photo.path }}" alt="{{ product.vendorCode }}">
+                            {% endfor %}
+                            <h4>{{ product.vendorCode }}</h4>
+                            <p class="text-muted">{{ product.category }}</p>
+
+                            <ul class="list-inline social-buttons">
+                                {% for color in product.colors %}
+                                    <li class="list-inline-item">
+                                        <img class="fa fa-twitter" src="{{color.pathToPhoto}}">
+                                        <i class="fa fa-twitter"></i>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}  
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <p class="large text-muted">В выборе мебели важен индивидуальных подход. 
+                        По всем вопросам обращайтесь к менеджеру по телефону(можно найти в разделе Контакты)
+                        или приезжайте в магазин.</p>
+                </div>
+            </div>
         </div>
-        <div class="row">
-          <div class="col-lg-8 mx-auto text-center">
-            <p class="large text-muted">В выборе мебели важен индивидуальных подход. По всем вопросам обращайтесь к менеджеру по телефону(можно найти в разделе Контакты) или приезжайте в магазин.</p>
-          </div>
-        </div>
-      </div>
     </section>
 
 {#<!-- Team -->
