@@ -61,12 +61,19 @@ class Photo
     protected $updatedAt;
 
     /**
-     * @var Product
+     * @var Product | null
      *
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="photos")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $product;
+    
+    /**
+     * @var Firm | null
+     *
+     * @ORM\OneToOne(targetEntity="Firm", inversedBy="photo")
+     */
+    protected $firm;
 
     /**
      * @return string
@@ -197,10 +204,30 @@ class Photo
     }
 
     /**
-     * @return Product
+     * @return Product | null
      */
-    public function getProduct(): Product
+    public function getProduct(): ?Product
     {
         return $this->product;
+    }
+    
+    /**
+     * @param Firm $firm
+     *
+     * @return self
+     */
+    public function setFirm(Firm $firm): self
+    {
+        $this->firm = $firm;
+
+        return $this;
+    }
+
+    /**
+     * @return Firm | null
+     */
+    public function getFirm(): ?Firm
+    {
+        return $this->firm;
     }
 }

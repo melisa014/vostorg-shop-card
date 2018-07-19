@@ -46,11 +46,12 @@ class Firm
     protected $description;
 
     /**
-     * @var string
+     * @var Photo
      *
-     * @ORM\Column(type="string")
+     * @ORM\OneToOne(targetEntity="Photo", mappedBy="firm")
+     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
      */
-    protected $pathToPhoto;
+    protected $photo;
 
     /**
      * @var DateTime

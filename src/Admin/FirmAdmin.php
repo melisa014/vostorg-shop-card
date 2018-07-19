@@ -23,8 +23,11 @@ class FirmAdmin extends AbstractAdmin
         $formMapper->add('name', TextType::class)
             ->add('label', TextType::class)
             ->add('description', TextType::class)
-            ->add('pathToPhoto', AdminType::class, [], [
-                'admin_code' => 'sonata.admin.PhotoAdmin']);
+            ->add('pathToPhoto', 'sonata_type_collection', [], [
+                'edit' => 'inline', 
+                'inline' => 'standard', 
+                'sortable' => 'photo'
+            ]);
     }
 
     /**
