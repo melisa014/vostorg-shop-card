@@ -2,9 +2,8 @@
 
 namespace App\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
@@ -12,6 +11,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Photo
 {
+    const SERVER_PATH_TO_IMAGE_FOLDER = '/public/images';
+
     /**
      * @var int
      *
@@ -20,6 +21,11 @@ class Photo
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
+
+    /**
+     * Unmapped property to handle file uploads
+     */
+    private $file;
 
     /**
      * @var string
@@ -43,37 +49,20 @@ class Photo
     protected $description;
 
     /**
-     * @var DateTime
-     *
-     * @Gedmo\Timestampable(on="create")
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    protected $createdAt;
-
-    /**
-     * @var DateTime
-     *
-     * @Gedmo\Timestampable(on="update")
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
-     */
-    protected $updatedAt;
-
-    /**
      * @var Product | null
      *
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="photos")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $product;
-    
+
     /**
      * @var Firm | null
      *
      * @ORM\OneToOne(targetEntity="Firm", inversedBy="photo")
      */
     protected $firm;
+
 
     /**
      * @return string
@@ -92,43 +81,11 @@ class Photo
     }
 
     /**
-     * @param string $name
-     *
-     * @return Photo
-     */
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return Photo
-     */
-    public function setPath(string $path): self
-    {
-        $this->path = $path;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getPath(): string
     {
-        return $this->path;
+        return null === $this->name ? null : $this->path;
     }
 
     /**
@@ -146,49 +103,9 @@ class Photo
     /**
      * @return string  | null
      */
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
-    }
-
-    /**
-     * @param DateTime $createdAt
-     *
-     * @return Photo
-     */
-    public function setCreatedAt(DateTime $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getCreatedAt(): DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param DateTime $updatedAt
-     *
-     * @return Photo
-     */
-    public function setUpdatedAt(DateTime $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getUpdatedAt(): DateTime
-    {
-        return $this->updatedAt;
     }
 
     /**
@@ -206,11 +123,11 @@ class Photo
     /**
      * @return Product | null
      */
-    public function getProduct(): ?Product
+    public function getProduct(): Product
     {
         return $this->product;
     }
-    
+
     /**
      * @param Firm $firm
      *
@@ -226,8 +143,76 @@ class Photo
     /**
      * @return Firm | null
      */
-    public function getFirm(): ?Firm
+    public function getFirm(): Firm
     {
         return $this->firm;
+    }
+
+    /**
+     * @param UploadedFile $file
+     *
+     * @return self
+     */
+    public function setFile(UploadedFile $file = null): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFile(): UploadedFile
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param string $basepath
+     *
+     * @return string
+     */
+    protected function getUploadRootDir(string $basepath, string $entityName = '', string $firmName = ''): string
+    {
+        return $basepath.$this->getUploadDir($entityName, $firmName);
+    }
+
+    /**
+     * @param string $entityName
+     * @param string $firmName
+     *
+     * @return string
+     */
+    protected function getUploadDir(string $entityName = '', string $firmName = ''): string
+    {
+        if ('firm' == $entityName) {
+            return "/public/images/mainPage";
+        } elseif ('products' == $entityName) {
+            return "/public/images/products/$firmName";
+        } else {
+            return "/public/images";
+        }
+    }
+
+    /**
+     * @param string $basepath
+     */
+    public function upload(string $basepath, string $entityName = '', string $firmName = ''): void
+    {
+        if (null === $this->file) {
+            return;
+        }
+
+        if (null === $basepath) {
+            return;
+        }
+
+        $this->file->move($this->getUploadRootDir($basepath, $entityName, $firmName), $this->file->getClientOriginalName());
+
+        $this->name = $this->file->getClientOriginalName();
+        $this->path = $this->getUploadDir($entityName, $firmName);
+
+        $this->file = null;
     }
 }

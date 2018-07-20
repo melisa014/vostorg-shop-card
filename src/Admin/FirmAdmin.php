@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Sonata\AdminBundle\Form\Type\CollectionType;
 
 class FirmAdmin extends AbstractAdmin
 {
@@ -23,10 +24,16 @@ class FirmAdmin extends AbstractAdmin
         $formMapper->add('name', TextType::class)
             ->add('label', TextType::class)
             ->add('description', TextType::class)
-            ->add('pathToPhoto', 'sonata_type_collection', [], [
-                'edit' => 'inline', 
-                'inline' => 'standard', 
-                'sortable' => 'photo'
+            ->add('photo', CollectionType::class, [
+                'by_reference' => true,
+                'label' => 'Фото',
+                'required' => false,
+            ], [
+                'edit' => 'inline',
+                'inline' => 'table',
+                'admin_code' => 'admin.photo',
+                'type_options' => ['delete' => true],
+                'btn_add' => 'Добавить фото',
             ]);
     }
 
@@ -48,9 +55,9 @@ class FirmAdmin extends AbstractAdmin
             ->add('description', null, [
                 'label' => 'Описание',
             ])
-            ->add('pathToPhoto', null, [
-                'label' => 'Фото',
-            ])
+//            ->add('pathToPhoto', null, [
+//                'label' => 'Фото',
+//            ])
             ->add('updatedAt', null, [
                 'label' => 'Обновлено',
             ]);

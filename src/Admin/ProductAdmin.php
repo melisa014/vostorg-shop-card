@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Sonata\AdminBundle\Form\Type\CollectionType;
+use Sonata\AdminBundle\Form\Type\ModelListType;
 
 class ProductAdmin extends AbstractAdmin
 {
@@ -37,7 +39,7 @@ class ProductAdmin extends AbstractAdmin
                 'label' => 'Фирма',
                 'class' => Firm::class,
             ])
-            ->add('photos', null)
+//            ->add('photos', null)
 //            ->add('photos', 'sonata_type_collection',
 //                [
 //                    'label' => 'Фото',
@@ -46,10 +48,23 @@ class ProductAdmin extends AbstractAdmin
 //                [
 //                    'edit' => 'inline',
 //                    'sortable' => 'createdAt',
+////                    'inline' => 'standard',
 //                    'inline' => 'table',
 ////                    'admin_code' => PhotoAdmin::class,
 ////                    'data_class' => App\Entity\Photo::class,
 //                ])
+            ->add('photos', CollectionType::class, [
+                'by_reference' => true,
+                'label' => 'Фото',
+                'required' => false,
+            ],
+            [
+                'edit' => 'inline',
+                'inline' => 'table',
+                'admin_code' => 'admin.photo',
+                'type_options' => ['delete' => true],
+                'btn_add' => 'Добавить фото',
+            ])
             ->add('colors', null, [
                 'label' => 'Цвета',
                 'class' => Color::class,

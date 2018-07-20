@@ -167,23 +167,23 @@ class Firm
     }
 
     /**
-     * @param string $pathToPhoto
+     * @param Photo $photo
      *
      * @return self
      */
-    public function setPathToPhoto(string $pathToPhoto): self
+    public function setPhoto(Photo $photo): self
     {
-        $this->pathToPhoto = $pathToPhoto;
+        $this->photo = $photo;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getPathToPhoto(): ?string
+    public function getPhoto(): ?Photo
     {
-        return $this->pathToPhoto;
+        return $this->photo;
     }
 
     /**
