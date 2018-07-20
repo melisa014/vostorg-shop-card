@@ -81,11 +81,27 @@ class Photo
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getPath(): string
+    public function getPathToPhoto(): ?string
+    {
+        return $this->path.$this->name;
+    }
+
+    /**
+     * @return string | null
+     */
+    public function getPath(): ?string
     {
         return null === $this->name ? null : $this->path;
+    }
+
+    /**
+     * @return string | null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 
     /**
@@ -103,7 +119,7 @@ class Photo
     /**
      * @return string  | null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -123,7 +139,7 @@ class Photo
     /**
      * @return Product | null
      */
-    public function getProduct(): Product
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
@@ -143,7 +159,7 @@ class Photo
     /**
      * @return Firm | null
      */
-    public function getFirm(): Firm
+    public function getFirm(): ?Firm
     {
         return $this->firm;
     }

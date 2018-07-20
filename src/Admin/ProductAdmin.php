@@ -28,9 +28,15 @@ class ProductAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('name', TextType::class)
-            ->add('vendorCode', TextType::class)
-            ->add('description', TextType::class)
+        $formMapper->add('name', TextType::class, [
+                'label' => 'Название',
+            ])
+            ->add('vendorCode', TextType::class, [
+                'label' => 'Артикул',
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Описание',
+            ])
             ->add('category', null, [
                 'label' => 'Категория',
                 'class' => Category::class,
@@ -39,20 +45,10 @@ class ProductAdmin extends AbstractAdmin
                 'label' => 'Фирма',
                 'class' => Firm::class,
             ])
-//            ->add('photos', null)
-//            ->add('photos', 'sonata_type_collection',
-//                [
-//                    'label' => 'Фото',
-//                    'by_reference' => false
-//                ],
-//                [
-//                    'edit' => 'inline',
-//                    'sortable' => 'createdAt',
-////                    'inline' => 'standard',
-//                    'inline' => 'table',
-////                    'admin_code' => PhotoAdmin::class,
-////                    'data_class' => App\Entity\Photo::class,
-//                ])
+//            ->add('picture', null, [ // так вроде бы можно вывести текущее изображение
+//                'template' => 'adminPhoto.html.twig',
+//                'mapped' => false,
+//            ])
             ->add('photos', CollectionType::class, [
                 'by_reference' => true,
                 'label' => 'Фото',
@@ -133,7 +129,7 @@ class ProductAdmin extends AbstractAdmin
             ->add('firm', TextType::class, [
                 'label' => 'Фирма',
             ])
-            ->add('photos', TextType::class, [
+            ->add('photos', CollectionType::class, [
                 'label' => 'Фото',
             ])
             ->add('colors', TextType::class, [

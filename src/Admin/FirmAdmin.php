@@ -24,6 +24,10 @@ class FirmAdmin extends AbstractAdmin
         $formMapper->add('name', TextType::class)
             ->add('label', TextType::class)
             ->add('description', TextType::class)
+//            ->add('picture', null, [ // так вроде бы можно вывести текущее изображение
+//                'template' => 'adminPhoto.html.twig',
+//                'mapped' => false,
+//            ])
             ->add('photo', CollectionType::class, [
                 'by_reference' => true,
                 'label' => 'Фото',

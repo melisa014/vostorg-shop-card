@@ -22,15 +22,17 @@ class PhotoAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('photo', FileType::class, [
-            'required' => false,
+        $formMapper
+//            ->add('file', FileType::class, [
+//            'required' => false,
+//            'label' => 'sdgs11',
+//        ])
+        ->add('photoDescription', TextType::class, [
+            'attr' => [
+                'placeholder' => 'Введите описание фото',
+            ],
+            'label' => false,
         ]);
-//        ->add('photoDescription', TextType::class, [
-//            'attr' => [
-//                'placeholder' => 'Введите описание фото',
-//            ],
-//            'label' => false,
-//        ]);
     }
 
     /**
@@ -42,15 +44,16 @@ class PhotoAdmin extends AbstractAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->add('file', FileType::class, [
-            'label' => 'sdgs',
+        $listMapper
+//            ->add('file', FileType::class, [
+//            'label' => 'sdgs',
+//        ])
+        ->add('photoDescription', TextType::class, [
+            'attr' => [
+                'placeholder' => 'Введите описание фото',
+            ],
+            'label' => false,
         ]);
-//        ->add('photoDescription', TextType::class, [
-//            'attr' => [
-//                'placeholder' => 'Введите описание фото',
-//            ],
-//            'label' => false,
-//        ]);
     }
 
     public function prePersist($photo)
