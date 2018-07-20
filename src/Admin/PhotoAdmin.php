@@ -53,16 +53,30 @@ class PhotoAdmin extends AbstractAdmin
 //        ]);
     }
 
-    public function prePersist($product) {
-        $this->saveFile($product);
+    public function prePersist($photo)
+    {
+        $this->saveFile($photo);
     }
 
-    public function preUpdate($product) {
-        $this->saveFile($product);
+    public function preUpdate($photo)
+    {
+        $this->saveFile($photo);
     }
 
-    public function saveFile($product) {
+    public function saveFile($photo)
+    {
         $basepath = $this->getRequest()->getBasePath();
-        $product->upload($basepath);
+
+        $entityName = '';
+        $firmName = '';
+
+        if (!empty($this->getFirm())) {
+            $entityName = 'firm';
+        } elseif (!empty($this->getProduct())) {
+            $entityName = 'product';
+            $firmName = $this->getProduct()->getFirm()->getName();
+        }
+
+        $photo->upload($basepath, $entityName, $firmName);
     }
 }
