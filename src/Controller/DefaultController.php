@@ -36,6 +36,7 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', [
 //            'firms' => $firms,
             'firms' => $firmGetter->getAll(),
+            'basePath' => $this->get('kernel')->getRootDir()
         ]);
     }
 }
