@@ -45,21 +45,24 @@ class ProductAdmin extends AbstractAdmin
                 'label' => 'Фирма',
                 'class' => Firm::class,
             ])
-//            ->add('picture', null, [ // так вроде бы можно вывести текущее изображение
-//                'template' => 'adminPhoto.html.twig',
-//                'mapped' => false,
+////            ->add('picture', null, [ // так вроде бы можно вывести текущее изображение
+////                'template' => 'adminPhoto.html.twig',
+////                'mapped' => false,
+////            ])
+//            ->add('photos', CollectionType::class, [
+//                'by_reference' => true,
+//                'label' => 'Фото',
+//                'required' => false,
+//            ],
+//            [
+//                'edit' => 'inline',
+//                'inline' => 'table',
+//                'admin_code' => 'admin.photo',
+//                'type_options' => ['delete' => true],
+//                'btn_add' => 'Добавить фото',
 //            ])
-            ->add('photos', CollectionType::class, [
-                'by_reference' => true,
+            ->add('photos', FileType::class, [
                 'label' => 'Фото',
-                'required' => false,
-            ],
-            [
-                'edit' => 'inline',
-                'inline' => 'table',
-                'admin_code' => 'admin.photo',
-                'type_options' => ['delete' => true],
-                'btn_add' => 'Добавить фото',
             ])
             ->add('colors', null, [
                 'label' => 'Цвета',

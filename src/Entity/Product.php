@@ -80,11 +80,12 @@ class Product
     protected $firm;
 
     /**
-     * @var Collection | Photo[]
+     * @var Photo | null
      *
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="product")
+     * @ORM\OneToOne(targetEntity="Photo", mappedBy="product")
+     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id", nullable=true)
      */
-    protected $photos;
+    protected $photo;
 
     /**
      * @var Collection | Color[]
@@ -106,7 +107,6 @@ class Product
 
     public function __construct()
     {
-        $this->photos = new ArrayCollection();
         $this->colors = new ArrayCollection();
     }
 
@@ -259,39 +259,19 @@ class Product
     }
 
     /**
-     * @param Photo $photo
-     *
      * @return self
      */
-    public function addPhoto(Photo $photo): self
+    public function setPhoto(?Photo $photo): self
     {
-        if (!$this->photos->contains($photo)) {
-            $this->photos[] = $photo;
-        }
-
-        return $this;
+        return $this->photo;
     }
 
     /**
-     * @param Photo $photo
-     *
-     * @return self
+     * @return Photo | null
      */
-    public function removePhoto(Photo $photo): self
+    public function getPhoto(): ?Photo
     {
-        if ($this->photos->contains($photo)) {
-            $this->photos->removeElement($photo);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection | Photo[] | null
-     */
-    public function getPhotos(): ?Collection
-    {
-        return $this->photos;
+        return $this->photo;
     }
 
     /**
