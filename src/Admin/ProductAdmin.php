@@ -31,6 +31,7 @@ class ProductAdmin extends AbstractAdmin
                 'label' => 'Артикул',
             ])
             ->add('description', TextType::class, [
+                'required' => false,
                 'label' => 'Описание',
             ])
             ->add('category', null, [
@@ -42,6 +43,7 @@ class ProductAdmin extends AbstractAdmin
                 'class' => Firm::class,
             ])
             ->add('photoFile', FileType::class, [
+                'required' => false,
                 'label' => 'Фото',
             ])
             ->add('colors', null, [

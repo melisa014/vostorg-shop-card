@@ -30,6 +30,7 @@ class FirmAdmin extends AbstractAdmin
 //                'mapped' => false,
 //            ])
             ->add('photoFile', FileType::class, [
+                'required' => false,
                 'label' => 'Фото',
             ]);
     }

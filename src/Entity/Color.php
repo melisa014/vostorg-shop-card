@@ -146,7 +146,11 @@ class Color
      */
     public function getPhotoFile(): ?File
     {
-        return !empty($this->photoPath) ? new File(dirname(__DIR__, 2).'/public'.$this->photoPath) : null;
+        return null;
+        // ToDo: разобраться, как отображать файл при редактировании в форме
+//        return file_exists(dirname(__DIR__, 2).'/public'.$this->photoPath)
+//            ? new File(dirname(__DIR__, 2).'/public'.$this->photoPath)
+//            : null;
     }
 
     /**

@@ -24,6 +24,7 @@ class ColorAdmin extends AbstractAdmin
                 'label' => 'Название',
             ])
             ->add('photoFile', FileType::class, [
+                'required' => false,
                 'label' => 'Фото',
             ]);
     }
