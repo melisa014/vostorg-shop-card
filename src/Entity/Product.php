@@ -252,6 +252,14 @@ class Product
         return $this->colors;
     }
 
+    public function showPhoto()
+    {
+        return ImageResizer::resizeAsInFormat(
+            dirname(__DIR__, 2).'/public'.$this->getUploadDir(),
+            '160x105xSxCxP'
+        );
+    }
+
     /**
      * @param File $file
      *

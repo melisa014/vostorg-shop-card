@@ -116,6 +116,14 @@ class Color
         return $this->updatedAt;
     }
 
+    public function showPhoto()
+    {
+        return ImageResizer::resizeAsInFormat(
+            dirname(__DIR__, 2).'/public'.$this->getUploadDir(),
+            '50x50xSxCxP'
+        );
+    }
+
     /**
      * @param File $file
      *
