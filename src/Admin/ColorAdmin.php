@@ -2,6 +2,57 @@
 
 namespace App\Admin;
 
-class ColorAdmin {
-    //put your code here
+use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
+class ColorAdmin extends AbstractAdmin
+{
+    /**
+     * Конфигурация формы редактирования записи
+     *
+     * @param FormMapper $formMapper
+     *
+     * @return void
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper->add('label', TextType::class, [
+                'label' => 'Название',
+            ])
+            ->add('photoFile', FileType::class, [
+                'label' => 'Фото',
+            ]);
+    }
+
+    /**
+     * Поля, по которым производится поиск в списке записей
+     *
+     * @param DatagridMapper $datagridMapper
+     *
+     * @return void
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper->add('label', null, [
+                'label' => 'Название',
+            ]);
+    }
+
+    /**
+     * Конфигурация списка записей
+     *
+     * @param ListMapper $listMapper
+     *
+     * @return void
+     */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper->addIdentifier('label', TextType::class, [
+                'label' => 'Название',
+            ]);
+    }
 }

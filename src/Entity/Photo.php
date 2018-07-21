@@ -62,7 +62,6 @@ class Photo
      */
     protected $firm;
 
-
     /**
      * @return string
      */
@@ -176,9 +175,9 @@ class Photo
     }
 
     /**
-     * @return UploadedFile
+     * @return UploadedFile | null
      */
-    public function getFile(): UploadedFile
+    public function getFile(): ?UploadedFile
     {
         return $this->file;
     }

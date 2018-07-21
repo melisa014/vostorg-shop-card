@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity
@@ -26,29 +27,19 @@ class Color
      *
      * @ORM\Column(type="string")
      */
-    protected $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
     protected $label;
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $pathToPhoto;
 
     /**
-     * @var DateTime
-     *
-     * @Gedmo\Timestampable(on="create")
-     *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @var File | null
      */
-    protected $createdAt;
+    protected $photoFile;
+
+    /**
+     * @var string | null
+     *
+     * @ORM\Column(type="text", nullable = true)
+     */
+    protected $photoPath;
 
     /**
      * @var DateTime
@@ -58,6 +49,16 @@ class Color
      * @ORM\Column(name="updated_at", type="datetime")
      */
     protected $updatedAt;
+
+    /**
+     * @param File | null $file
+     */
+    public function __construct(File $file = null)
+    {
+        $this->photoFile = $file;
+
+        $this->upload(dirname(__DIR__, 2));
+    }
 
     /**
      * @return string
@@ -73,26 +74,6 @@ class Color
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Color
-     */
-    public function setName($name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     /**
@@ -116,46 +97,6 @@ class Color
     }
 
     /**
-     * @param string $pathToPhoto
-     *
-     * @return Color
-     */
-    public function setPathToPhoto($pathToPhoto): self
-    {
-        $this->pathToPhoto = $pathToPhoto;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPathToPhoto(): string
-    {
-        return $this->pathToPhoto;
-    }
-
-    /**
-     * @param DateTime $createdAt
-     *
-     * @return Color
-     */
-    public function setCreatedAt($createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getCreatedAt(): DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
      * @param DateTime $updatedAt
      *
      * @return Color
@@ -173,5 +114,95 @@ class Color
     public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @param File $file
+     *
+     * @return self
+     */
+    public function setPhotoFile(File $file): self
+    {
+        $this->photoFile = $file;
+
+        $this->upload(
+            dirname(__DIR__, 2),
+            !empty($this->firm) ? $this->firm->getName(): ''
+        );
+
+        return $this;
+    }
+
+    /**
+     * @return File | null
+     */
+    public function getPhotoFile(): ?File
+    {
+        return !empty($this->photoPath) ? new File(dirname(__DIR__, 2).'/public'.$this->photoPath) : null;
+    }
+    
+    /**
+     * @param string $fileName
+     * @param string $firmName
+     *
+     * @return self
+     */
+    protected function setPhotoPath(string $fileName, string $firmName = ''): self
+    {
+        $this->photoPath = !empty($firmName) ? "/images/colors/$firmName/": '/images/colors/';
+
+        $this->photoPath .= $fileName;
+
+        return $this;
+    }
+
+    /**
+     * @return string | null
+     */
+    protected function getPhotoPath(): ?string
+    {
+        return $this->photoPath;
+    }
+
+    /**
+     * @param string $basepath
+     *
+     * @return string
+     */
+    protected function getUploadRootDir(string $basepath): string
+    {
+        return $basepath.'/public';
+    }
+
+    /**
+     * @param string $firmName
+     *
+     * @return string
+     */
+    protected function getUploadDir(string $firmName = ''): string
+    {
+        return !empty($firmName) ? "/images/colors/$firmName/": '/images/colors/';
+    }
+
+    /**
+     * @param string $basepath
+     */
+    public function upload(string $basepath, string $firmName = ''): void
+    {
+        if (null === $this->photoFile) {
+            return;
+        }
+
+        if (null === $basepath) {
+            return;
+        }
+
+        $fileName = $this->photoFile->getClientOriginalName();
+
+        $this->setPhotoPath($fileName, $firmName);
+
+        $this->photoFile->move($this->getUploadRootDir($basepath).$this->getUploadDir(), $fileName);
+
+        $this->photoFile = null;
     }
 }

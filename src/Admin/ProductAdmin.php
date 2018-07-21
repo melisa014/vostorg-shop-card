@@ -5,7 +5,6 @@ namespace App\Admin;
 use App\Entity\Category;
 use App\Entity\Color;
 use App\Entity\Firm;
-use App\Entity\Photo;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -28,10 +27,7 @@ class ProductAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('name', TextType::class, [
-                'label' => 'Название',
-            ])
-            ->add('vendorCode', TextType::class, [
+        $formMapper->add('vendorCode', TextType::class, [
                 'label' => 'Артикул',
             ])
             ->add('description', TextType::class, [
@@ -45,23 +41,7 @@ class ProductAdmin extends AbstractAdmin
                 'label' => 'Фирма',
                 'class' => Firm::class,
             ])
-////            ->add('picture', null, [ // так вроде бы можно вывести текущее изображение
-////                'template' => 'adminPhoto.html.twig',
-////                'mapped' => false,
-////            ])
-//            ->add('photos', CollectionType::class, [
-//                'by_reference' => true,
-//                'label' => 'Фото',
-//                'required' => false,
-//            ],
-//            [
-//                'edit' => 'inline',
-//                'inline' => 'table',
-//                'admin_code' => 'admin.photo',
-//                'type_options' => ['delete' => true],
-//                'btn_add' => 'Добавить фото',
-//            ])
-            ->add('photos', FileType::class, [
+            ->add('photoFile', FileType::class, [
                 'label' => 'Фото',
             ])
             ->add('colors', null, [
@@ -79,10 +59,7 @@ class ProductAdmin extends AbstractAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('name', null, [
-                'label' => 'Название',
-            ])
-            ->add('vendorCode', null, [
+        $datagridMapper->add('vendorCode', null, [
                 'label' => 'Артикул',
             ])
             ->add('description', null, [
@@ -96,9 +73,6 @@ class ProductAdmin extends AbstractAdmin
             ])
             ->add('firm', null, [
                 'label' => 'Фирма',
-            ])
-            ->add('photos', null, [
-                'label' => 'Фото',
             ])
             ->add('colors', null, [
                 'label' => 'Цвета',
@@ -114,10 +88,7 @@ class ProductAdmin extends AbstractAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name', TextType::class, [
-                'label' => 'Название',
-            ])
-            ->add('vendorCode', TextType::class, [
+        $listMapper->addIdentifier('vendorCode', TextType::class, [
                 'label' => 'Артикул',
             ])
             ->add('description', TextType::class, [
@@ -131,9 +102,6 @@ class ProductAdmin extends AbstractAdmin
             ])
             ->add('firm', TextType::class, [
                 'label' => 'Фирма',
-            ])
-            ->add('photos', CollectionType::class, [
-                'label' => 'Фото',
             ])
             ->add('colors', TextType::class, [
                 'label' => 'Цвета',

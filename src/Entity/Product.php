@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
@@ -27,13 +28,6 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable = true)
-     */
-    protected $name;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=100)
      */
     protected $vendorCode;
@@ -44,15 +38,6 @@ class Product
      * @ORM\Column(type="text", nullable = true)
      */
     protected $description;
-
-    /**
-     * @var DateTime
-     *
-     * @Gedmo\Timestampable(on="create")
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    protected $createdAt;
 
     /**
      * @var DateTime
@@ -80,12 +65,16 @@ class Product
     protected $firm;
 
     /**
-     * @var Photo | null
-     *
-     * @ORM\OneToOne(targetEntity="Photo", mappedBy="product")
-     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id", nullable=true)
+     * @var File | null
      */
-    protected $photo;
+    protected $photoFile;
+
+    /**
+     * @var string | null
+     *
+     * @ORM\Column(type="text", name="photo_path", nullable = true)
+     */
+    protected $photoPath;
 
     /**
      * @var Collection | Color[]
@@ -105,9 +94,18 @@ class Product
      */
     private $deletedAt;
 
-    public function __construct()
+    /**
+     * @param File | null $file
+     */
+    public function __construct(File $file = null)
     {
         $this->colors = new ArrayCollection();
+        $this->photoFile = $file;
+
+        $this->upload(
+            dirname(__DIR__, 2),
+            !empty($this->firm) ? $this->firm->getName(): ''
+        );
     }
 
     /**
@@ -116,26 +114,6 @@ class Product
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @param string | null $name
-     *
-     * @return self
-     */
-    public function setName($name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string | null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
     }
 
     /**
@@ -176,26 +154,6 @@ class Product
     public function getDescription(): ?string
     {
         return $this->description;
-    }
-
-    /**
-     * @param DateTime $createdAt
-     *
-     * @return self
-     */
-    public function setCreatedAt(DateTime $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getCreatedAt(): DateTime
-    {
-        return $this->createdAt;
     }
 
     /**
@@ -259,22 +217,6 @@ class Product
     }
 
     /**
-     * @return self
-     */
-    public function setPhoto(?Photo $photo): self
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @return Photo | null
-     */
-    public function getPhoto(): ?Photo
-    {
-        return $this->photo;
-    }
-
-    /**
      * @param Color $color
      *
      * @return self
@@ -308,5 +250,95 @@ class Product
     public function getColors(): ?Collection
     {
         return $this->colors;
+    }
+
+    /**
+     * @param File $file
+     *
+     * @return self
+     */
+    public function setPhotoFile(File $file): self
+    {
+        $this->photoFile = $file;
+
+        $this->upload(
+            dirname(__DIR__, 2),
+            !empty($this->firm) ? $this->firm->getName(): ''
+        );
+
+        return $this;
+    }
+
+    /**
+     * @return File | null
+     */
+    public function getPhotoFile(): ?File
+    {
+        return !empty($this->photoPath) ? new File(dirname(__DIR__, 2).'/public'.$this->photoPath) : null;
+    }
+
+    /**
+     * @param string $fileName
+     * @param string $firmName
+     *
+     * @return self
+     */
+    protected function setPhotoPath(string $fileName, string $firmName = ''): self
+    {
+        $this->photoPath = !empty($firmName) ? "/images/products/$firmName/": '/images/products/';
+
+        $this->photoPath .= $fileName;
+
+        return $this;
+    }
+
+    /**
+     * @return string | null
+     */
+    protected function getPhotoPath(): ?string
+    {
+        return $this->photoPath;
+    }
+
+    /**
+     * @param string $basepath
+     *
+     * @return string
+     */
+    protected function getUploadRootDir(string $basepath): string
+    {
+        return $basepath.'/public';
+    }
+
+    /**
+     * @param string $firmName
+     *
+     * @return string
+     */
+    protected function getUploadDir(string $firmName = ''): string
+    {
+        return !empty($firmName) ? "/images/products/$firmName/": '/images/products/';
+    }
+
+    /**
+     * @param string $basepath
+     */
+    public function upload(string $basepath, string $firmName = ''): void
+    {
+        if (null === $this->photoFile) {
+            return;
+        }
+
+        if (null === $basepath) {
+            return;
+        }
+
+        $fileName = $this->photoFile->getClientOriginalName();
+
+        $this->setPhotoPath($fileName, $firmName);
+
+        $this->photoFile->move($this->getUploadRootDir($basepath).$this->getUploadDir(), $fileName);
+
+        $this->photoFile = null;
     }
 }

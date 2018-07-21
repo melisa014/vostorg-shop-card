@@ -28,16 +28,8 @@ class FirmAdmin extends AbstractAdmin
 //                'template' => 'adminPhoto.html.twig',
 //                'mapped' => false,
 //            ])
-            ->add('photo', CollectionType::class, [
-                'by_reference' => true,
+            ->add('photoFile', FileType::class, [
                 'label' => 'Фото',
-                'required' => false,
-            ], [
-                'edit' => 'inline',
-                'inline' => 'table',
-                'admin_code' => 'admin.photo',
-                'type_options' => ['delete' => true],
-                'btn_add' => 'Добавить фото',
             ]);
     }
 
@@ -59,9 +51,6 @@ class FirmAdmin extends AbstractAdmin
             ->add('description', null, [
                 'label' => 'Описание',
             ])
-//            ->add('pathToPhoto', null, [
-//                'label' => 'Фото',
-//            ])
             ->add('updatedAt', null, [
                 'label' => 'Обновлено',
             ]);
@@ -84,9 +73,6 @@ class FirmAdmin extends AbstractAdmin
             ])
             ->add('description', TextType::class, [
                 'label' => 'Описание',
-            ])
-            ->add('pathToPhoto', TextType::class, [
-                'label' => 'Фото',
             ]);
 //            ->add('updatedAt', DateTimeType::class, [
 //                'widget' => 'single_text',

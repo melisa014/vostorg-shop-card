@@ -1625,12 +1625,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/it-for-free/rusphp.git",
-                "reference": "505fbd35fa1874c4a4c45c4b83c0fb91884c015d"
+                "reference": "f164ef600a048bd6c266edbc0f6dc85b1a86d8d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/it-for-free/rusphp/zipball/505fbd35fa1874c4a4c45c4b83c0fb91884c015d",
-                "reference": "505fbd35fa1874c4a4c45c4b83c0fb91884c015d",
+                "url": "https://api.github.com/repos/it-for-free/rusphp/zipball/f164ef600a048bd6c266edbc0f6dc85b1a86d8d3",
+                "reference": "f164ef600a048bd6c266edbc0f6dc85b1a86d8d3",
                 "shasum": ""
             },
             "require": {
@@ -1662,7 +1662,7 @@
                 "ssh",
                 "table"
             ],
-            "time": "2018-07-15T13:17:26+00:00"
+            "time": "2018-07-20T16:30:03+00:00"
         },
         {
             "name": "jdorn/sql-formatter",

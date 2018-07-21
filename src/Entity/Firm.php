@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
@@ -46,23 +47,6 @@ class Firm
     protected $description;
 
     /**
-     * @var Photo
-     *
-     * @ORM\OneToOne(targetEntity="Photo", mappedBy="firm")
-     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
-     */
-    protected $photo;
-
-    /**
-     * @var DateTime
-     *
-     * @Gedmo\Timestampable(on="create")
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    protected $createdAt;
-
-    /**
      * @var DateTime
      *
      * @Gedmo\Timestampable(on="update")
@@ -85,9 +69,24 @@ class Firm
      */
     protected $products;
 
+    /**
+     * @var File | null
+     */
+    protected $photoFile;
+
+    /**
+     * @var string | null
+     *
+     * @ORM\Column(type="text", nullable = true)
+     */
+    protected $photoPath;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->photoFile = $file;
+
+        $this->upload(dirname(__DIR__, 2));
     }
 
     /**
@@ -167,46 +166,6 @@ class Firm
     }
 
     /**
-     * @param Photo $photo
-     *
-     * @return self
-     */
-    public function setPhoto(Photo $photo): self
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * @return string | null
-     */
-    public function getPhoto(): ?Photo
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @param DateTime $createdAt
-     *
-     * @return self
-     */
-    public function setCreatedAt(DateTime $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getCreatedAt(): ?DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /**
      * @param DateTime $updatedAt
      *
      * @return self
@@ -260,5 +219,86 @@ class Firm
     public function getProducts(): ?Collection
     {
         return $this->products;
+    }
+    /**
+     * @param File $file
+     *
+     * @return self
+     */
+    public function setPhotoFile(File $file): self
+    {
+        $this->photoFile = $file;
+
+        $this->upload(dirname(__DIR__, 2));
+
+        return $this;
+    }
+
+    /**
+     * @return File | null
+     */
+    public function getPhotoFile(): ?File
+    {
+        return !empty($this->photoPath) ? new File(dirname(__DIR__, 2).'/public'.$this->photoPath) : null;
+    }
+
+    /**
+     * @param string $fileName
+     *
+     * @return self
+     */
+    protected function setPhotoPath(string $fileName): self
+    {
+        $this->photoPath = '/images/mainPage/'.$fileName;
+
+        return $this;
+    }
+
+    /**
+     * @return string | null
+     */
+    protected function getPhotoPath(): ?string
+    {
+        return $this->photoPath;
+    }
+
+    /**
+     * @param string $basepath
+     *
+     * @return string
+     */
+    protected function getUploadRootDir(string $basepath): string
+    {
+        return $basepath.'/public';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUploadDir(): string
+    {
+        return '/images/mainPage/';
+    }
+
+    /**
+     * @param string $basepath
+     */
+    public function upload(string $basepath): void
+    {
+        if (null === $this->photoFile) {
+            return;
+        }
+
+        if (null === $basepath) {
+            return;
+        }
+
+        $fileName = $this->photoFile->getClientOriginalName();
+
+        $this->setPhotoPath($fileName);
+
+        $this->photoFile->move($this->getUploadRootDir($basepath).$this->getUploadDir(), $fileName);
+
+        $this->photoFile = null;
     }
 }
