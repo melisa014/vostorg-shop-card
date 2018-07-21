@@ -140,14 +140,14 @@ class Color
     {
         return !empty($this->photoPath) ? new File(dirname(__DIR__, 2).'/public'.$this->photoPath) : null;
     }
-    
+
     /**
      * @param string $fileName
      * @param string $firmName
      *
      * @return self
      */
-    protected function setPhotoPath(string $fileName, string $firmName = ''): self
+    public function setPhotoPath(string $fileName, string $firmName = ''): self
     {
         $this->photoPath = !empty($firmName) ? "/images/colors/$firmName/": '/images/colors/';
 
@@ -159,7 +159,7 @@ class Color
     /**
      * @return string | null
      */
-    protected function getPhotoPath(): ?string
+    public function getPhotoPath(): ?string
     {
         return $this->photoPath;
     }
@@ -169,7 +169,7 @@ class Color
      *
      * @return string
      */
-    protected function getUploadRootDir(string $basepath): string
+    public function getUploadRootDir(string $basepath): string
     {
         return $basepath.'/public';
     }
@@ -179,7 +179,7 @@ class Color
      *
      * @return string
      */
-    protected function getUploadDir(string $firmName = ''): string
+    public function getUploadDir(string $firmName = ''): string
     {
         return !empty($firmName) ? "/images/colors/$firmName/": '/images/colors/';
     }

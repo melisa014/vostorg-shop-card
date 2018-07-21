@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Sonata\AdminBundle\Form\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class FirmAdmin extends AbstractAdmin
 {

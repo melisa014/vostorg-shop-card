@@ -43,13 +43,6 @@ services:
             - { name: sonata.admin, manager_type: orm, label: Firm }
         public: true
         
-    admin.photo:
-        class: App\Admin\PhotoAdmin
-        arguments: [~, App\Entity\Photo, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Photo }
-        public: true
-        
     admin.color:
         class: App\Admin\ColorAdmin
         arguments: [~, App\Entity\Color, ~]

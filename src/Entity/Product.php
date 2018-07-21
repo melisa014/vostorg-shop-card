@@ -283,7 +283,7 @@ class Product
      *
      * @return self
      */
-    protected function setPhotoPath(string $fileName, string $firmName = ''): self
+    public function setPhotoPath(string $fileName, string $firmName = ''): self
     {
         $this->photoPath = !empty($firmName) ? "/images/products/$firmName/": '/images/products/';
 
@@ -295,7 +295,7 @@ class Product
     /**
      * @return string | null
      */
-    protected function getPhotoPath(): ?string
+    public function getPhotoPath(): ?string
     {
         return $this->photoPath;
     }
@@ -305,7 +305,7 @@ class Product
      *
      * @return string
      */
-    protected function getUploadRootDir(string $basepath): string
+    public function getUploadRootDir(string $basepath): string
     {
         return $basepath.'/public';
     }
@@ -315,7 +315,7 @@ class Product
      *
      * @return string
      */
-    protected function getUploadDir(string $firmName = ''): string
+    public function getUploadDir(string $firmName = ''): string
     {
         return !empty($firmName) ? "/images/products/$firmName/": '/images/products/';
     }
@@ -337,7 +337,7 @@ class Product
 
         $this->setPhotoPath($fileName, $firmName);
 
-        $this->photoFile->move($this->getUploadRootDir($basepath).$this->getUploadDir(), $fileName);
+        $this->photoFile->move($this->getUploadRootDir($basepath).$this->getUploadDir($firmName), $fileName);
 
         $this->photoFile = null;
     }

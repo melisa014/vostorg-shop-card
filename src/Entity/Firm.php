@@ -247,7 +247,7 @@ class Firm
      *
      * @return self
      */
-    protected function setPhotoPath(string $fileName): self
+    public function setPhotoPath(string $fileName): self
     {
         $this->photoPath = '/images/mainPage/'.$fileName;
 
@@ -257,7 +257,7 @@ class Firm
     /**
      * @return string | null
      */
-    protected function getPhotoPath(): ?string
+    public function getPhotoPath(): ?string
     {
         return $this->photoPath;
     }
@@ -267,7 +267,7 @@ class Firm
      *
      * @return string
      */
-    protected function getUploadRootDir(string $basepath): string
+    public function getUploadRootDir(string $basepath): string
     {
         return $basepath.'/public';
     }
@@ -275,7 +275,7 @@ class Firm
     /**
      * @return string
      */
-    protected function getUploadDir(): string
+    public function getUploadDir(): string
     {
         return '/images/mainPage/';
     }
