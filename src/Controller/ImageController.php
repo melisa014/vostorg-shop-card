@@ -12,15 +12,22 @@ use ItForFree\rusphp\File\Image\ImageResizer;
 class ImageController extends Controller
 {
     /**
-     * @Route("/image/{path}/{format}", name="image")
+     * @Route("/image", name="image")
      */
-    public function showAction(string $path, string $format)
+    public function showAction(Request $request)
+//    @Route("/image/{path}/{format}", name="image")
+//    public function showAction(string $path, string $format)
     {
         // ToDo: научиться передавать параметры из шаблона
 //        dump($path);
+//        dump($format);
 //        die();
+        dump($request->get('path'));
+        dump($request->get('format'));
+        die;
+
         ImageResizer::showInFormat($path, $format);
-        
+
 //        return new Response(Response::HTTP_OK);
     }
 }
