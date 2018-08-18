@@ -36,9 +36,7 @@
                                 <i class="fa fa-3x"></i>
                             </div>
                         </div>
-                        <img class="img-fluid" src="/image/{{ basePath }}{{firm.photoPath}}/400x300xSxCxP" alt="{{ firm.name }}">
-{#                        <img class="img-fluid" src="{{path('image', {'path': firm.photoPath, 'format': '400x300xSxCxP'})}}" alt="{{ firm.name }}">#}
-{#                        <img class="img-fluid" src="{{ firm.photoPath }}" alt="{{ firm.name }}">#}
+                        <img class="img-fluid" src="{{path('image', {'path': firm.photoPath, 'format': '400x300xSxCxP'})}}" alt="{{ firm.name }}">
                     </a>
                     <div class="portfolio-caption">
                         <h4>{{ firm.label }}</h4>
