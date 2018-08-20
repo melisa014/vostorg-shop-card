@@ -10,10 +10,23 @@ use ItForFree\rusphp\File\Image\ImageResizer;
 class ImageController extends Controller
 {
     /**
+     * @var string
+     */
+    private $rootImagesPath;
+
+    /**
+     * @param string $rootPath
+     */
+    public function __construct(string $rootPath)
+    {
+        $this->rootImagesPath = $rootPath.'/../public';
+    }
+
+    /**
      * @Route("/image", name="image")
      */
     public function showAction(Request $request)
     {
-        ImageResizer::showInFormat($request->get('path'), $request->get('format'));
+        ImageResizer::showInFormat($this->rootImagesPath.$request->get('path'), $request->get('format'));
     }
 }
