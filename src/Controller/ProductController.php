@@ -2,18 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Photo;
 use App\Entity\Product;
-use App\Form\ProductType;
 use App\Service\FirmGetter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-use Pagerfanta\Pagerfanta;
 
 class ProductController extends Controller
 {

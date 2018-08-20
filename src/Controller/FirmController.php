@@ -5,12 +5,8 @@ namespace App\Controller;
 use App\Entity\Firm;
 use App\Entity\Product;
 use App\Service\FirmGetter;
-use App\Form\FirmType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class FirmController extends Controller
