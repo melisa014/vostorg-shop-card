@@ -58,21 +58,21 @@
                                     <i class="fa fa-plus fa-3x"></i>
                                 </div>
                             </div>
-{#                            <img class="img-fluid" src="{{ product.photoPath }}" alt="{{ product.vendorCode }}">#}
-                            <img class="img-fluid" src="{{ product.photoPath }}" alt="{{ product.vendorCode }}">
+                            <img class="img-fluid" src="{{path('image', {'path': product.photoPath, 'format': '400x300xSxCxP'})}}" alt="{{ product.vendorCode }}">
                         </a>
                     {% endif %}
                     <div class="portfolio-caption">
                         <h4>{{ product.vendorCode }}</h4>
                         <p class="text-muted">{{ product.category }}</p>
+                        <ul >
+                            {% for color in product.colors %}
+                                <li class="list-inline-item">
+                                    <img class="fa" src="{{path('image', {'path': color.photoPath, 'format': '35x35'})}}" alt="{{color.label}}">
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
-                    <ul class="list-inline social-buttons">
-                        {% for color in product.colors %}
-                            <li class="list-inline-item">
-                                <img class="fa" src="{{color.photoPath}}" alt="{{color.label}}">
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    
                 </div>
             {% endfor %}
         </div>
