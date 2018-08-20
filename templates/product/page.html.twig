@@ -5,7 +5,7 @@
     <section class="bg-light" id="portfolio">
       <div class="container">
         <div class="row">
-            <p class="text-black">
+            <p class="text-muted">
                 <a href="{{path('homepage')}}">Главная</a>
                 >>
                 <a href="{{path('firm_page', {'firmId': product.firm.id})}}">{{ product.firm.label }}</a> 
@@ -14,12 +14,7 @@
             <p>
         </div>
         <div class="row">
-            <div class="col-lg-6 text-right">
-              <h2 class="section-heading text-uppercase">{{ product.vendorCode }}</h2>
-              <h3 class="section-subheading text-muted">{{ product.description }}</h3>
-            </div>
-            <div class="col-lg-6 text-left">
-{#            <div class="col-md-2 col-sm-6 text-left">#}
+            <div class="col-lg-6 text-left>
                 {% if firm.photoPath|default %}
                     {#<div class="portfolio-hover">
                         <div class="portfolio-hover-content">
@@ -28,17 +23,18 @@
                     </div>#}
                     <img class="img-fluid" src="{{path('image', {'path': product.photoPath, 'format': '400x400xSxCxP'})}}" alt="{{ product.vendorCode }}">
                 {% endif %}
-                <div class="portfolio-caption">
-                    <h4>{{ product.vendorCode }}</h4>
-                    <p class="text-muted">{{ product.category }}</p>
-                    <ul >
-                        {% for color in product.colors %}
-                            <li class="list-inline-item">
-                                <img class="fa" src="{{path('image', {'path': color.photoPath, 'format': '35x35'})}}" alt="{{color.label}}">
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+            </div>
+            <div class="col-lg-6 text-right">
+                <h2 class="text-uppercase">{{ product.vendorCode }}</h2>
+                <h4 class="text-muted">{{ product.category }}</h4>
+                <p class="text-muted">{{ product.description }}</p>
+                <ul >
+                    {% for color in product.colors %}
+                        <li class="list-inline-item">
+                            <img class="fa" src="{{path('image', {'path': color.photoPath, 'format': '35x35'})}}" alt="{{color.label}}">
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
       </div>
