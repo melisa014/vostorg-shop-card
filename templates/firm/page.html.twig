@@ -2,62 +2,27 @@
 
 {% block body %}
     
-    <!-- Версия с приближением фото -->
-    {#<div class="container gallery-container">
-        <h1>{{ firm.label }}</h1>
-
-        <div class="tz-gallery">
-            <div class="row">
-                
-                {% for product in products %}
-                    
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <div class="caption">
-                                <a class="lightbox" 
-                                    alt="{{ product.vendorCode }}" 
-                                    href="{{ path('product_page', {'productId': product.id}) }}">
-                                     {% for photo in product.photos %}
-                                         <img src="{{ photo.path }}">
-                                     {% endfor %}
-                                 </a>
-                            </div>
-                            <div class="caption">
-                                <a class="lightbox" 
-                               alt="{{ product.vendorCode }}" 
-                               href="{{ path('product_page', {'productId': product.id}) }}">
-                                    <h3>{{ product.vendorCode }}</h3>
-                                </a>
-                                <p>{{ product.category }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                {% endfor %}
-                
-            </div>
-        </div>
-    </div>#}
-                
-    
     <section class="bg-light" id="portfolio">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">{{ firm.label }}</h2>
-            <h3 class="section-subheading text-muted">{{ firm.description }}</h3>
-          </div>
+            <p class="text-justify"><a href="{{path('homepage')}}">Главная</a> >> {{ firm.label }}<p>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+              <h2 class="section-heading text-uppercase">{{ firm.label }}</h2>
+              <h3 class="section-subheading text-muted">{{ firm.description }}</h3>
+            </div>
         </div>
         <div class="row">
             {% for product in products %}
                 <div class="col-md-2 col-sm-6 portfolio-item">
                     {% if firm.photoPath|default %}
-                        <a class="portfolio-link" data-toggle="modal" href="/product/{{ product.id }}">
-                            <div class="portfolio-hover">
+                        <a class="portfolio-link" {#data-toggle="modal"#} href="/product/{{ product.id }}">
+                            {#<div class="portfolio-hover">
                                 <div class="portfolio-hover-content">
                                     <i class="fa fa-plus fa-3x"></i>
                                 </div>
-                            </div>
+                            </div>#}
                             <img class="img-fluid" src="{{path('image', {'path': product.photoPath, 'format': '400x300xSxCxP'})}}" alt="{{ product.vendorCode }}">
                         </a>
                     {% endif %}

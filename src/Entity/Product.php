@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
- * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="product")
  */
 class Product
