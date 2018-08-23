@@ -5,7 +5,7 @@
     <section class="bg-light" id="portfolio">
       <div class="container">
         <div class="row">
-            <p class="text-justify"><a href="{{path('homepage')}}">Главная</a> >> {{ firm.label }}<p>
+            <p class="text-muted"><a href="{{path('homepage')}}">Главная</a> >> {{ firm.label }}<p>
         </div>
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -17,7 +17,7 @@
             {% for product in products %}
                 <div class="col-md-2 col-sm-6 portfolio-item">
                     {% if firm.photoPath|default %}
-                        <a class="portfolio-link" {#data-toggle="modal"#} href="/product/{{ product.id }}">
+                        <a class="portfolio-link" href="/product/{{ product.id }}">
                             {#<div class="portfolio-hover">
                                 <div class="portfolio-hover-content">
                                     <i class="fa fa-plus fa-3x"></i>
