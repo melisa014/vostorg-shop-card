@@ -1807,12 +1807,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/it-for-free/rusphp.git",
-                "reference": "26906bd50570d735f3e3fa78c13d8060fd387d48"
+                "reference": "26c5f15e0d52af7bc6668061ec09402ab17c0e0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/it-for-free/rusphp/zipball/26906bd50570d735f3e3fa78c13d8060fd387d48",
-                "reference": "26906bd50570d735f3e3fa78c13d8060fd387d48",
+                "url": "https://api.github.com/repos/it-for-free/rusphp/zipball/26c5f15e0d52af7bc6668061ec09402ab17c0e0a",
+                "reference": "26c5f15e0d52af7bc6668061ec09402ab17c0e0a",
                 "shasum": ""
             },
             "require": {
@@ -1839,13 +1839,19 @@
             "homepage": "http://fkn.ktu10.com/?q=node/8592",
             "keywords": [
                 "archive",
+                "crop",
+                "email",
+                "email verify",
                 "html",
+                "image",
                 "memory",
                 "php",
+                "ram",
+                "resize",
                 "ssh",
                 "table"
             ],
-            "time": "2018-08-21T12:16:08+00:00"
+            "time": "2018-08-25T13:25:39+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
