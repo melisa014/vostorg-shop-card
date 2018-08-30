@@ -29,13 +29,13 @@
                     <div class="portfolio-caption">
                         <h4>{{ product.vendorCode }}</h4>
                         <p class="text-muted">{{ product.category }}</p>
-                        <ul >
+                        <div class="row">
                             {% for color in product.colors %}
-                                <li class="list-inline-item">
-                                    <img class="fa" src="{{path('image', {'path': color.photoPath, 'format': '35x35'})}}" alt="{{color.label}}">
-                                </li>
+                                <div class="list-inline-item col-md-3" title="Цвет в наличии: {{color.label}}">
+                                    <img class="fa" src="{{path('image', {'path': color.photoPath, 'format': '35x35'})}}">
+                                </div>
                             {% endfor %}
-                        </ul>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

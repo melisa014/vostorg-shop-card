@@ -26,7 +26,7 @@ h4,
 h5,
 h6 {
   font-weight: 700;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 section {
@@ -50,7 +50,11 @@ section h3.section-subheading {
 
 @media (min-width: 768px) {
   section {
-    padding: 150px 0;
+    padding: 50px 0;
+  }
+  
+  section:first-of-type {
+    padding-top: 150px;
   }
 }
 
@@ -105,6 +109,7 @@ img::-moz-selection {
   font-size: 12px;
   right: 0;
   padding: 13px;
+  padding-bottom: 50px;
   text-transform: uppercase;
   color: white;
   border: 0;
@@ -114,7 +119,7 @@ img::-moz-selection {
 
 #mainNav .navbar-brand {
   color: #fed136;
-  font-family: 'Kaushan Script', 'Helvetica Neue', Helvetica, Arial, cursive;
+  /*font-family: 'Kaushan Script', 'Helvetica Neue', Helvetica, Arial, cursive;*/
 }
 
 #mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
@@ -142,7 +147,7 @@ img::-moz-selection {
     -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
     transition: padding-top 0.3s, padding-bottom 0.3s;
     border: none;
-    background-color: transparent;
+    background-color: #2f72b6;
   }
   #mainNav .navbar-brand {
     font-size: 1.75em;
@@ -245,7 +250,7 @@ header.masthead .intro-text .intro-heading {
   -moz-transition: all ease 0.5s;
   transition: all ease 0.5s;
   opacity: 0;
-  background: rgba(254, 209, 54, 0.9);
+  background: rgba(249, 222, 128, 0.31);
 }
 
 #portfolio .portfolio-item .portfolio-link .portfolio-hover:hover {
