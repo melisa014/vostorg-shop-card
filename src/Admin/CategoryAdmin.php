@@ -23,16 +23,7 @@ class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('name', TextType::class)
-            ->add('label', TextType::class)
-            ->add('description', TextType::class)
-//            ->add('picture', null, [ // так вроде бы можно вывести текущее изображение
-//                'template' => 'adminPhoto.html.twig',
-//                'mapped' => false,
-//            ])
-            ->add('photoFile', FileType::class, [
-                'required' => false,
-                'label' => 'Фото',
-            ]);
+            ->add('label', TextType::class);
     }
 
     /**
@@ -49,12 +40,6 @@ class CategoryAdmin extends AbstractAdmin
             ])
             ->add('label', null, [
                 'label' => 'Название',
-            ])
-            ->add('description', null, [
-                'label' => 'Описание',
-            ])
-            ->add('updatedAt', null, [
-                'label' => 'Обновлено',
             ]);
     }
 
@@ -72,14 +57,6 @@ class CategoryAdmin extends AbstractAdmin
             ])
             ->add('label', TextType::class, [
                 'label' => 'Название',
-            ])
-            ->add('description', TextType::class, [
-                'label' => 'Описание',
             ]);
-//            ->add('updatedAt', DateTimeType::class, [
-//                'widget' => 'single_text',
-//                'html5' => false,
-//                'label' => 'Обновлено',
-//            ]);
     }
 }
