@@ -5,6 +5,7 @@ body {
 
 p {
   line-height: 1.75;
+  font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -31,12 +32,19 @@ h6 {
 
 section {
   padding: 100px 0;
+  background-color: #f8f9fa
 }
 
 section h2.section-heading {
   font-size: 40px;
   margin-top: 0;
   margin-bottom: 15px;
+}
+
+section h3.section-heading {
+  font-family: Arlekino;
+  margin-top: 0;
+  margin-bottom: 25px;
 }
 
 section h3.section-subheading {
@@ -101,6 +109,21 @@ img::-moz-selection {
   background: transparent;
 }
 
+@font-face {
+    font-family: Calligraph-Medium; /* Имя шрифта */
+    src: url(/vendor/font-awesome/fonts/Calligraph-Medium.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Arlekino; /* Имя шрифта */
+    src: url(/vendor/font-awesome/fonts/Arlekino.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Scriptorama; /* Имя шрифта */
+    src: url(/vendor/font-awesome/fonts/Scriptorama.ttf); /* Путь к файлу со шрифтом */
+}
+   
 #mainNav {
   background-color: #212529;
 }
@@ -119,7 +142,7 @@ img::-moz-selection {
 
 #mainNav .navbar-brand {
   color: #fed136;
-  /*font-family: 'Kaushan Script', 'Helvetica Neue', Helvetica, Arial, cursive;*/
+  font-family: Arlekino;
 }
 
 #mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
@@ -493,7 +516,8 @@ header.masthead .intro-text .intro-heading {
 }
 
 .timeline .timeline-heading h4.subheading {
-  text-transform: none;
+  /*text-transform: none;*/
+  font-family: Arlekino;
 }
 
 .timeline .timeline-body > ul,
@@ -597,7 +621,7 @@ header.masthead .intro-text .intro-heading {
 }
 
 section#contact {
-  background-color: #212529;
+  background-color: #041f60;
   background-image: url("../img/map-image.png");
   background-repeat: no-repeat;
   background-position: center;
