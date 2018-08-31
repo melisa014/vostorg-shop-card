@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Firm;
 use App\Entity\Product;
 use App\Service\FirmGetter;
@@ -29,18 +30,24 @@ class FirmController extends Controller
         if (empty($firm)) {
             throw new EntityNotFoundException("Фирма с id = $firmId не найдена");
         }
-
-        // Достаём все продукты фирмы и выводим на страницу
-        $products = $em->getRepository(Product::class)
-                ->findBy([
-                    'firm' => $firm,
-                ]);
-
+        
+        $categories = [];
+        
+        foreach ($em->getRepository(Category::class)->findAll() as $category) {
+            $categories[] = [
+                'label' => $category->getLabel(),
+                'products' => $em->getRepository(Product::class)
+                    ->findBy([
+                        'firm' => $firm,
+                        'category' => $category,
+                    ])
+            ];
+        }
+        
         return $this->render('firm/page.html.twig',[
             'firms' => $firmGetter->getAll(),
             'firm' => $firm,
-            'firmId' => $firm->getId(),
-            'products' => $products,
+            'categories' => $categories,
         ]);
     }
 }
