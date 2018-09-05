@@ -4,8 +4,8 @@ security:
         in_memory: 
             memory:
                 users:
-                    admin:
-                        password: $2y$12$KQB8QHL53j7K1diMfI9UqO0BNV.CDpkv8poQjlwbiQGsTmnbrSnbC
+                    karaculya:
+                        password: $2a$12$uNJmrc/HZys82Xavurmm/.Ve0qbEM2z8jeEopEK/krKs8VLl6m2oe
                         roles: 'ROLE_ADMIN'
                         
     encoders:
