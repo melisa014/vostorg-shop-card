@@ -65,16 +65,16 @@ class Product
     protected $firm;
 
     /**
-     * @var File | null
-     */
-    protected $photoFile;
-
-    /**
      * @var string | null
      *
      * @ORM\Column(type="text", name="photo_path", nullable = true)
      */
     protected $photoPath;
+    
+    /**
+     * @var File | null
+     */
+    protected $photoFile;
 
     /**
      * @var Collection | Color[]
@@ -100,12 +100,10 @@ class Product
     public function __construct(File $file = null)
     {
         $this->colors = new ArrayCollection();
-        $this->photoFile = $file;
 
-        $this->upload(
-            dirname(__DIR__, 2),
-            !empty($this->firm) ? $this->firm->getName(): ''
-        );
+        if (!empty($file)) {
+            $this->setPhotoFile($file);
+        }
     }
 
     /**
@@ -252,58 +250,6 @@ class Product
         return $this->colors;
     }
 
-    public function showPhoto()
-    {
-        return ImageResizer::resizeAsInFormat(
-            dirname(__DIR__, 2).'/public'.$this->getUploadDir(),
-            '160x105xSxCxP'
-        );
-    }
-
-    /**
-     * @param File $file
-     *
-     * @return self
-     */
-    public function setPhotoFile(File $file): self
-    {
-        $this->photoFile = $file;
-
-        $this->upload(
-            dirname(__DIR__, 2),
-            !empty($this->firm) ? $this->firm->getName(): ''
-        );
-
-        return $this;
-    }
-
-    /**
-     * @return File | null
-     */
-    public function getPhotoFile(): ?File
-    {
-        return null;
-        // ToDo: разобраться, как отображать файл при редактировании в форме
-//        return file_exists(dirname(__DIR__, 2).'/public'.$this->photoPath)
-//            ? new File(dirname(__DIR__, 2).'/public'.$this->photoPath)
-//            : null;
-    }
-
-    /**
-     * @param string $fileName
-     * @param string $firmName
-     *
-     * @return self
-     */
-    public function setPhotoPath(string $fileName, string $firmName = ''): self
-    {
-        $this->photoPath = !empty($firmName) ? "/images/products/$firmName/": '/images/products/';
-
-        $this->photoPath .= $fileName;
-
-        return $this;
-    }
-
     /**
      * @return string | null
      */
@@ -312,6 +258,23 @@ class Product
         return $this->photoPath;
     }
 
+    public function setPhotoFile(File $file)
+    {
+        new Photo($file, $this->getUploadRootDir(dirname(__DIR__, 2))
+            .$this->getUploadDir(!empty($this->firm) ? $this->firm->getName(): ''));
+
+        $this->photoPath = $this->getUploadDir(!empty($this->firm) ? $this->firm->getName(): '')
+            .$file->getClientOriginalName();
+    }
+    
+    public function getPhotoFile()
+    {
+        return null;
+        
+        // TODO: разобраться, как показывать фалй в форме редактирования, если он уже существует
+//        return fopen($this->getUploadRootDir(dirname(__DIR__, 2)).$this->photoPath, 'r');
+    }
+    
     /**
      * @param string $basepath
      *
@@ -330,27 +293,5 @@ class Product
     public function getUploadDir(string $firmName = ''): string
     {
         return !empty($firmName) ? "/images/products/$firmName/": '/images/products/';
-    }
-
-    /**
-     * @param string $basepath
-     */
-    public function upload(string $basepath, string $firmName = ''): void
-    {
-        if (null === $this->photoFile) {
-            return;
-        }
-
-        if (null === $basepath) {
-            return;
-        }
-
-        $fileName = $this->photoFile->getClientOriginalName();
-
-        $this->setPhotoPath($fileName, $firmName);
-
-        $this->photoFile->move($this->getUploadRootDir($basepath).$this->getUploadDir($firmName), $fileName);
-
-        $this->photoFile = null;
     }
 }

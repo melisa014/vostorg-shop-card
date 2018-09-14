@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
+use ItForFree\rusphp\File\Image\ImageResizer;
 
 /**
  * @ORM\Entity
@@ -41,26 +42,12 @@ class Photo
      */
     protected $path;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text", nullable = true)
-     */
-    protected $description;
-
-    /**
-     * @var Product | null
-     *
-     * @ORM\OneToOne(targetEntity="Product", inversedBy="photo")
-     */
-    protected $product;
-
-    /**
-     * @var Firm | null
-     *
-     * @ORM\OneToOne(targetEntity="Firm", inversedBy="photo")
-     */
-    protected $firm;
+    public function __construct(File $file = null, string $uploadRootDir)
+    {
+        $this->file = $file;
+        
+        $this->upload($uploadRootDir);
+    }
 
     /**
      * @return string
@@ -81,14 +68,6 @@ class Photo
     /**
      * @return string | null
      */
-    public function getPathToPhoto(): ?string
-    {
-        return $this->path.$this->name;
-    }
-
-    /**
-     * @return string | null
-     */
     public function getPath(): ?string
     {
         return null === $this->name ? null : $this->path;
@@ -103,130 +82,73 @@ class Photo
     }
 
     /**
-     * @param string $description
-     *
-     * @return self
-     */
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return string  | null
-     */
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param Product $product
-     *
-     * @return Photo
-     */
-    public function setProduct(Product $product): self
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    /**
-     * @return Product | null
-     */
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
-
-    /**
-     * @param Firm $firm
-     *
-     * @return self
-     */
-    public function setFirm(Firm $firm): self
-    {
-        $this->firm = $firm;
-
-        return $this;
-    }
-
-    /**
-     * @return Firm | null
-     */
-    public function getFirm(): ?Firm
-    {
-        return $this->firm;
-    }
-
-    /**
      * @param UploadedFile $file
      *
      * @return self
      */
-    public function setFile(UploadedFile $file = null): self
-    {
-        $this->file = $file;
-
-        return $this;
-    }
+//    public function setFile(UploadedFile $file = null): self
+//    {
+//        $this->file = $file;
+//
+//        return $this;
+//    }
 
     /**
      * @return UploadedFile | null
      */
-    public function getFile(): ?UploadedFile
-    {
-        return $this->file;
-    }
+//    public function getFile(): ?UploadedFile
+//    {
+//        return $this->file;
+//    }
+//
+//    /**
+//     * @param string $basepath
+//     *
+//     * @return string
+//     */
+//    protected function getUploadRootDir(string $basepath, string $entityName = '', string $firmName = ''): string
+//    {
+//        return $basepath.$this->getUploadDir($entityName, $firmName);
+//    }
+//
+//    /**
+//     * @param string $entityName
+//     * @param string $firmName
+//     *
+//     * @return string
+//     */
+//    protected function getUploadDir(string $entityName = '', string $firmName = ''): string
+//    {
+//        if ('firm' == $entityName) {
+//            return "/public/images/mainPage";
+//        } elseif ('product' == $entityName) {
+//            return "/public/images/products/$firmName";
+//        } elseif ('color' == $entityName) {
+//            return "/public/images/colors";
+//        } else {
+//            return "/public/images";
+//        }
+//    }
 
     /**
-     * @param string $basepath
-     *
-     * @return string
+     * @param string $uploadRootDir
      */
-    protected function getUploadRootDir(string $basepath, string $entityName = '', string $firmName = ''): string
-    {
-        return $basepath.$this->getUploadDir($entityName, $firmName);
-    }
-
-    /**
-     * @param string $entityName
-     * @param string $firmName
-     *
-     * @return string
-     */
-    protected function getUploadDir(string $entityName = '', string $firmName = ''): string
-    {
-        if ('firm' == $entityName) {
-            return "/public/images/mainPage";
-        } elseif ('products' == $entityName) {
-            return "/public/images/products/$firmName";
-        } else {
-            return "/public/images";
-        }
-    }
-
-    /**
-     * @param string $basepath
-     */
-    public function upload(string $basepath, string $entityName = '', string $firmName = ''): void
+    public function upload(string $uploadRootDir): void
     {
         if (null === $this->file) {
             return;
         }
 
-        if (null === $basepath) {
+        if (null == $uploadRootDir) {
             return;
         }
-
-        $this->file->move($this->getUploadRootDir($basepath, $entityName, $firmName), $this->file->getClientOriginalName());
-
-        $this->name = $this->file->getClientOriginalName();
-        $this->path = $this->getUploadDir($entityName, $firmName);
-
+        
+        $fileName = $this->file->getClientOriginalName();
+        
+        $this->file->move($uploadRootDir, $fileName);
+        
+        ImageResizer::resize($uploadRootDir.$fileName, 1300, 731);
+        
         $this->file = null;
     }
 }

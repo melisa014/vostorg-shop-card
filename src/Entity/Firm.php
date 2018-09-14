@@ -222,14 +222,6 @@ class Firm
         return $this->products;
     }
 
-    public function showPhoto()
-    {
-        return ImageResizer::resizeAsInFormat(
-            dirname(__DIR__, 2).'/public'.$this->getUploadDir(),
-            '350x230xSxCxP'
-        );
-    }
-
     /**
      * @param File $file
      *
