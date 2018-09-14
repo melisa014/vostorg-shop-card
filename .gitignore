@@ -28,5 +28,5 @@
 !/public/images/products/garun/.gitkeep
 /public/images/products/premium/*
 !/public/images/products/premium/.gitkeep
-/public/images/products/transformer/*
-!/public/images/products/transformer/.gitkeep
+/public/images/products/smarty/*
+!/public/images/products/smarty/.gitkeep
