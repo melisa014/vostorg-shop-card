@@ -55,9 +55,9 @@ class Color
      */
     public function __construct(File $file = null)
     {
-        $this->photoFile = $file;
-
-        $this->upload(dirname(__DIR__, 2));
+        if (!empty($file)) {
+            $this->setPhotoFile($file);
+        }
     }
 
     /**
@@ -116,48 +116,15 @@ class Color
         return $this->updatedAt;
     }
 
-    /**
-     * @param File $file
-     *
-     * @return self
+   /**
+     * @param File | null $file
      */
-    public function setPhotoFile(File $file): self
+    public function setPhotoFile(File $file)
     {
-        $this->photoFile = $file;
+        new Photo($file, $this->getUploadRootDir(dirname(__DIR__, 2))
+            .$this->getUploadDir());
 
-        $this->upload(
-            dirname(__DIR__, 2),
-            !empty($this->firm) ? $this->firm->getName(): ''
-        );
-
-        return $this;
-    }
-
-    /**
-     * @return File | null
-     */
-    public function getPhotoFile(): ?File
-    {
-        return null;
-        // ToDo: разобраться, как отображать файл при редактировании в форме
-//        return file_exists(dirname(__DIR__, 2).'/public'.$this->photoPath)
-//            ? new File(dirname(__DIR__, 2).'/public'.$this->photoPath)
-//            : null;
-    }
-
-    /**
-     * @param string $fileName
-     * @param string $firmName
-     *
-     * @return self
-     */
-    public function setPhotoPath(string $fileName, string $firmName = ''): self
-    {
-        $this->photoPath = !empty($firmName) ? "/images/colors/$firmName/": '/images/colors/';
-
-        $this->photoPath .= $fileName;
-
-        return $this;
+        $this->photoPath = $this->getUploadDir().$file->getClientOriginalName();
     }
 
     /**
@@ -167,7 +134,15 @@ class Color
     {
         return $this->photoPath;
     }
-
+    
+    public function getPhotoFile()
+    {
+        return null;
+        
+        // TODO: разобраться, как показывать фалй в форме редактирования, если он уже существует
+//        return fopen($this->getUploadRootDir(dirname(__DIR__, 2)).$this->photoPath, 'r');
+    }
+    
     /**
      * @param string $basepath
      *
@@ -186,27 +161,5 @@ class Color
     public function getUploadDir(string $firmName = ''): string
     {
         return !empty($firmName) ? "/images/colors/$firmName/": '/images/colors/';
-    }
-
-    /**
-     * @param string $basepath
-     */
-    public function upload(string $basepath, string $firmName = ''): void
-    {
-        if (null === $this->photoFile) {
-            return;
-        }
-
-        if (null === $basepath) {
-            return;
-        }
-
-        $fileName = $this->photoFile->getClientOriginalName();
-
-        $this->setPhotoPath($fileName, $firmName);
-
-        $this->photoFile->move($this->getUploadRootDir($basepath).$this->getUploadDir(), $fileName);
-
-        $this->photoFile = null;
     }
 }

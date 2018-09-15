@@ -95,12 +95,12 @@ class Product
     private $deletedAt;
 
     /**
-     * @param File | null $file
+     * @param File | null  $file
      */
     public function __construct(File $file = null)
     {
         $this->colors = new ArrayCollection();
-
+        
         if (!empty($file)) {
             $this->setPhotoFile($file);
         }
@@ -258,6 +258,9 @@ class Product
         return $this->photoPath;
     }
 
+    /**
+     * @param File | null $file
+     */
     public function setPhotoFile(File $file)
     {
         new Photo($file, $this->getUploadRootDir(dirname(__DIR__, 2))

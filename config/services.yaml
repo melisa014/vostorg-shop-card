@@ -40,26 +40,26 @@ services:
         class: App\Admin\ProductAdmin
         arguments: [~, App\Entity\Product, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Product }
+            - { name: sonata.admin, manager_type: orm, label: Товар }
         public: true
     
     admin.firm:
         class: App\Admin\FirmAdmin
         arguments: [~, App\Entity\Firm, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Firm }
+            - { name: sonata.admin, manager_type: orm, label: Фирма }
         public: true
         
     admin.color:
         class: App\Admin\ColorAdmin
         arguments: [~, App\Entity\Color, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Color }
+            - { name: sonata.admin, manager_type: orm, label: Цвет }
         public: true
     
     admin.category:
         class: App\Admin\CategoryAdmin
         arguments: [~, App\Entity\Category, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Category }
+            - { name: sonata.admin, manager_type: orm, label: Категория }
         public: true
