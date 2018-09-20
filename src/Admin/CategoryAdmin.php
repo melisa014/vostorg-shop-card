@@ -1,4 +1,4 @@
-<?php
+<?php //
 
 namespace App\Admin;
 
@@ -58,6 +58,7 @@ class CategoryAdmin extends AbstractAdmin
     {
         $listMapper->addIdentifier('name', TextType::class, [
                 'label' => 'Идентификатор',
+                'cass' => 'sfvsef',
             ])
             ->add('label', TextType::class, [
                 'label' => 'Название',
