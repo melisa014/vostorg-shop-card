@@ -134,15 +134,15 @@ class Color
     {
         return $this->photoPath;
     }
-    
+
     public function getPhotoFile()
     {
         return null;
-        
+
         // TODO: разобраться, как показывать фалй в форме редактирования, если он уже существует
 //        return fopen($this->getUploadRootDir(dirname(__DIR__, 2)).$this->photoPath, 'r');
     }
-    
+
     /**
      * @param string $basepath
      *

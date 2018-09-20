@@ -22,9 +22,15 @@ class FirmAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('name', TextType::class)
-            ->add('label', TextType::class)
-            ->add('description', TextType::class)
+        $formMapper->add('name', TextType::class, [
+                'label' => 'Идентификатор',
+            ])
+            ->add('label', TextType::class, [
+                'label' => 'Название',
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Описание',
+            ])
 //            ->add('picture', null, [ // так вроде бы можно вывести текущее изображение
 //                'template' => 'adminPhoto.html.twig',
 //                'mapped' => false,

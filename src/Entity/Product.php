@@ -26,14 +26,14 @@ class Product
     protected $id;
 
     /**
-     * @var string
+     * @var string | null
      *
      * @ORM\Column(type="string", length=100)
      */
     protected $vendorCode;
 
     /**
-     * @var string
+     * @var string | null
      *
      * @ORM\Column(type="text", nullable = true)
      */
@@ -70,7 +70,7 @@ class Product
      * @ORM\Column(type="text", name="photo_path", nullable = true)
      */
     protected $photoPath;
-    
+
     /**
      * @var File | null
      */
@@ -100,7 +100,7 @@ class Product
     public function __construct(File $file = null)
     {
         $this->colors = new ArrayCollection();
-        
+
         if (!empty($file)) {
             $this->setPhotoFile($file);
         }
@@ -269,15 +269,15 @@ class Product
         $this->photoPath = $this->getUploadDir(!empty($this->firm) ? $this->firm->getName(): '')
             .$file->getClientOriginalName();
     }
-    
+
     public function getPhotoFile()
     {
         return null;
-        
+
         // TODO: разобраться, как показывать фалй в форме редактирования, если он уже существует
 //        return fopen($this->getUploadRootDir(dirname(__DIR__, 2)).$this->photoPath, 'r');
     }
-    
+
     /**
      * @param string $basepath
      *

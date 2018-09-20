@@ -24,14 +24,14 @@ class Category
     protected $id;
 
     /**
-     * @var string
+     * @var string | null
      *
      * @ORM\Column(type="string")
      */
     protected $name;
 
     /**
-     * @var string
+     * @var string | null
      *
      * @ORM\Column(type="string")
      */
@@ -40,7 +40,7 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $description;
 
@@ -103,9 +103,9 @@ class Category
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -123,9 +123,9 @@ class Category
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getLabel(): string
+    public function getLabel(): ?string
     {
         return $this->label;
     }

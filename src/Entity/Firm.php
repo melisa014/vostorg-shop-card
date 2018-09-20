@@ -27,23 +27,23 @@ class Firm
     protected $id;
 
     /**
-     * @var string
+     * @var string | null
      *
      * @ORM\Column(type="string")
      */
     protected $name;
 
     /**
-     * @var string
+     * @var string | null
      *
      * @ORM\Column(type="string")
      */
     protected $label;
 
     /**
-     * @var string
+     * @var string | null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $description;
 
@@ -85,7 +85,7 @@ class Firm
     public function __construct(File $file = null)
     {
         $this->products = new ArrayCollection();
-        
+
         if (!empty($file)) {
             $this->setPhotoFile($file);
         }
@@ -241,15 +241,15 @@ class Firm
     {
         return $this->photoPath;
     }
-    
+
     public function getPhotoFile()
     {
         return null;
-        
+
         // TODO: разобраться, как показывать фалй в форме редактирования, если он уже существует
 //        return fopen($this->getUploadRootDir(dirname(__DIR__, 2)).$this->photoPath, 'r');
     }
-    
+
     /**
      * @param string $basepath
      *

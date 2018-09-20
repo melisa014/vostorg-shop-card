@@ -22,8 +22,12 @@ class CategoryAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('name', TextType::class)
-            ->add('label', TextType::class);
+        $formMapper->add('name', TextType::class, [
+                'label' => 'Идентификатор',
+            ])
+            ->add('label', TextType::class, [
+                'label' => 'Название',
+            ]);
     }
 
     /**
