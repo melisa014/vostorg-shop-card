@@ -4,6 +4,7 @@ namespace App\ArgumentResolver;
 
 use App\DTO\FeedbackData;
 use App\Validation\FeedbackValidator;
+use App\Exception\ValidationException;
 use Exception;
 use Generator;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,6 +59,7 @@ class FeedbackDataResolver implements ArgumentValueResolverInterface
             'name' => $name,
         ]);
 
+        // TODO: Сделать шаблон для вывода ошибок пользователю и обработчик эксепшенов с шаблоном
         if (!empty($errors)) {
             throw new ValidationException(json_encode($errors, 128 | 256));
         }

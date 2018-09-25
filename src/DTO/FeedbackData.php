@@ -31,10 +31,10 @@ class FeedbackData
      * @param string | null $name
      */
     public function __construct(
-        PhoneNumber $phone,
+        string $phone,
         string $message,
-        ?Email $email,
-        ?string $name,
+        ?string $email,
+        ?string $name
     ) {
         $this->phone = $phone;
         $this->message = $message;
@@ -43,9 +43,9 @@ class FeedbackData
     }
 
     /**
-     * @return PhoneNumber
+     * @return string
      */
-    public function getPhone(): PhoneNumber
+    public function getPhone(): string
     {
         return $this->phone;
     }
@@ -59,9 +59,9 @@ class FeedbackData
     }
 
     /**
-     * @return Email | null
+     * @return string | null
      */
-    public function getEmail(): ?Email
+    public function getEmail(): ?string
     {
         return $this->email;
     }

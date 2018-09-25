@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\DTO\FeedbackData;
-use Swift_Attachment;
+use App\Service\FirmGetter;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,15 +30,17 @@ class FeedbackController extends Controller
      *
      * @param FeedbackData $feedbackData
      * @param string       $adminEmail
+     * @param FirmGetter   $firmGetter
      *
      * @return Response
      */
-    private function sendFeedbackMail(FeedbackData $feedbackData, string $adminEmail): Response
+    public function sendFeedbackMail(FeedbackData $feedbackData, string $adminEmail, FirmGetter $firmGetter): Response
     {
         $email = $feedbackData->getEmail();
         $name = $feedbackData->getName();
 
-        $mail = (new Swift_Message('Webbankir feedback'))
+        $mail = $this->mailer->send(
+            (new Swift_Message('Webbankir feedback'))
             ->setFrom($this->getParameter('senderEmail'))
             ->setTo($adminEmail)
             ->setBody(
@@ -46,10 +48,13 @@ class FeedbackController extends Controller
                 "Телефон: {$feedbackData->getPhone()}\n" .
                 "Имя: $name\n" .
                 "Текст: {$feedbackData->getMessage()}"
-            );
+            )
+        );
 
-        $this->mailer->send($mail);
-
-        return new Response();
+        return $this->render('default/index.html.twig', [
+            'feedback_sent' => true,
+            'firms' => $firmGetter->getAll(),
+            'basePath' => $this->get('kernel')->getRootDir()
+        ]);
     }
 }

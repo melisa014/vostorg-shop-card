@@ -56,6 +56,17 @@ section h3.section-subheading {
   font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+section h3.section-subheading.yellow {
+  color: #FFCC00;
+  font-style: inherit;
+}
+
+section h3.section-subheading.success.uppercase {
+  color: #5cb85c;
+  font-style: inherit;
+  text-align: inherit;
+}
+
 @media (min-width: 768px) {
   section {
     padding: 50px 0;
