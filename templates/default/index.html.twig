@@ -147,10 +147,12 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-12">
-            {% if true == feedback_sent|default %}
-                <div class="section-subheading success uppercase">Ваше сообщение отправлено</div>
+            {% if feedback is defined%}
+                <div class="col-lg-12 text-center">
+                    <div class="success uppercase">Ваше сообщение отправлено</div>
+                </div>
             {% endif %}
+          <div class="col-lg-12">
             <form id="contactForm" name="contactForm" action="{{path('feedback')}}" method="post" novalidate>
               <div class="row">
                 <div class="col-md-6">

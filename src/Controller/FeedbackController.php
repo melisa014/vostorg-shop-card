@@ -51,8 +51,10 @@ class FeedbackController extends Controller
             )
         );
 
+        // TODO: сообщение отправляется, но не приходит на мейл
+
         return $this->render('default/index.html.twig', [
-            'feedback_sent' => true,
+            'feedback' => 'sent',
             'firms' => $firmGetter->getAll(),
             'basePath' => $this->get('kernel')->getRootDir()
         ]);

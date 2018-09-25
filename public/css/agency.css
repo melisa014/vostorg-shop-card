@@ -61,10 +61,11 @@ section h3.section-subheading.yellow {
   font-style: inherit;
 }
 
-section h3.section-subheading.success.uppercase {
+section div.success.uppercase {
   color: #5cb85c;
-  font-style: inherit;
-  text-align: inherit;
+  font-weight: bolder;
+  margin-bottom: 25px;
+  text-transform: uppercase;
 }
 
 @media (min-width: 768px) {
