@@ -5,7 +5,6 @@ parameters:
     photo_directory: '/images/products'
     firm_photo_directory: '/images/mainPage'
     adminEmail: '%env(ADMIN_EMAIL)%'
-    senderEmail: '%env(SENDER_EMAIL)%'
     rootPath: '%kernel.root_dir%'
 
 services:
@@ -18,7 +17,6 @@ services:
                             # The best practice is to be explicit about your dependencies anyway.
         bind: 
             $adminEmail: '%adminEmail%'
-            $senderEmail: '%senderEmail%'
             $rootPath: '%kernel.root_dir%'
 
     # makes classes in src/ available to be used as services

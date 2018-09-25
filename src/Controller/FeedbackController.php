@@ -2,47 +2,54 @@
 
 namespace App\Controller;
 
-use App\Validation\FeedbackValidator;
-use App\Service\FeedbackMailSender;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use App\DTO\FeedbackData;
+use Swift_Attachment;
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Exception\ValidatorException;
+use Symfony\Component\Routing\Annotation\Route;
 
 class FeedbackController extends Controller
 {
     /**
-     * @Route("/feedback", name="feedback")
+     * @var Swift_Mailer
+     */
+    private $mailer;
+
+    /**
+     * @param Swift_Mailer $mailer
+     */
+    public function __construct(Swift_Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
+    /**
+     * @Route("/feedback", name="feedback", methods={"POST"})
      *
-     * @Method("POST")
-     *
-     * @param Request            $request
-     * @param FeedbackMailSender $feedbackMailSender
+     * @param FeedbackData $feedbackData
+     * @param string       $adminEmail
      *
      * @return Response
-     *
-     * @throws ValidatorException
      */
-    public function indexAction(Request $request, FeedbackMailSender $feedbackMailSender): Response
+    private function sendFeedbackMail(FeedbackData $feedbackData, string $adminEmail): Response
     {
-        // Валидируем данные, введённые пользователем
-        $errors = (new FeedbackValidator())->validate($request->request->all());
+        $email = $feedbackData->getEmail();
+        $name = $feedbackData->getName();
 
-        if (!empty($errors)) {
-            throw new ValidatorException('Введённые данные некорректны: '.json_encode($errors));
-        }
+        $mail = (new Swift_Message('Webbankir feedback'))
+            ->setFrom($this->getParameter('senderEmail'))
+            ->setTo($adminEmail)
+            ->setBody(
+                "Email: $email\n" .
+                "Телефон: {$feedbackData->getPhone()}\n" .
+                "Имя: $name\n" .
+                "Текст: {$feedbackData->getMessage()}"
+            );
 
-        $feedbackMailSender->sendFeedback(
-            $request->get('name'),
-            $request->get('email'),
-            $request->get('phone'),
-            $request->get('message')
-        );
+        $this->mailer->send($mail);
 
-        return $this->redirectToRoute('homepage', [
-            'feedback' => 'sent',
-        ]);
+        return new Response();
     }
 }

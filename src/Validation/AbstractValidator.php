@@ -3,7 +3,7 @@
 namespace App\Validation;
 
 use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractValidator
@@ -14,19 +14,26 @@ abstract class AbstractValidator
     private $validator;
 
     /**
-     *
+     * @param ValidatorInterface $validator
      */
-    public function __construct()
+    public function __construct(ValidatorInterface $validator)
     {
-        $this->validator = Validation::createValidator();
+        $this->validator = $validator;
     }
 
     /**
      * Возвращает правила валидации
      *
-     * @return Collection
+     * @return array
      */
-    abstract protected function getConstraint(): Collection;
+    abstract protected function getConstraints(): array;
+
+    /**
+     * Возвращает список необязательных полей
+     *
+     * @return array
+     */
+    abstract protected function getOptionalFields(): array;
 
     /**
      * Валидирует данные и возвращает массив с ошибками (или пустой массив, если ошибок нет)
@@ -37,9 +44,25 @@ abstract class AbstractValidator
      */
     public function validate(array $requestFields): array
     {
+        // Удаление правил валидации для необязательных полей, которые не пришли
+        $constraints = array_filter(
+            $this->getConstraints(),
+            function (string $fieldName) use ($requestFields): bool {
+                if (!in_array($fieldName, $this->getOptionalFields())) {
+                    return true;
+                }
+
+                return key_exists($fieldName, $requestFields);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+
         $errors = [];
 
-        foreach ($this->validator->validate($requestFields, $this->getConstraint()) as $violation){
+        /**
+         * @var ConstraintViolation $violation
+         */
+        foreach ($this->validator->validate($requestFields, new Collection($constraints)) as $violation) {
             $field = preg_replace(['/\]\[/', '/\[|\]/'], ['.', ''], $violation->getPropertyPath());
             $errors[$field] = $violation->getMessage();
         }

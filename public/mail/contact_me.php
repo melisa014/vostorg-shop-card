@@ -21,6 +21,8 @@ $email_subject = "Обратная связь Салон Восторг:  $name"
 $email_body = "Новое сообщение из формы обратной связи.\n\n"."Детали:\n\nИмя: $name\n\nEmail: $email_address\n\nТелефон: $phone\n\nСообщение:\n$message";
 $headers = "From: jul_ungoliant@mail.ru\n"; // This is the email address the generated message will be from. We recommend using something like noreply@yourdomain.com.
 $headers .= "Reply-To: $email_address";
-mail($to,$email_subject,$email_body,$headers);
+$mail = mail($to,$email_subject,$email_body,$headers);
+dump($mail);
+die();
 return true;
 ?>

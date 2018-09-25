@@ -3,67 +3,83 @@
 namespace App\Validation;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Collection;
 
 class FeedbackValidator extends AbstractValidator
 {
     /**
      * Возвращает список полей с правилами валидации
      *
-     * @return Collection
+     * @return array
      */
-    protected function getConstraint(): Collection
+    protected function getConstraints(): array
     {
-        return new Collection([
+        return [
+            'phone' => $this->getPhoneNumberRules(),
+            'message' => $this->getMessageRules(),
             'name' => $this->getNameRules(),
-            'email' => $this->getNameRules(),
-            'phone' => $this->getPhoneRules(),
-            'message' => $this->getNameRules(),
-            'route' => $this->getNameRules(),
-        ]);
+            'email' => $this->getEmailRules(),
+        ];
     }
 
     /**
-     * Возвращает текст сообщения об ошибке не заполненого поля
-     *
-     * @return string
+     * @return array
      */
-    private function getMessageForNotBlank(): string
+    protected function getOptionalFields(): array
     {
-        return 'Поле обязательно к заполнению';
+        return [
+            'name',
+            'email',
+        ];
     }
 
     /**
-     * Возвращает правила валидации для имени пользователя
+     * Возвращает правила валидации номера телефона
      *
      * @return array
      */
-    private function getNameRules(): array
+    private function getPhoneNumberRules(): array
     {
         return [
             new Assert\NotBlank([
-                'message' => $this->getMessageForNotBlank(),
+                'message' => 'Поле обязательно к заполнению'
             ]),
-            new Assert\Type([
-                'type' => "string",
+            new Assert\Regex([
+                'pattern' => '/^\d{11}$/',
+                'message' => 'Номер телефона должен состоять из 11 цифр',
+            ])
+        ];
+    }
+
+    /**
+     * Возвращает правила валидации для e-mail
+     *
+     * @return array
+     */
+    private function getEmailRules(): array
+    {
+        return [
+            new Assert\Email([
+                'message' => 'Недопустимое значение e-mail',
             ]),
         ];
     }
 
     /**
-     * Возвращает правила валидации для телефона пользователя
-     *
      * @return array
      */
-    private function getPhoneRules(): array
+    private function getNameRules(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    private function getMessageRules(): array
     {
         return [
             new Assert\NotBlank([
-                'message' => $this->getMessageForNotBlank(),
-            ]),
-            new Assert\Regex([
-                'pattern' => "/^\+7[0-9]{10}$/x",
-                'message' => 'Введите номер телефона в формате +79876543210',
+                'message' => 'Поле обязательно к заполнению'
             ]),
         ];
     }
