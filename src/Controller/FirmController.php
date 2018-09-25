@@ -36,7 +36,8 @@ class FirmController extends Controller
         if ('garun' == $firm->getName()) {
             $pdfFilename = 'garun.pdf';
 
-            $this->showGarunCatalog($pdfFilename, "$rootPath/../public/catalog/$pdfFilename");
+
+            return $this->showGarunCatalog($pdfFilename, "$rootPath/../public/catalog/$pdfFilename");
         }
 
         $categories = [];
