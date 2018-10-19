@@ -40,7 +40,7 @@ class FeedbackController extends Controller
         $name = $feedbackData->getName();
 
         $mail = $this->mailer->send(
-            (new Swift_Message('Webbankir feedback'))
+            (new Swift_Message('Восторг почта'))
             ->setFrom($this->getParameter('senderEmail'))
             ->setTo($adminEmail)
             ->setBody(
@@ -50,8 +50,6 @@ class FeedbackController extends Controller
                 "Текст: {$feedbackData->getMessage()}"
             )
         );
-
-        // TODO: сообщение отправляется, но не приходит на мейл
 
         return $this->render('default/index.html.twig', [
             'feedback' => 'sent',
