@@ -63,28 +63,6 @@ class FirmController extends Controller
     }
 
     /**
-     * @Route("/firm/garun", name="show_garun_page")
-     * @param string $rootPath
-     *
-     * @return BinaryFileResponse
-     */
-//    public function showGarunCatalog(string $rootPath, string $pdfFilename, string $pathToFile)
-//    {
-//        $pdfFilename = 'garun.pdf';
-//        $pathToFile = "$rootPath/../public/catalog/$pdfFilename";
-//
-//        $response = new BinaryFileResponse($pathToFile);
-//
-//        $response->headers->set('Content-Type', 'application/pdf');
-//        $response->setContentDisposition(
-//           ResponseHeaderBag::DISPOSITION_INLINE, //use ResponseHeaderBag::DISPOSITION_ATTACHMENT to save as an attachement
-//           $pdfFilename
-//        );
-//
-//        return $response;
-//    }
-
-    /**
      * @Route("/firm/garun/catalog", name="open_garun_catalog")
      *
      * @param string $rootPath

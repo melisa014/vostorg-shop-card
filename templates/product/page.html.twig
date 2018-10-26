@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% set pageDescription =  product.description %}
+{#{% set pageKeywords =  product.keywords %}#}
+
 {% block body %}
     
     <section class="bg-light" id="portfolio">
@@ -15,14 +18,7 @@
         </div>
         <div class="row">
             <div class="col-lg-6 text-left">
-{#                {% if firm.photoPath|default %}#}
-                    {#<div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fa fa-plus fa-3x"></i>
-                        </div>
-                    </div>#}
-                    <img class="img-fluid" src="{{path('image', {'path': product.photoPath, 'format': '400x300xS'})}}" alt="{{ product.vendorCode }}">
-{#                {% endif %}#}
+                <img class="img-fluid" src="{{path('image', {'path': product.photoPath, 'format': '400x300xS'})}}" alt="{{ product.vendorCode }}">
             </div>
             <div class="col-lg-6 text-right">
                 <h2 class="text-uppercase">{{ product.vendorCode }}</h2>
