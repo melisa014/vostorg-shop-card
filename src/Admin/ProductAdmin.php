@@ -9,12 +9,8 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Sonata\AdminBundle\Form\Type\CollectionType;
-use Sonata\AdminBundle\Form\Type\ModelListType;
 
 class ProductAdmin extends AbstractAdmin
 {
@@ -30,10 +26,6 @@ class ProductAdmin extends AbstractAdmin
         $formMapper->add('vendorCode', TextType::class, [
                 'label' => 'Артикул',
             ])
-            ->add('description', TextType::class, [
-                'required' => false,
-                'label' => 'Описание',
-            ])
             ->add('category', null, [
                 'label' => 'Категория',
                 'class' => Category::class,
@@ -41,6 +33,15 @@ class ProductAdmin extends AbstractAdmin
             ->add('firm', null, [
                 'label' => 'Фирма',
                 'class' => Firm::class,
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Описание продукта',
+            ])
+            ->add('pageDescription', TextType::class, [
+                'label' => 'Описание страницы в поисковике',
+            ])
+            ->add('keywords', TextType::class, [
+                'label' => 'Ключевые слова',
             ])
             ->add('photoFile', FileType::class, [
                 'required' => false,

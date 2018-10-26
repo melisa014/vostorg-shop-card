@@ -7,8 +7,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Sonata\AdminBundle\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class FirmAdmin extends AbstractAdmin
@@ -29,7 +27,13 @@ class FirmAdmin extends AbstractAdmin
                 'label' => 'Название',
             ])
             ->add('description', TextType::class, [
-                'label' => 'Описание',
+                'label' => 'Описание фирмы',
+            ])
+            ->add('pageDescription', TextType::class, [
+                'label' => 'Описание страницы в поисковике',
+            ])
+            ->add('keywords', TextType::class, [
+                'label' => 'Ключевые слова',
             ])
 //            ->add('picture', null, [ // так вроде бы можно вывести текущее изображение
 //                'template' => 'adminPhoto.html.twig',

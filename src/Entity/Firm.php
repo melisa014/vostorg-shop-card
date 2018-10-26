@@ -48,6 +48,20 @@ class Firm
     protected $description;
 
     /**
+     * @var string | null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $pageDescription;
+
+    /**
+     * @var string | null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $keywords;
+
+    /**
      * @var DateTime
      *
      * @Gedmo\Timestampable(on="update")
@@ -165,6 +179,46 @@ class Firm
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    /**
+     * @param string $pageDescription
+     *
+     * @return self
+     */
+    public function setPageDescription(string $pageDescription): self
+    {
+        $this->pageDescription = $pageDescription;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageDescription(): ?string
+    {
+        return $this->pageDescription;
+    }
+
+    /**
+     * @param string $keywords
+     *
+     * @return self
+     */
+    public function setKeywords(string $keywords): self
+    {
+        $this->keywords = $keywords;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeywords(): ?string
+    {
+        return $this->keywords;
     }
 
     /**

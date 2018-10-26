@@ -34,9 +34,6 @@ class FirmController extends Controller
         }
 
         if ('garun' == $firm->getName()) {
-
-
-
             return $this->render('firm/garun_page.html.twig', [
                 'firm' => $firm,
             ]);
@@ -56,7 +53,6 @@ class FirmController extends Controller
         }
 
         return $this->render('firm/page.html.twig',[
-//            'firms' => $firmGetter->getAll(),
             'firm' => $firm,
             'categories' => $categories,
         ]);
