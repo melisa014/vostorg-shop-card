@@ -7,9 +7,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Sonata\AdminBundle\Form\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class CategoryAdmin extends AbstractAdmin
 {
@@ -27,6 +24,9 @@ class CategoryAdmin extends AbstractAdmin
             ])
             ->add('label', TextType::class, [
                 'label' => 'Название',
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Описание',
             ]);
     }
 

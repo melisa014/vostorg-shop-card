@@ -38,7 +38,7 @@ class Category
     protected $label;
 
     /**
-     * @var string
+     * @var string | null
      *
      * @ORM\Column(type="string", nullable=true)
      */
@@ -143,9 +143,9 @@ class Category
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
