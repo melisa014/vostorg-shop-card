@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    
+    <section class="bg-light" id="portfolio">
+      <div class="container">
+        <div class="row">
+            <h6 class="text-muted"><a href="{{path('homepage')}}">Главная</a> >> {{ firm.label }}</h6>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+              <h2 class="section-heading text-uppercase">{{ firm.label }}</h2>
+              <h3 class="section-subheading text-muted">{{ firm.description }}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div>Модульная система ГАРУН-К представлена широчайшей линейкой более чемиз 400 готовых изделий. Помимо этого,
+                Вы можете самостоятельно создать уникальный мебельный элемент по своемувкусу, используя стандартные детали,
+                как конструктор.</div>
+            <div><a href="{{path('open_garun_catalog')}}">Открыть электронный каталог в браузере</a></div>
+        </div>
+      </div>
+    </section>
+                
+{% endblock %}

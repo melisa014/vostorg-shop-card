@@ -21,7 +21,7 @@ class FirmController extends Controller
      *
      * @return Response
      */
-    public function createPageAction(int $firmId, FirmGetter $firmGetter, string $rootPath): Response
+    public function createPageAction(int $firmId, FirmGetter $firmGetter): Response
     {
         $em = $this->getDoctrine()
                 ->getManager();
@@ -34,10 +34,12 @@ class FirmController extends Controller
         }
 
         if ('garun' == $firm->getName()) {
-            $pdfFilename = 'garun.pdf';
 
 
-            return $this->showGarunCatalog($pdfFilename, "$rootPath/../public/catalog/$pdfFilename");
+
+            return $this->render('firm/garun_page.html.twig', [
+                'firm' => $firm,
+            ]);
         }
 
         $categories = [];
@@ -54,22 +56,53 @@ class FirmController extends Controller
         }
 
         return $this->render('firm/page.html.twig',[
-            'firms' => $firmGetter->getAll(),
+//            'firms' => $firmGetter->getAll(),
             'firm' => $firm,
             'categories' => $categories,
         ]);
     }
 
-    private function showGarunCatalog(string $pdfFilename, string $pathToFile)
+    /**
+     * @Route("/firm/garun", name="show_garun_page")
+     * @param string $rootPath
+     *
+     * @return BinaryFileResponse
+     */
+//    public function showGarunCatalog(string $rootPath, string $pdfFilename, string $pathToFile)
+//    {
+//        $pdfFilename = 'garun.pdf';
+//        $pathToFile = "$rootPath/../public/catalog/$pdfFilename";
+//
+//        $response = new BinaryFileResponse($pathToFile);
+//
+//        $response->headers->set('Content-Type', 'application/pdf');
+//        $response->setContentDisposition(
+//           ResponseHeaderBag::DISPOSITION_INLINE, //use ResponseHeaderBag::DISPOSITION_ATTACHMENT to save as an attachement
+//           $pdfFilename
+//        );
+//
+//        return $response;
+//    }
+
+    /**
+     * @Route("/firm/garun/catalog", name="open_garun_catalog")
+     *
+     * @param string $rootPath
+     *
+     * @return BinaryFileResponse
+     */
+    public function showGarunCatalog(string $rootPath)
     {
-       $response = new BinaryFileResponse($pathToFile);
+        $pdfFilename = 'garun.pdf';
 
-       $response->headers->set('Content-Type', 'application/pdf');
-       $response->setContentDisposition(
-          ResponseHeaderBag::DISPOSITION_INLINE, //use ResponseHeaderBag::DISPOSITION_ATTACHMENT to save as an attachement
-          $pdfFilename
-       );
+        $response = new BinaryFileResponse("$rootPath/../public/catalog/$pdfFilename");
 
-       return $response;
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->setContentDisposition(
+           ResponseHeaderBag::DISPOSITION_INLINE, //use ResponseHeaderBag::DISPOSITION_ATTACHMENT to save as an attachement
+           $pdfFilename
+        );
+
+        return $response;
     }
 }
