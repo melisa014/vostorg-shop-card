@@ -37,9 +37,6 @@ class ProductAdmin extends AbstractAdmin
             ->add('description', TextType::class, [
                 'label' => 'Описание продукта',
             ])
-            ->add('pageDescription', TextType::class, [
-                'label' => 'Описание страницы в поисковике',
-            ])
             ->add('keywords', TextType::class, [
                 'label' => 'Ключевые слова',
             ])
