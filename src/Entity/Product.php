@@ -44,13 +44,6 @@ class Product
      *
      * @ORM\Column(type="text", nullable = true)
      */
-    protected $pageDescription;
-
-    /**
-     * @var string | null
-     *
-     * @ORM\Column(type="text", nullable = true)
-     */
     protected $keywords;
 
     /**
@@ -166,26 +159,6 @@ class Product
     public function getDescription(): ?string
     {
         return $this->description;
-    }
-
-    /**
-     * @param string $pageDescription
-     *
-     * @return self
-     */
-    public function setPageDescription(string $pageDescription): self
-    {
-        $this->pageDescription = $pageDescription;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPageDescription(): ?string
-    {
-        return $this->pageDescription;
     }
 
     /**
