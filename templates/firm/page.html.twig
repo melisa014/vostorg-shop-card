@@ -25,14 +25,16 @@
                         </div>
                         {% for product in category.products %}
                             <div class="col-md-2 col-sm-6 portfolio-item">
-                                <a class="portfolio-link" href="/product/{{ product.id }}" data-fancybox data-caption="{{ product.description }}">
+                                {# вариант ссылки на страницу продукта #}
+{#                                <a class="portfolio-link" href="/product/{{ product.id }}" >#}
+                                {# вариант ссылки с fancybox вместо перехода #}
+                                <a class="portfolio-link" href="{{path('image', {'path': product.photoPath, 'format': '400x300xS'})}}" data-fancybox="gallery" data-caption="{{ product.description }}">
                                     <div class="portfolio-hover">
                                         <div class="portfolio-hover-content"></div>
                                     </div>
                                     <img class="img-fluid" src="{{path('image', {'path': product.photoPath, 'format': '400x300xS'})}}" alt="{{ product.vendorCode }}">
                                     <div class="portfolio-caption">
                                         <h4>{{ product.vendorCode }}</h4>
-        {#                                <p class="text-muted">{{ product.category }}</p>#}
                                         <div class="row">
                                             {% for color in product.colors %}
                                                 <div class="list-inline-item col-md-3" title="Цвет в наличии: {{color.label}}">

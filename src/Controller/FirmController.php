@@ -59,7 +59,7 @@ class FirmController extends Controller
     }
 
     /**
-     * @Route("/firm/garun/catalog", name="open_garun_catalog")
+     * @Route("/firm/garun/open-catalog", name="open_garun_catalog")
      *
      * @param string $rootPath
      *
@@ -74,6 +74,28 @@ class FirmController extends Controller
         $response->headers->set('Content-Type', 'application/pdf');
         $response->setContentDisposition(
            ResponseHeaderBag::DISPOSITION_INLINE, //use ResponseHeaderBag::DISPOSITION_ATTACHMENT to save as an attachement
+           $pdfFilename
+        );
+
+        return $response;
+    }
+
+    /**
+     * @Route("/firm/garun/download-catalog", name="download_garun_catalog")
+     *
+     * @param string $rootPath
+     *
+     * @return BinaryFileResponse
+     */
+    public function downloadGarunCatalog(string $rootPath)
+    {
+        $pdfFilename = 'garun.pdf';
+
+        $response = new BinaryFileResponse("$rootPath/../public/catalog/$pdfFilename");
+
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->setContentDisposition(
+           ResponseHeaderBag::DISPOSITION_ATTACHMENT, //use ResponseHeaderBag::DISPOSITION_ATTACHMENT to save as an attachement
            $pdfFilename
         );
 
