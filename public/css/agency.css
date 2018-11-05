@@ -193,7 +193,7 @@ img::-moz-selection {
     -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
     transition: padding-top 0.3s, padding-bottom 0.3s;
     border: none;
-    background-color: #5288c0;
+    background-color: #51A09C;
   }
   #mainNav .navbar-brand {
     font-size: 1.75em;
@@ -207,7 +207,7 @@ img::-moz-selection {
   #mainNav.navbar-shrink {
     padding-top: 0;
     padding-bottom: 0;
-    background-color: #041f60;
+    background-color: #00504C;
   }
   #mainNav.navbar-shrink .navbar-brand {
     font-size: 1.25em;
@@ -644,7 +644,7 @@ header.masthead .intro-text .intro-heading {
 }
 
 section#contact {
-  background-color: #041f60;
+  background-color: #00504C;
   background-image: url("../img/map-image.png");
   background-repeat: no-repeat;
   background-position: center;
