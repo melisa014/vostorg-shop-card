@@ -137,7 +137,7 @@ img::-moz-selection {
 }
    
 #mainNav {
-  background-color: #212529;
+  background-color: #52AAA2;
 }
 
 #mainNav .navbar-toggler {
@@ -148,7 +148,7 @@ img::-moz-selection {
   text-transform: uppercase;
   color: white;
   border: 0;
-  background-color: #fed136;
+  background-color: #004D28;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -160,6 +160,12 @@ img::-moz-selection {
 #mainNav .navbar-phone {
   color: #fed136;
   font-family: inherit;
+}
+
+#mainNav .navbar-addresse {
+  color: #fed136;
+  font-family: inherit;
+  text-align: right;
 }
 
 #mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
