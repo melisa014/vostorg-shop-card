@@ -746,6 +746,6 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 }
 
 .map {
-	width: 100%;
-	height: 400px;
+    width: 100%;
+    height: 320px;
 }
