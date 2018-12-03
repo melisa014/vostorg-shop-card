@@ -15,9 +15,10 @@ class FeedbackValidator extends AbstractValidator
     {
         return [
             'phone' => $this->getPhoneNumberRules(),
-            'message' => $this->getMessageRules(),
+            'message' => $this->getNotBlankRules(),
             'name' => $this->getNameRules(),
             'email' => $this->getEmailRules(),
+            'recapcha' => $this->getNotBlankRules(),
         ];
     }
 
@@ -75,7 +76,7 @@ class FeedbackValidator extends AbstractValidator
     /**
      * @return array
      */
-    private function getMessageRules(): array
+    private function getNotBlankRules(): array
     {
         return [
             new Assert\NotBlank([
