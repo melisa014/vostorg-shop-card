@@ -55,16 +55,16 @@ class ReCaptcha
     private static $_version = "php_1.0";
 
     /**
-     * @var ReCapchaResponse
+     * @var ReCaptchaResponse
      */
-    private $reCapchaResponse;
+    private $reCaptchaResponse;
 
     /**
-     * @param ReCapchaResponse $reCapchaResponse
+     * @param ReCaptchaResponse $reCaptchaResponse
      */
-    public function __construnt(ReCapchaResponse $reCapchaResponse)
+    public function __construnt(ReCaptchaResponse $reCaptchaResponse)
     {
-        $this->reCapchaResponse = $reCapchaResponse;
+        $this->reCaptchaResponse = $reCaptchaResponse;
     }
 
     /**
@@ -124,7 +124,7 @@ class ReCaptcha
     {
         // Discard empty solution submissions
         if ($response == null || strlen($response) == 0) {
-            $recaptchaResponse = $this->reCapchaResponse;
+            $recaptchaResponse = $this->reCaptchaResponse;
             $recaptchaResponse->success = false;
             $recaptchaResponse->errorCodes = 'missing-input';
             return $recaptchaResponse;
@@ -139,7 +139,7 @@ class ReCaptcha
             )
         );
         $answers = json_decode($getResponse, true);
-        $recaptchaResponse = $this->reCapchaResponse;
+        $recaptchaResponse = $this->reCaptchaResponse;
         if (trim($answers ['success']) == true) {
             $recaptchaResponse->success = true;
         } else {
