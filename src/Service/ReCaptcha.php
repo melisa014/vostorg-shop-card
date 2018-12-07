@@ -55,24 +55,11 @@ class ReCaptcha
     private static $_version = "php_1.0";
 
     /**
-     * @var ReCaptchaResponse
-     */
-    private $reCaptchaResponse;
-
-    /**
-     * @param ReCaptchaResponse $reCaptchaResponse
-     */
-    public function __construnt(ReCaptchaResponse $reCaptchaResponse)
-    {
-        $this->reCaptchaResponse = $reCaptchaResponse;
-    }
-
-    /**
      * Constructor.
      *
      * @param string $secret shared secret between site and ReCAPTCHA server.
      */
-    function ReCaptcha($secret)
+    function __construct(string $secret)
     {
         if ($secret == null || $secret == "") {
             die("To use reCAPTCHA you must get an API key from <a href='"
@@ -80,6 +67,7 @@ class ReCaptcha
         }
         $this->_secret=$secret;
     }
+    
     /**
      * Encodes the given data into a query string format.
      *
@@ -124,7 +112,7 @@ class ReCaptcha
     {
         // Discard empty solution submissions
         if ($response == null || strlen($response) == 0) {
-            $recaptchaResponse = $this->reCaptchaResponse;
+            $recaptchaResponse = new ReCaptchaResponse();
             $recaptchaResponse->success = false;
             $recaptchaResponse->errorCodes = 'missing-input';
             return $recaptchaResponse;
@@ -139,12 +127,12 @@ class ReCaptcha
             )
         );
         $answers = json_decode($getResponse, true);
-        $recaptchaResponse = $this->reCaptchaResponse;
+        $recaptchaResponse = new ReCaptchaResponse();
         if (trim($answers ['success']) == true) {
             $recaptchaResponse->success = true;
         } else {
             $recaptchaResponse->success = false;
-            $recaptchaResponse->errorCodes = $answers [error-codes];
+            $recaptchaResponse->errorCodes = $answers ['error-codes'];
         }
         return $recaptchaResponse;
     }

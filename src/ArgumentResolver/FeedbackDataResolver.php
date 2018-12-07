@@ -82,7 +82,9 @@ class FeedbackDataResolver implements ArgumentValueResolverInterface
         ) ?? null;
 
         if (!empty($capchaVerifyServiceResponse) && !$capchaVerifyServiceResponse->success) {
-            throw new ValidationException("Вы не прошли проверку на спам. $capchaVerifyServiceResponse->errorCodes");
+            throw new ValidationException(
+                'Вы не прошли проверку на спам. '.json_encode($capchaVerifyServiceResponse->errorCodes, 128|256)
+            );
         }
 
         yield new FeedbackData(
