@@ -32,23 +32,41 @@ namespace App\Service;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-/**
- * A ReCaptchaResponse is returned from checkAnswer().
- */
-class ReCaptchaResponse
-{
-    public $success;
-    public $errorCodes;
-}
-
 class ReCaptcha
 {
+    /**
+     * @var string
+     */
     private static $_signupUrl = "https://www.google.com/recaptcha/admin";
-    private static $_siteVerifyUrl =
-        "https://www.google.com/recaptcha/api/siteverify?";
+
+    /**
+     * @var string
+     */
+    private static $_siteVerifyUrl = "https://www.google.com/recaptcha/api/siteverify?";
+
+    /**
+     * @var string | null
+     */
     private $_secret;
+
+    /**
+     * @var string
+     */
     private static $_version = "php_1.0";
+
+    /**
+     * @var ReCapchaResponse
+     */
+    private $reCapchaResponse;
+
+    /**
+     * @param ReCapchaResponse $reCapchaResponse
+     */
+    public function __construnt(ReCapchaResponse $reCapchaResponse)
+    {
+        $this->reCapchaResponse = $reCapchaResponse;
+    }
+
     /**
      * Constructor.
      *
@@ -106,7 +124,7 @@ class ReCaptcha
     {
         // Discard empty solution submissions
         if ($response == null || strlen($response) == 0) {
-            $recaptchaResponse = new ReCaptchaResponse();
+            $recaptchaResponse = $this->reCapchaResponse;
             $recaptchaResponse->success = false;
             $recaptchaResponse->errorCodes = 'missing-input';
             return $recaptchaResponse;
@@ -121,7 +139,7 @@ class ReCaptcha
             )
         );
         $answers = json_decode($getResponse, true);
-        $recaptchaResponse = new ReCaptchaResponse();
+        $recaptchaResponse = $this->reCapchaResponse;
         if (trim($answers ['success']) == true) {
             $recaptchaResponse->success = true;
         } else {
