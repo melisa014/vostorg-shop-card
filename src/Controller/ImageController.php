@@ -27,8 +27,6 @@ class ImageController extends Controller
      */
     public function showAction(Request $request)
     {
-//        dump($request->get('path'));
-//        die;
         ImageResizer::showInFormat($this->rootImagesPath.$request->get('path'), $request->get('format'));
     }
 }

@@ -15,10 +15,10 @@ class Photo
     public function __construct(File $file = null, string $uploadRootDir)
     {
         $this->file = $file;
-        
+
         $this->upload($uploadRootDir);
     }
-    
+
     /**
      * @param string $uploadRootDir
      */
@@ -31,13 +31,13 @@ class Photo
         if (null == $uploadRootDir) {
             return;
         }
-        
+
         $fileName = $this->file->getClientOriginalName();
-        
+
         $this->file->move($uploadRootDir, $fileName);
-        
-        ImageResizer::resize($uploadRootDir.$fileName, 1300, 731);
-        
+
+        ImageResizer::resize($uploadRootDir.$fileName, 650, 365);
+
         $this->file = null;
     }
 }

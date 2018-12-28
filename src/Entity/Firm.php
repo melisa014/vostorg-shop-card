@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
-use ItForFree\rusphp\File\Image\ImageResizer;
 
 /**
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
