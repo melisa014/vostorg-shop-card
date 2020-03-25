@@ -4,7 +4,7 @@ parameters:
     locale: 'ru'
     photo_directory: '/images/products'
     firm_photo_directory: '/images/mainPage'
-    senderEmail: 'jul_ungoliant@mail.ru'
+    senderEmail: '%env(SENDER_EMAIL)%'
     adminEmail: '%env(ADMIN_EMAIL)%'
     rootPath: '%kernel.root_dir%'
     recapchaKey: '%env(RECAPCHA_KEY)%'
