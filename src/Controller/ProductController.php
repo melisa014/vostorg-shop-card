@@ -4,23 +4,36 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Service\FirmGetter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
-class ProductController extends Controller
+class ProductController extends AbstractController
 {
+    /**
+     * @var FirmGetter
+     */
+    private $firmGetter;
+
+    /**
+     * @param FirmGetter $firmGetter
+     */
+    public function __construct(FirmGetter $firmGetter)
+    {
+        $this->firmGetter = $firmGetter;
+    }
+
     /**
      * @Route("/product/{productId}", name="product_page")
      *
      * @param int        $productId
-     * @param FirmGetter $firmGetter
      *
      * @return Response
      *
      * @throws EntityNotFoundException
      */
-    public function createPageAction(int $productId, FirmGetter $firmGetter): Response
+    public function createPageAction(int $productId): Response
     {
         $em = $this->getDoctrine()
                 ->getManager();
@@ -33,7 +46,7 @@ class ProductController extends Controller
         }
 
         return $this->render('product/page.html.twig',[
-            'firms' => $firmGetter->getAll(),
+            'firms' => $this->firmGetter->getAll(),
             'product' => $product,
         ]);
     }

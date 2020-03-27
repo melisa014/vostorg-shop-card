@@ -5,14 +5,14 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Firm;
 use App\Entity\Product;
-use App\Service\FirmGetter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-class FirmController extends Controller
+class FirmController extends AbstractController
 {
     /**
      * @Route("/firm/{firmId}", name="firm_page")
@@ -20,8 +20,10 @@ class FirmController extends Controller
      * @param int $firmId
      *
      * @return Response
+     *
+     * @throws EntityNotFoundException
      */
-    public function createPageAction(int $firmId, FirmGetter $firmGetter): Response
+    public function createPageAction(int $firmId): Response
     {
         $em = $this->getDoctrine()
                 ->getManager();
@@ -73,7 +75,7 @@ class FirmController extends Controller
 
         $response->headers->set('Content-Type', 'application/pdf');
         $response->setContentDisposition(
-           ResponseHeaderBag::DISPOSITION_INLINE, //use ResponseHeaderBag::DISPOSITION_ATTACHMENT to save as an attachement
+           ResponseHeaderBag::DISPOSITION_INLINE,
            $pdfFilename
         );
 
@@ -95,7 +97,7 @@ class FirmController extends Controller
 
         $response->headers->set('Content-Type', 'application/pdf');
         $response->setContentDisposition(
-           ResponseHeaderBag::DISPOSITION_ATTACHMENT, //use ResponseHeaderBag::DISPOSITION_ATTACHMENT to save as an attachement
+           ResponseHeaderBag::DISPOSITION_ATTACHMENT,
            $pdfFilename
         );
 

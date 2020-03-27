@@ -3,22 +3,34 @@
 namespace App\Controller;
 
 use App\Service\FirmGetter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
+    /**
+     * @var FirmGetter
+     */
+    private $firmGetter;
+
+    /**
+     * @param FirmGetter $firmGetter
+     */
+    public function __construct(FirmGetter $firmGetter)
+    {
+        $this->firmGetter = $firmGetter;
+    }
+
     /**
      * @Route("/", name="homepage")
      *
      * @return Response
      */
-    public function indexAction(Request $request, FirmGetter $firmGetter): Response
+    public function indexAction(): Response
     {
         return $this->render('default/index.html.twig', [
-            'firms' => $firmGetter->getAll(),
+            'firms' => $this->firmGetter->getAll(),
             'basePath' => $this->get('kernel')->getRootDir(),
             'pageDescription' => 'Мебель-трансформер - это реальность! Компактные кровати-трансформеры'
                 .' сохранят уют и порядок в Вашем доме. Мебель изготовленная на заказ по Вашим эскизам'

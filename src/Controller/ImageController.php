@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Exception;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use ItForFree\rusphp\File\Image\ImageResizer;
+use Symfony\Component\Routing\Annotation\Route;
 
-class ImageController extends Controller
+class ImageController extends AbstractController
 {
     /**
      * @var string
@@ -24,9 +25,16 @@ class ImageController extends Controller
 
     /**
      * @Route("/image", name="image")
+     *
+     * @param Request $request
+     *
+     * @throws Exception
      */
     public function showAction(Request $request)
     {
-        ImageResizer::showInFormat($this->rootImagesPath.$request->get('path'), $request->get('format'));
+        ImageResizer::showInFormat(
+            $this->rootImagesPath.$request->get('path'),
+            $request->get('format')
+        );
     }
 }

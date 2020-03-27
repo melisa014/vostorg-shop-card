@@ -6,11 +6,11 @@ use App\DTO\FeedbackData;
 use App\Service\FirmGetter;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FeedbackController extends Controller
+class FeedbackController extends AbstractController
 {
     /**
      * @var Swift_Mailer
