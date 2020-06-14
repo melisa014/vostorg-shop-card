@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f44eec0-f12e-4903-823f-7f6e09fb000e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/FeedbackController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FeedbackController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/FirmController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FirmController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ImageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ImageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/FirmGetter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FirmGetter.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -185,7 +178,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../prodavay-main" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -220,7 +213,9 @@
       <workItem from="1539857042357" duration="69000" />
       <workItem from="1539860159380" duration="2300000" />
       <workItem from="1585122124579" duration="2994000" />
-      <workItem from="1585327414593" duration="3993000" />
+      <workItem from="1585327414593" duration="4146000" />
+      <workItem from="1591014206063" duration="2268000" />
+      <workItem from="1592137394886" duration="4342000" />
     </task>
     <task id="LOCAL-00001" summary="дамп бд 17.03.2020">
       <created>1585122198366</created>
@@ -243,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585327857711</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="заменены деприкейтед классы и добавлен кое-где депенденси инджекшен">
+      <created>1585334909688</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1585334909688</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,7 +275,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="дамп бд 17.03.2020" />
     <MESSAGE value="SENDER EMAIL зашифрован в энв" />
-    <option name="LAST_COMMIT_MESSAGE" value="SENDER EMAIL зашифрован в энв" />
+    <MESSAGE value="заменены деприкейтед классы и добавлен кое-где депенденси инджекшен" />
+    <option name="LAST_COMMIT_MESSAGE" value="заменены деприкейтед классы и добавлен кое-где депенденси инджекшен" />
   </component>
   <component name="masterDetails">
     <states>
