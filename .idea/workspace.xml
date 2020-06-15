@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f44eec0-f12e-4903-823f-7f6e09fb000e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TestController.php" afterDir="false" />
-    </list>
+    <list default="true" id="2f44eec0-f12e-4903-823f-7f6e09fb000e" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,7 +211,7 @@
       <workItem from="1585122124579" duration="2994000" />
       <workItem from="1585327414593" duration="4146000" />
       <workItem from="1591014206063" duration="2268000" />
-      <workItem from="1592137394886" duration="4342000" />
+      <workItem from="1592137394886" duration="4376000" />
     </task>
     <task id="LOCAL-00001" summary="дамп бд 17.03.2020">
       <created>1585122198366</created>
@@ -245,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585334909688</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="использован встроенный нормалайзер">
+      <created>1592145719314</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1592145719314</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,7 +279,8 @@
     <MESSAGE value="дамп бд 17.03.2020" />
     <MESSAGE value="SENDER EMAIL зашифрован в энв" />
     <MESSAGE value="заменены деприкейтед классы и добавлен кое-где депенденси инджекшен" />
-    <option name="LAST_COMMIT_MESSAGE" value="заменены деприкейтед классы и добавлен кое-где депенденси инджекшен" />
+    <MESSAGE value="использован встроенный нормалайзер" />
+    <option name="LAST_COMMIT_MESSAGE" value="использован встроенный нормалайзер" />
   </component>
   <component name="masterDetails">
     <states>
