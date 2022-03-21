@@ -12,11 +12,8 @@
           </div>
         </div>
         <div class="row">
-            
-            {% set firmCounter = 1 %}
-            
             {% for firm in firms %}
-                <div class="{% if firmCounter < 4 %} col-md-4 {% else %} col-md-6 {% endif %} col-sm-6 portfolio-item">
+                <div class="col-md-4 col-sm-6 portfolio-item">
                     <a href="/firm/{{ firm.id }}" title="Смотреть далее: {{ firm.label }} ({{ firm.description }})">
                         <div class="portfolio-link">
                             <div class="portfolio-hover">
@@ -33,10 +30,7 @@
                         </div>
                     </a>
                 </div>
- 
-                {% set firmCounter = firmCounter + 1 %}
             {% endfor %}
-            
         </div>
       </div>
     </section>
